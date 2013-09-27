@@ -93,12 +93,6 @@ if (_count > 0) then {
 		};
 	};
 };
-_veh vehicleChat format ["%1 reloading...", _vehType];
-sleep 10;
-_veh vehicleChat format ["%1 reloading...", _vehType];
-sleep 10;
-_veh vehicleChat format ["%1 reloading...", _vehType];
-sleep 10;
 _veh setVehicleAmmo 1;	// Reload turrets / drivers magazine
 
 

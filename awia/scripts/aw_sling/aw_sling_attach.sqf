@@ -7,7 +7,7 @@ if(count _nearUnits < 1) exitWith{hint "No Sling Targets";};
 
 //Add size checks here
 _heavyCant = [];
-_mediumCant = [];
+_mediumCant = ["Tank","Wheeled_APC_F","Truck_F"];
 _lightCant = _mediumCant + ["MRAP_02_base_F","MRAP_01_base_F","MRAP_03_base_F","Offroad_01_base_F","Boat_Armed_01_base_F"];
 
 _cantLift = [];

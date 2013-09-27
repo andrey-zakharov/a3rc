@@ -1,7 +1,7 @@
 private ["_canDeleteGroup","_group","_groups","_units"];
 while {true} do
 {
-	sleep 65;
+	sleep 600;
 	debugMessage = "Cleaning dead bodies and deleting groups...";
 	publicVariable "debugMessage";
 	{

@@ -6,8 +6,8 @@
 	06/03/2012
 */
 //Def
-BTC_tk_blackscreen_punishment = 3;
-BTC_tk_last_warning = 4;
+BTC_tk_blackscreen_punishment = 2;
+BTC_tk_last_warning = 6;
 
 BTC_fnc_tk_PVEH =
 {
@@ -33,11 +33,10 @@ BTC_EH_killed =
 			//BTC_tk_PVEH = [_name];publicVariable "BTC_tk_PVEH";player sidechat format ["%1 has committed TK",_name];
 			_killer spawn 
 			{
-				hintC format ["TK Punish Information\n\nPlease read before acting!\n\n____________________\n\nPlease wait if, %1, will excuse this Team Kill.\n\nDo not abuse this script.\n\nYou are not allowed to Punish your Team Killer if they had excused!\n\n\n\n%1 just Team-Killed you!\n\nYou can decide to punish %1 by Action Menu(Mouse Wheel)\n\nYou have 60 seconds to decide.\n\nBeware, abusing can lead to a Permanent Ban!\n\n\n\nRepeat: Do not Punish %1 if excused his Teamkill!", name _this];
-				sleep 10;
+				hint format ["%1 TK you! You can decide to punish him by action menu", name _this];
 				WaitUntil {Alive player};
-				_action = player addAction [("--[<t color=""#ED2744"">") + ("Punish " + name _this) + "</t>]--","=BTC=_TK_punishment\=BTC=_punish_action.sqf",[name _this], 8, true, true, "", "true"];
-				_timeout = time + 60;
+				_action = player addAction [("<t color=""#ED2744"">") + ("Punish " + name _this) + "</t>","=BTC=_TK_punishment\=BTC=_punish_action.sqf",[name _this], 8, true, true, "", "true"];
+				_timeout = time + 30;
 				WaitUntil {sleep 1; (_timeout < time)};
 				player removeAction _action;
 			};

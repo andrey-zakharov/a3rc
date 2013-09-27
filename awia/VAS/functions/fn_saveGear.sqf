@@ -6,7 +6,7 @@
 	@file_edit: 8/2/2013
 	@file_description: Save to profileNamespace in old VAS format
 */
-private["_title","_slot","_primary,_launcher","_handgun","_magazines","_uniform","_vest","_backpack","_items","_primitems","_secitems","_handgunitems","_uitems","_vitems","_bitems","_curWep"];
+private["_title","_slot","_primary,_launcher","_handgun","_magazines","_uniform","_vest","_backpack","_items","_primitems","_secitems","_handgunitems","_uitems","_vitems","_bitems"];
 _title = ctrlText VAS_save_text;
 _slot = lbCurSel VAS_save_list;
 if(_slot == -1) exitWith {hint "You didn't select a slot!"};
@@ -53,15 +53,6 @@ if(count (handgunMagazine player) > 0) then
 	} foreach (handgunMagazine player);
 };
 
-//Hard code for Laser Desigantor batteries
-_curWep = currentWeapon player;
-if("Laserdesignator" in assignedItems player) then
-{
-	player selectWeapon "Laserdesignator";
-	if(currentMagazine player != "") then {_magazines set[count _magazines,(currentMagazine player)];};
-};
-
-player selectWeapon _curWep;
 
 if(vas_disableLoadSave) then
 {

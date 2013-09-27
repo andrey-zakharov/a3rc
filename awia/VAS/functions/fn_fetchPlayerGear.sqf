@@ -5,7 +5,7 @@
 	@file_edit: 7/9/2013
 	@file_description: Retrieves players current gear and returns it.
 */
-private["_ret","_curWep"];
+private["_ret"];
 _ret = [];
 
 //Fetch Weapons
@@ -35,16 +35,6 @@ if(count (handgunMagazine player) > 0) then
 	} foreach (handgunMagazine player);
 };
 
-//Hard code for Laser Desigantor batteries
-_curWep = currentWeapon player;
-
-if("Laserdesignator" in assignedItems player) then
-{
-	player selectWeapon "Laserdesignator";
-	if(currentMagazine player != "") then {_ret set[count _ret,(currentMagazine player)];};
-};
-
-player selectWeapon _curWep;
 
 //Fetch rest of misc information.
 if(uniform player != "") then 
