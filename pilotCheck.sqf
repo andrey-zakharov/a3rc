@@ -30,7 +30,7 @@ while {true} do
 			waitUntil {sleep 0.5; vehicle player != player};
 
 			_v = vehicle player;
-			if (_v isKindOf "Helicopter" && !(_v isKindOf "ParachuteBase")) then
+			if (_v isKindOf "Helicopter" || (_v isKindOf "Plane") && !(_v isKindOf "ParachuteBase")) then
 			{
 				if (driver _v == player) then
 				{

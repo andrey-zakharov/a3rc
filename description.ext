@@ -384,7 +384,7 @@ class CfgNotifications
 }; */
 
 /* Adds screen when loading. */
-author = Rarek [AW] (iBolit edit);
+author = Rarek [AW] (a3RC edit);
 onLoadName = "AW Invade & Annex";
 loadScreen = "awMissionLogo.jpg";
 OnLoadMission = "Site: a3rc.com TS IP: a3rc.com";
