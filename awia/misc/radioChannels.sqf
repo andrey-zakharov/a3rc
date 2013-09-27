@@ -10,32 +10,25 @@ if (!isServer) then
 	_mainIndex = radioChannelCreate [
 		[1.0, 0.81, 0.06, 1],
 		"Main AO Channel",
-		"[MAIN] %UNIT_GRP_NAME %UNIT_NAME [%UNIT_VEH_NAME]",
+		"[AO] %UNIT_GRP_NAME %UNIT_NAME [%UNIT_VEH_NAME]",
 		[player]
 	];
 
 	_sideIndex = radioChannelCreate [
 		[0, 0.7, 0.93, 1],
 		"Side Mission Channel",
-		"[SIDE] %UNIT_GRP_NAME %UNIT_NAME [%UNIT_VEH_NAME]",
+		"[SM] %UNIT_GRP_NAME %UNIT_NAME [%UNIT_VEH_NAME]",
 		[player]
 	];
 
 	_transportIndex = radioChannelCreate [
 		[0.38, 0.81, 0.16, 1],
 		"Transport Channel",
-		"[TRANSPORT] %UNIT_GRP_NAME %UNIT_NAME [%UNIT_VEH_NAME]",
+		"[TP] %UNIT_GRP_NAME %UNIT_NAME [%UNIT_VEH_NAME]",
 		[player]
 	];
 
-	_generalIndex = radioChannelCreate [
-		[0.8, 0.8, 0.8, 1],
-		"General Conversation",
-		"%UNIT_NAME",
-		[player]
-	];
-
-	radioChannels = [_mainIndex, _sideIndex, _transportIndex, _generalIndex];
+	radioChannels = [_mainIndex, _sideIndex, _transportIndex];
 	publicVariable "radioChannels";
 };
 

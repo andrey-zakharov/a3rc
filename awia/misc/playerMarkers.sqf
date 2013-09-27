@@ -29,12 +29,7 @@ while {true} do {
 			};	    
 			if(!alive _x || damage _x > 0.9) then {
 				_injured = true;
-			};      
-			if(!isNil {_x getVariable "BTC_need_revive"}) then {
-				if(_x getVariable "BTC_need_revive" select 0 == 1) then {
-					_show = false;
-				};    
-			};      
+			};            
 			if(!isNil {_x getVariable "NORRN_unconscious"}) then {
 				if(_x getVariable "NORRN_unconscious" == true) then {
 					_injured = true;
@@ -54,7 +49,7 @@ while {true} do {
 
 			if(_injured) then {
 				_marker setMarkerColorLocal "ColorRed";
-				_marker setMarkerTypeLocal "mil_dot";
+				//_marker setMarkerTypeLocal "dot";
 				_marker setMarkerSizeLocal [0.8,0.8];
 			} else {
 				_marker setMarkerColorLocal "ColorBlue";

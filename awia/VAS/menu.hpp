@@ -1,7 +1,7 @@
 /*
-	ArmA 3 VAS
-	VAS_Rsc Source by Sa-Matra
-	Use of the VAS system is permitted although modification and distribution must be approved by Tonic, use of the VAS_Rsc source files i.e common.hpp you must have permission from Sa-Matra himself
+	Author: Bryan "Tonic" Boardwine
+	Website: www.iamtonic.co
+	Use of the VAS system is permitted although modification and distribution must be approved by Tonic.
 */
 
 #include "common.hpp"
@@ -9,9 +9,9 @@
 class VAS_Diag {
 	idd = 2500;
 	name= "Virtual_Ammobox_Sys";
-	movingEnable = true;
+	movingEnable = 1;
 	enableSimulation = true;
-	onLoad = "['guns',false] spawn VAS_fnc_mainDisplay";
+	onLoad = "['guns',false] spawn VAS_fnc_mainDisplay; ";
 	
 	class controlsBackground {
 		class VAS_RscTitleBackground:VAS_RscText {
@@ -281,7 +281,8 @@ class VAS_Diag {
 			h = (1 / 25);
 		};
 		
-		class ButtonLoadGear : VAS_RscButtonMenu {
+		class ButtonLoadGear : VAS_RscButtonMenu 
+		{
 			idc = -1;
 			text = "$STR_VAS_Main_btnLoad";
 			onButtonClick = "createDialog ""VAS_Load_Diag"";";
@@ -295,7 +296,7 @@ class VAS_Diag {
 			idc = -1;
 			text = "$STR_VAS_Main_btnRemoveAll";
 			onButtonClick = "[true] spawn VAS_fnc_removeGear;";
-			x = 0.42 + (6.25 / 22.5) + (1 / 250 / (safezoneW / safezoneH));
+			x = 0.42 + (6.25 / 19.8) + (1 / 250 / (safezoneW / safezoneH));
 			y = 0.8 - (1 / 25);
 			w = (6.25 / 40);
 			h = (1 / 25);
@@ -530,7 +531,7 @@ class VAS_prompt
 			x = 0.3;
 			y = 0.2 + (11 / 250);
 			w = 0.47;
-			h = 0.3 - (22 / 250);
+			h = 0.22 - (22 / 250);
 		};
 	};
 	
@@ -549,9 +550,9 @@ class VAS_prompt
 		class addtogun : VAS_RscButtonMenu {
 			idc = 2552;
 			text = "Add to gun";
-			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 0.5};
+			//colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 0.5};
 			onButtonClick = "vas_prompt_choice = true; closeDialog 0;";
-			x = 0.2 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
+			x = 0.145 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
 			y = 0.42 - (1 / 25);
 			w = (6.25 / 40);
 			h = (1 / 25);
@@ -560,11 +561,21 @@ class VAS_prompt
 		class addtogear : VAS_RscButtonMenu {
 			idc = 2553;
 			text = "Add to INV";
-			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 0.5};
+			//colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3843])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7019])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8862])", 0.5};
 			onButtonClick = "vas_prompt_choice = false; closeDialog 0;";
-			x = 0.4 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
+			x = 0.455 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
 			y = 0.42 - (1 / 25);
 			w = (6.25 / 40);
+			h = (1 / 25);
+		};
+		
+		class blankPHVAS : VAS_RscText
+		{
+			colorBackground[] = {0, 0, 0, 0.7};
+			idc = -1;
+			x = 0.304 + (6.25 / 40) + (1 / 250 / (safezoneW / safezoneH));
+			y = 0.42 - (1 / 25);
+			w = (5.9 / 40);
 			h = (1 / 25);
 		};
 	};

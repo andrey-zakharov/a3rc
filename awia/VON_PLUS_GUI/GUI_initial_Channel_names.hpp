@@ -1,0 +1,11 @@
+#define CH_name_0 "Main AO Channel"
+#define CH_name_1 "Side Mission Channel"
+#define CH_name_2 "Transport Channel"
+#define CH_name_3 "Artillery Support"
+#define CH_name_4 "Close Air Support"
+#define CH_name_5 "Epsilon"
+#define CH_name_6 "Zeta"
+#define CH_name_7 "General Conversation"
+#define CH_name_8 "Theta"
+#define CH_name_9 "Iota"
+

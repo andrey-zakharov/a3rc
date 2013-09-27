@@ -23,9 +23,11 @@ private ["_firstRun","_mission","_isGroup","_obj","_skipTimer","_awayFromBase","
 _sideMissions = 
 
 [
-	"destroyChopper",
+	"destroyJet",
+	"destroyExplosivesCoast",
 	"destroySmallRadar",
-	"destroyExplosivesCoast"
+	"destroyHeavyChopper",
+	"destroyAPC"
 ];
 
 _mission = "";
@@ -36,7 +38,7 @@ _completeText =
 //Set up some vars
 _firstRun = true; //debug
 _skipTimer = false;
-_roadList = island nearRoads 4000; //change this to the BIS function that creates a trigger covering the map
+_roadList = island nearRoads 1500; //change this to the BIS function that creates a trigger covering the map
 _contactPos = [0,0,0];
 _unitsArray = [sideObj];
 
@@ -52,8 +54,8 @@ while {true} do
 	} else {
 		if (!_skipTimer) then
 		{
-			//Wait between 15-30 minutes before assigning a mission
-			sleep (900 + (random 900));
+			//Wait between 15-25 minutes before assigning a mission
+			sleep (900 + (random 600));
 			
 			//Delete old PT objects
 			for "_c" from 0 to (count _unitsArray) do
@@ -127,7 +129,7 @@ while {true} do
 				_road = _roadList call BIS_fnc_selectRandom;
 				_position = getPos _road;
 				
-				if (_position distance (getMarkerPos "respawn_west") > 500 && (_position distance (getMarkerPos currentAO)) > 600) then
+				if (_position distance (getMarkerPos "respawn_west") > 2600 && (_position distance (getMarkerPos currentAO)) > 1600) then
 				{
 					_awayFromBase = true;
 				};
@@ -244,6 +246,134 @@ while {true} do
 			"<t align='center'><t size='2.2'>New Side Mission</t><br/><t size='1.5' color='#00B2EE'>Clear Mines</t><br/>____________________<br/>OPFOR forces have been placing mines along the roads in Stratis in a desperate attempt to slow us down. Thermal imaging scans have picked up a lot of troop movement around the area we've marked on your map and we suspect they've been planting mines.<br/><br/>Head over to the marker on the map and disarm any mines you find. We've got convoys waiting, soldier; get going!</t>";
 		}; /* case "clearMines": */
 
+		case "destroyHeavyChopper":
+		{
+			//Set up briefing message
+			_briefing =
+			"<t align='center'><t size='2.2'>New Side Mission</t><br/><t size='1.5' color='#00B2EE'>Destroy Chopper</t><br/>____________________<br/>OPFOR forces have been provided with a new prototype Mi-48 Helicopter and they're keeping it in a hangar somewhere on the island.<br/><br/>We've marked the suspected location on your map; head to the hangar and destroy that chopper. Fly it into the sea if you have to, just get rid of it.</t>";
+
+			_flatPos = [0,0,0];
+			_accepted = false;
+			while {!_accepted} do
+			{
+				_position = [] call BIS_fnc_randomPos;
+				_flatPos = _position isFlatEmpty
+				[
+					5,
+					0,
+					0.3,
+					10,
+					0,
+					false
+				];
+
+				while {(count _flatPos) < 3} do
+				{
+					_position = [] call BIS_fnc_randomPos;
+					_flatPos = _position isFlatEmpty
+					[
+						5,
+						0,
+						0.3,
+						10,
+						0,
+						false
+					];
+				};
+
+				if ((_flatPos distance (getMarkerPos "respawn_west")) > 2600 && (_flatPos distance (getMarkerPos currentAO)) > 1600) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
+				{
+					_accepted = true;
+				};
+			};
+
+			//Spawn hangar and chopper
+			_randomDir = (random 360);
+			//_hangar = "Land_TentHangar_V1_F" createVehicle _flatPos;
+			//waitUntil {alive _hangar};
+			//_hangar setPos [(getPos _hangar select 0), (getPos _hangar select 1), ((getPos _hangar select 2) - 1)];
+			sideObj = "O_Heli_Attack_02_F" createVehicle _flatPos;
+			waitUntil {!isNull sideObj};
+			
+			sideObj lock 3;
+			{_x setDir _randomDir} forEach [sideObj/*,_hangar*/];
+			sideObj setVehicleLock "LOCKED";
+			_fuzzyPos = 
+			[
+				((_flatPos select 0) - 300) + (random 600),
+				((_flatPos select 1) - 300) + (random 600),
+				0
+			];
+
+			{ _x setMarkerPos _fuzzyPos; } forEach ["sideMarker", "sideCircle"];
+			"sideMarker" setMarkerText "Side Mission: Destroy Chopper";
+			publicVariable "sideMarker";
+			publicVariable "sideObj";
+
+			//Spawn some enemies around the objective
+			_unitsArray = [sideObj];
+			_x = 0;
+			for "_x" from 0 to 2 do
+			{
+				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+				[_spawnGroup, _flatPos,200] call aw_fnc_spawn2_perimeterPatrol;
+				[(units _spawnGroup)] call aw_setGroupSkill;
+				
+				_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			_x = 0;
+			for "_x" from 0 to 2 do
+			{
+				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+				[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
+				[(units _spawnGroup)] call aw_setGroupSkill;
+				
+				_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			_x = 0;
+			for "_x" from 0 to 0 do
+			{
+			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
+			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
+			[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
+			[(units _spawnGroup)] call aw_setGroupSkill;
+			
+			_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			//Send new side mission hint
+			GlobalHint = _briefing; publicVariable "GlobalHint"; hint parseText _briefing;
+			showNotification = ["NewSideMissionChopper", "Destroy Enemy Chopper"]; publicVariable "showNotification";
+
+			sideMissionUp = true;
+			publicVariable "sideMissionUp";
+			sideMarkerText = "Destroy Chopper";
+			publicVariable "sideMarkerText";
+			
+			//Wait until objective is destroyed
+			waitUntil {sleep 0.5; !alive sideObj};
+
+			sideMissionUp = false;
+			publicVariable "sideMissionUp";
+			
+			//Send completion hint
+			[] call AW_fnc_rewardPlusHint;
+			
+			[_unitsArray] spawn GC_fnc_deleteOldUnitsAndVehicles;
+			[_unitsArray] spawn AW_fnc_deleteOldSMUnits;
+
+			//Hide SM marker
+			"sideMarker" setMarkerPos [0,0,0];
+			"sideCircle" setMarkerPos [0,0,0];
+			publicVariable "sideMarker";
+
+			//PROCESS REWARD HERE
+		}; /* case "destroyHeavyChopper": */
+		
 		case "destroyChopper":
 		{
 			//Set up briefing message
@@ -279,7 +409,7 @@ while {true} do
 					];
 				};
 
-				if ((_flatPos distance (getMarkerPos "respawn_west")) > 1000 && (_flatPos distance (getMarkerPos currentAO)) > 500) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
+				if ((_flatPos distance (getMarkerPos "respawn_west")) > 2600 && (_flatPos distance (getMarkerPos currentAO)) > 1600) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
 				{
 					_accepted = true;
 				};
@@ -287,14 +417,14 @@ while {true} do
 
 			//Spawn hangar and chopper
 			_randomDir = (random 360);
-			_hangar = "Land_TentHangar_V1_F" createVehicle _flatPos;
-			waitUntil {alive _hangar};
-			_hangar setPos [(getPos _hangar select 0), (getPos _hangar select 1), ((getPos _hangar select 2) - 1)];
+			//_hangar = "Land_TentHangar_V1_F" createVehicle _flatPos;
+			//waitUntil {alive _hangar};
+			//_hangar setPos [(getPos _hangar select 0), (getPos _hangar select 1), ((getPos _hangar select 2) - 1)];
 			sideObj = "O_Heli_Light_02_unarmed_F" createVehicle _flatPos;
 			waitUntil {!isNull sideObj};
 			
 			sideObj lock 3;
-			{_x setDir _randomDir} forEach [sideObj,_hangar];
+			{_x setDir _randomDir} forEach [sideObj/*,_hangar*/];
 			sideObj setVehicleLock "LOCKED";
 			_fuzzyPos = 
 			[
@@ -305,6 +435,390 @@ while {true} do
 
 			{ _x setMarkerPos _fuzzyPos; } forEach ["sideMarker", "sideCircle"];
 			"sideMarker" setMarkerText "Side Mission: Destroy Chopper";
+			publicVariable "sideMarker";
+			publicVariable "sideObj";
+
+			//Spawn some enemies around the objective
+			_unitsArray = [sideObj];
+			_x = 0;
+			for "_x" from 0 to 2 do
+			{
+				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+				[_spawnGroup, _flatPos,200] call aw_fnc_spawn2_perimeterPatrol;
+				[(units _spawnGroup)] call aw_setGroupSkill;
+				
+				_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			_x = 0;
+			for "_x" from 0 to 2 do
+			{
+				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+				[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
+				[(units _spawnGroup)] call aw_setGroupSkill;
+				
+				_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			_x = 0;
+			for "_x" from 0 to 0 do
+			{
+			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
+			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
+			[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
+			[(units _spawnGroup)] call aw_setGroupSkill;
+			
+			_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			//Send new side mission hint
+			GlobalHint = _briefing; publicVariable "GlobalHint"; hint parseText _briefing;
+			showNotification = ["NewSideMissionChopper", "Destroy Enemy Chopper"]; publicVariable "showNotification";
+
+			sideMissionUp = true;
+			publicVariable "sideMissionUp";
+			sideMarkerText = "Destroy Chopper";
+			publicVariable "sideMarkerText";
+			
+			//Wait until objective is destroyed
+			waitUntil {sleep 0.5; !alive sideObj};
+
+			sideMissionUp = false;
+			publicVariable "sideMissionUp";
+			
+			//Send completion hint
+			[] call AW_fnc_rewardPlusHint;
+			
+			[_unitsArray] spawn GC_fnc_deleteOldUnitsAndVehicles;
+			[_unitsArray] spawn AW_fnc_deleteOldSMUnits;
+
+			//Hide SM marker
+			"sideMarker" setMarkerPos [0,0,0];
+			"sideCircle" setMarkerPos [0,0,0];
+			publicVariable "sideMarker";
+
+			//PROCESS REWARD HERE
+		}; /* case "destroyChopper": */
+		
+		case "destroyAPCBTR":
+		{
+			//Set up briefing message
+			_briefing =
+			"<t align='center'><t size='2.2'>New Side Mission</t><br/><t size='1.5' color='#00B2EE'>Destroy APC</t><br/>____________________<br/>OPFOR forces have been provided with a new prototype BTR-K Kamysh APC and they're keeping it in a hangar somewhere on the island.<br/><br/>We've marked the suspected location on your map; head to the hangar and destroy that APC. Fly it into the sea if you have to, just get rid of it.</t>";
+
+			_flatPos = [0,0,0];
+			_accepted = false;
+			while {!_accepted} do
+			{
+				_position = [] call BIS_fnc_randomPos;
+				_flatPos = _position isFlatEmpty
+				[
+					5,
+					0,
+					0.3,
+					10,
+					0,
+					false
+				];
+
+				while {(count _flatPos) < 3} do
+				{
+					_position = [] call BIS_fnc_randomPos;
+					_flatPos = _position isFlatEmpty
+					[
+						5,
+						0,
+						0.3,
+						10,
+						0,
+						false
+					];
+				};
+
+				if ((_flatPos distance (getMarkerPos "respawn_west")) > 2600 && (_flatPos distance (getMarkerPos currentAO)) > 1600) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
+				{
+					_accepted = true;
+				};
+			};
+
+			//Spawn hangar and chopper
+			_randomDir = (random 360);
+			//_hangar = "Land_TentHangar_V1_F" createVehicle _flatPos;
+			//waitUntil {alive _hangar};
+			//_hangar setPos [(getPos _hangar select 0), (getPos _hangar select 1), ((getPos _hangar select 2) - 1)];
+			sideObj = "O_APC_Tracked_02_cannon_F" createVehicle _flatPos;
+			waitUntil {!isNull sideObj};
+			
+			sideObj lock 3;
+			{_x setDir _randomDir} forEach [sideObj/*,_hangar*/];
+			sideObj setVehicleLock "LOCKED";
+			_fuzzyPos = 
+			[
+				((_flatPos select 0) - 300) + (random 600),
+				((_flatPos select 1) - 300) + (random 600),
+				0
+			];
+
+			{ _x setMarkerPos _fuzzyPos; } forEach ["sideMarker", "sideCircle"];
+			"sideMarker" setMarkerText "Side Mission: Destroy APC";
+			publicVariable "sideMarker";
+			publicVariable "sideObj";
+
+			//Spawn some enemies around the objective
+			_unitsArray = [sideObj];
+			_x = 0;
+			for "_x" from 0 to 2 do
+			{
+				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+				[_spawnGroup, _flatPos,200] call aw_fnc_spawn2_perimeterPatrol;
+				[(units _spawnGroup)] call aw_setGroupSkill;
+				
+				_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			_x = 0;
+			for "_x" from 0 to 2 do
+			{
+				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+				[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
+				[(units _spawnGroup)] call aw_setGroupSkill;
+				
+				_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			_x = 0;
+			for "_x" from 0 to 0 do
+			{
+			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
+			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
+			[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
+			[(units _spawnGroup)] call aw_setGroupSkill;
+			
+			_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			//Send new side mission hint
+			GlobalHint = _briefing; publicVariable "GlobalHint"; hint parseText _briefing;
+			showNotification = ["NewSideMissionAPC", "Destroy Enemy APC"]; publicVariable "showNotification";
+
+			sideMissionUp = true;
+			publicVariable "sideMissionUp";
+			sideMarkerText = "Destroy APC";
+			publicVariable "sideMarkerText";
+			
+			//Wait until objective is destroyed
+			waitUntil {sleep 0.5; !alive sideObj};
+
+			sideMissionUp = false;
+			publicVariable "sideMissionUp";
+			
+			//Send completion hint
+			[] call AW_fnc_rewardPlusHint;
+			
+			[_unitsArray] spawn GC_fnc_deleteOldUnitsAndVehicles;
+			[_unitsArray] spawn AW_fnc_deleteOldSMUnits;
+
+			//Hide SM marker
+			"sideMarker" setMarkerPos [0,0,0];
+			"sideCircle" setMarkerPos [0,0,0];
+			publicVariable "sideMarker";
+
+			//PROCESS REWARD HERE
+		}; /* case "destroyAPCBTR": */
+		
+		case "destroyAPC":
+		{
+			//Set up briefing message
+			_briefing =
+			"<t align='center'><t size='2.2'>New Side Mission</t><br/><t size='1.5' color='#00B2EE'>Destroy APC</t><br/>____________________<br/>OPFOR forces have been provided with a new prototype MSE Marid APC and they're keeping it in a hangar somewhere on the island.<br/><br/>We've marked the suspected location on your map; head to the hangar and destroy that APC. Fly it into the sea if you have to, just get rid of it.</t>";
+
+			_flatPos = [0,0,0];
+			_accepted = false;
+			while {!_accepted} do
+			{
+				_position = [] call BIS_fnc_randomPos;
+				_flatPos = _position isFlatEmpty
+				[
+					5,
+					0,
+					0.3,
+					10,
+					0,
+					false
+				];
+
+				while {(count _flatPos) < 3} do
+				{
+					_position = [] call BIS_fnc_randomPos;
+					_flatPos = _position isFlatEmpty
+					[
+						5,
+						0,
+						0.3,
+						10,
+						0,
+						false
+					];
+				};
+
+				if ((_flatPos distance (getMarkerPos "respawn_west")) > 2600 && (_flatPos distance (getMarkerPos currentAO)) > 1600) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
+				{
+					_accepted = true;
+				};
+			};
+
+			//Spawn hangar and chopper
+			_randomDir = (random 360);
+			//_hangar = "Land_TentHangar_V1_F" createVehicle _flatPos;
+			//waitUntil {alive _hangar};
+			//_hangar setPos [(getPos _hangar select 0), (getPos _hangar select 1), ((getPos _hangar select 2) - 1)];
+			sideObj = "O_APC_Wheeled_02_rcws_F" createVehicle _flatPos;
+			waitUntil {!isNull sideObj};
+			
+			sideObj lock 3;
+			{_x setDir _randomDir} forEach [sideObj/*,_hangar*/];
+			sideObj setVehicleLock "LOCKED";
+			_fuzzyPos = 
+			[
+				((_flatPos select 0) - 300) + (random 600),
+				((_flatPos select 1) - 300) + (random 600),
+				0
+			];
+
+			{ _x setMarkerPos _fuzzyPos; } forEach ["sideMarker", "sideCircle"];
+			"sideMarker" setMarkerText "Side Mission: Destroy APC";
+			publicVariable "sideMarker";
+			publicVariable "sideObj";
+
+			//Spawn some enemies around the objective
+			_unitsArray = [sideObj];
+			_x = 0;
+			for "_x" from 0 to 2 do
+			{
+				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+				[_spawnGroup, _flatPos,200] call aw_fnc_spawn2_perimeterPatrol;
+				[(units _spawnGroup)] call aw_setGroupSkill;
+				
+				_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			_x = 0;
+			for "_x" from 0 to 2 do
+			{
+				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+				[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
+				[(units _spawnGroup)] call aw_setGroupSkill;
+				
+				_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			_x = 0;
+			for "_x" from 0 to 0 do
+			{
+			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
+			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
+			[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
+			[(units _spawnGroup)] call aw_setGroupSkill;
+			
+			_unitsArray = _unitsArray + [_spawnGroup];
+			};
+			
+			//Send new side mission hint
+			GlobalHint = _briefing; publicVariable "GlobalHint"; hint parseText _briefing;
+			showNotification = ["NewSideMissionAPC", "Destroy Enemy APC"]; publicVariable "showNotification";
+
+			sideMissionUp = true;
+			publicVariable "sideMissionUp";
+			sideMarkerText = "Destroy APC";
+			publicVariable "sideMarkerText";
+			
+			//Wait until objective is destroyed
+			waitUntil {sleep 0.5; !alive sideObj};
+
+			sideMissionUp = false;
+			publicVariable "sideMissionUp";
+			
+			//Send completion hint
+			[] call AW_fnc_rewardPlusHint;
+			
+			[_unitsArray] spawn GC_fnc_deleteOldUnitsAndVehicles;
+			[_unitsArray] spawn AW_fnc_deleteOldSMUnits;
+
+			//Hide SM marker
+			"sideMarker" setMarkerPos [0,0,0];
+			"sideCircle" setMarkerPos [0,0,0];
+			publicVariable "sideMarker";
+
+			//PROCESS REWARD HERE
+		}; /* case "destroyAPC": */
+		
+		case "destroyJet":
+		{
+			//Set up briefing message
+			_briefing =
+			"<t align='center'><t size='2.2'>New Side Mission</t><br/><t size='1.5' color='#00B2EE'>Destroy Jet</t><br/>____________________<br/>OPFOR forces have been provided with a new prototype Jet and they're keeping it in a hangar somewhere on the island.<br/><br/>We've marked the suspected location on your map; head to the hangar and destroy that chopper. Fly it into the sea if you have to, just get rid of it.</t>";
+
+			_flatPos = [0,0,0];
+			_accepted = false;
+			while {!_accepted} do
+			{
+				_position = [] call BIS_fnc_randomPos;
+				_flatPos = _position isFlatEmpty
+				[
+					5,
+					0,
+					0.3,
+					10,
+					0,
+					false
+				];
+
+				while {(count _flatPos) < 3} do
+				{
+					_position = [] call BIS_fnc_randomPos;
+					_flatPos = _position isFlatEmpty
+					[
+						5,
+						0,
+						0.3,
+						10,
+						0,
+						false
+					];
+				};
+
+				if ((_flatPos distance (getMarkerPos "respawn_west")) > 2600 && (_flatPos distance (getMarkerPos currentAO)) > 1600) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
+				{
+					_accepted = true;
+				};
+			};
+
+			//Spawn hangar and chopper
+			_randomDir = (random 360);
+			//_hangar = "Land_TentHangar_V1_F" createVehicle _flatPos;
+			//waitUntil {alive _hangar};
+			//_hangar setPos [(getPos _hangar select 0), (getPos _hangar select 1), ((getPos _hangar select 2) - 1)];
+			sideObj = "I_Plane_Fighter_03_CAS_F" createVehicle _flatPos;
+			waitUntil {!isNull sideObj};
+			
+			sideObj lock 3;
+			{_x setDir _randomDir} forEach [sideObj/*,_hangar*/];
+			sideObj setVehicleLock "LOCKED";
+			_fuzzyPos = 
+			[
+				((_flatPos select 0) - 300) + (random 600),
+				((_flatPos select 1) - 300) + (random 600),
+				0
+			];
+
+			{ _x setMarkerPos _fuzzyPos; } forEach ["sideMarker", "sideCircle"];
+			"sideMarker" setMarkerText "Side Mission: Destroy Jet";
 			publicVariable "sideMarker";
 			publicVariable "sideObj";
 
@@ -332,20 +846,24 @@ while {true} do
 				_unitsArray = _unitsArray + [_spawnGroup];
 			};
 			
+			_x = 0;
+			for "_x" from 0 to 0 do
+			{
 			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
 			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
 			[_spawnGroup, _flatPos, 100] call aw_fnc_spawn2_randomPatrol;
 			[(units _spawnGroup)] call aw_setGroupSkill;
 			
 			_unitsArray = _unitsArray + [_spawnGroup];
-
+			};
+			
 			//Send new side mission hint
 			GlobalHint = _briefing; publicVariable "GlobalHint"; hint parseText _briefing;
-			showNotification = ["NewSideMission", "Destroy Enemy Chopper"]; publicVariable "showNotification";
+			showNotification = ["EnemyJet", "Destroy Enemy Jet"]; publicVariable "showNotification";
 
 			sideMissionUp = true;
 			publicVariable "sideMissionUp";
-			sideMarkerText = "Destroy Chopper";
+			sideMarkerText = "Destroy Jet";
 			publicVariable "sideMarkerText";
 			
 			//Wait until objective is destroyed
@@ -356,14 +874,17 @@ while {true} do
 			
 			//Send completion hint
 			[] call AW_fnc_rewardPlusHint;
-
+			
+			[_unitsArray] spawn GC_fnc_deleteOldUnitsAndVehicles;
+			[_unitsArray] spawn AW_fnc_deleteOldSMUnits;
+			
 			//Hide SM marker
 			"sideMarker" setMarkerPos [0,0,0];
 			"sideCircle" setMarkerPos [0,0,0];
 			publicVariable "sideMarker";
 
 			//PROCESS REWARD HERE
-		}; /* case "destroyChopper": */
+		}; /* case "destroyJet": */
 		
 		case "destroySmallRadar":
 		{
@@ -401,7 +922,7 @@ while {true} do
 					];
 				};
 				
-				if ((_flatPos distance (getMarkerPos "respawn_west")) > 1000 && (_flatPos distance (getMarkerPos currentAO)) > 500) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
+				if ((_flatPos distance (getMarkerPos "respawn_west")) > 2600 && (_flatPos distance (getMarkerPos currentAO)) > 1600) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
 				{
 					_accepted = true;
 				};
@@ -448,13 +969,17 @@ while {true} do
 				_unitsArray = _unitsArray + [_spawnGroup];
 			};
 			
+			_x = 0;
+			for "_x" from 0 to 0 do
+			{
 			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
 			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
 			[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
 			[(units _spawnGroup)] call aw_setGroupSkill;
 			
 			_unitsArray = _unitsArray + [_spawnGroup];
-
+			};
+			
 			//Throw out objective hint
 			GlobalHint = _briefing; publicVariable "GlobalHint"; hint parseText GlobalHint;
 			showNotification = ["NewSideMission", "Destroy Enemy Radar"]; publicVariable "showNotification";
@@ -471,7 +996,10 @@ while {true} do
 			
 			//Throw out objective completion hint
 			[] call AW_fnc_rewardPlusHint;
-
+			
+			[_unitsArray] spawn GC_fnc_deleteOldUnitsAndVehicles;
+			[_unitsArray] spawn AW_fnc_deleteOldSMUnits;
+			
 			//Hide marker
 			"sideMarker" setMarkerPos [0,0,0];
 			"sideCircle" setMarkerPos [0,0,0];
@@ -491,7 +1019,7 @@ while {true} do
 
 			while {!_accepted} do
 			{
-				_position = [[[getPos island,4000]],["water","out"]] call BIS_fnc_randomPos;
+				_position = [[[getPos island,1500]],["water","out"]] call BIS_fnc_randomPos;
 				_flatPos = _position isFlatEmpty
 				[
 					2,
@@ -504,7 +1032,7 @@ while {true} do
 
 				while {(count _flatPos) < 1} do
 				{
-					_position = [[[getPos island,4000]],["water","out"]] call BIS_fnc_randomPos;
+					_position = [[[getPos island,1500]],["water","out"]] call BIS_fnc_randomPos;
 					_flatPos = _position isFlatEmpty
 					[
 						2,
@@ -516,7 +1044,7 @@ while {true} do
 					];
 				};
 
-				if ((_flatPos distance (getMarkerPos "respawn_west")) > 1700 && (_flatPos distance (getMarkerPos currentAO)) > 500) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
+				if ((_flatPos distance (getMarkerPos "respawn_west")) > 1700 && (_flatPos distance (getMarkerPos currentAO)) > 2600) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
 				{
 					_accepted = true;
 				};
@@ -554,12 +1082,16 @@ while {true} do
 				_unitsArray = _unitsArray + [_spawnGroup];
 			};
 			
+			_x = 0;
+			for "_x" from 0 to 0 do
+			{
 			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
 			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
 			[_spawnGroup, _flatPos, 100] call aw_fnc_spawn2_randomPatrol;
 			[(units _spawnGroup)] call aw_setGroupSkill;
 			
 			_unitsArray = _unitsArray + [_spawnGroup];
+			};
 			
 			//Set marker up
 			_fuzzyPos = 
@@ -593,6 +1125,9 @@ while {true} do
 
 			//Throw completion hint
 			[] call AW_fnc_rewardPlusHint;
+			
+			[_unitsArray] spawn GC_fnc_deleteOldUnitsAndVehicles;
+			[_unitsArray] spawn AW_fnc_deleteOldSMUnits;
 			
 			//Hide marker
 			"sideMarker" setMarkerPos [0,0,0];

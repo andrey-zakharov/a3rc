@@ -16,7 +16,8 @@ distibuting this mission when hosting!
 
 This version of Domination was lovingly crafted by
 Jack Williams (Rarek) for Ahoy World!
-*/
+
+Edited by GamersCentral.de */
 
 // JIP Check (This code should be placed first line of init.sqf file)
 if (!isServer && isNull player) then {isJIP=true;} else {isJIP=false;};
@@ -24,62 +25,52 @@ if (!isServer && isNull player) then {isJIP=true;} else {isJIP=false;};
 // Wait until player is initialized
 if (!isDedicated) then {waitUntil {!isNull player && isPlayer player};};
 
-#define WELCOME_MESSAGE	"Welcome to Ahoy World's Invade & Annex ~ALTIS~\n" +\
-						"by Rarek (Ahoy World)\n\n" +\
-						"To follow / aid in the development of this map, please register at\n" +\
-						"www.AhoyWorld.co.uk\n\n" +\
-						"...and feel free to join us on TeamSpeak at\n" +\
-						"ts.ahoyworld.co.uk"
+#define WELCOME_MESSAGE	"Welcome to GamersCentral.de\n" +\
+						"This is an international Server, please Speak English.\n\n" +\
+						"Please follow our rules / read them on the Sign at your Spawn.\n" +\
+						"TS3.GamersCentral.de:9987\n\n" +\
+						"Please do not firing at the Base / out of Ghosthawk without any reason - can lead to a perm. ban directly!"
 					
 					
 /* =============================================== */
 /* =============== GLOBAL VARIABLES ============== */
 
-/*
-	These targets are simply markers on the map with
-	the same name.
-	
-	Each AO will be a randomly-picked "target" from
-	this list which will be removed upon completion.
-	
-	To ensure the mission works, make sure that any
-	new targets you add have a relevant marker on
-	the mission map.
-	
-	You can NOT have an AO called "Nothing".
-*/
-
-private ["_pos","_uavAction","_isAdmin","_i","_isPerpetual","_accepted","_position","_randomWreck","_firstTarget","_validTarget","_targetsLeft","_flatPos","_targetStartText","_lastTarget","_targets","_dt","_enemiesArray","_radioTowerDownText","_targetCompleteText","_null","_unitSpawnPlus","_unitSpawnMinus","_missionCompleteText"];
-
-_handle = execVM "aw_functions.sqf";
+private ["_pos","_uavAction","_isAdmin","_i","_isPerpetual","_accepted","_position","_randomWreck","_firstTarget","_validTarget","_targetsLeft","_flatPos","_targetStartText","_lastTarget","_targets","_dt","_enemiesArray","_enemiesArrayCivilian","_radioTowerDownText","_targetCompleteText","_null","_unitSpawnPlus","_unitSpawnMinus","_missionCompleteText"];
+_handle = execVM "settings\aw_functions.sqf";
 waitUntil{scriptDone _handle};
-execVM "changeLog.sqf";
+
 _initialTargets = [
-	"Kalochori",
+	"Solar Plant",
 	"Sofia",
 	"Dome",
 	"Feres",
 	"Pyrgos",
+	"Lakka",
+	"Agios Dionysios",
+	"Kavala and Aggelochori",
 	"Skopos",
-	"Neri",
 	"Factory",
 	"Syrta",
-	"Zaros",
-	"Frini"
+	"Neochori",
+	"Athira",
+	"Oreokastro"
 ];
 
 _targets = [
-	"Kalochori",
+	"Solar Plant",
 	"Sofia",
 	"Dome",
 	"Feres",
 	"Pyrgos",
+	"Lakka",
+	"Agios Dionysios",
+	"Kavala and Aggelochori",
 	"Skopos",
-	"Neri",
 	"Factory",
 	"Syrta",
-	"Zaros",
-	"Frini"
+	"Neochori",
+	"Athira",
+	"Oreokastro"
 ];
 
 //Grab parameters and put them into readable variables
@@ -99,7 +90,6 @@ if(isMultiplayer) then
 } else {DEBUG = true};
 
 enableSentences false;
-if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, _name] execVM ""ac\init.sqf"";"; };
 
 "GlobalHint" addPublicVariableEventHandler
 {
@@ -162,13 +152,6 @@ if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, 
 	"sideMarker" setMarkerTextLocal format["Side Mission: %1",sideMarkerText];
 };
 
-"priorityMarker" addPublicVariableEventHandler
-{
-	"priorityMarker" setMarkerPosLocal (markerPos "priorityMarker");
-	"priorityCircle" setMarkerPosLocal (markerPos "priorityCircle");
-	"priorityMarker" setMarkerTextLocal format["Priority Target: %1",priorityTargetText];
-};
-
 "aw_addAction" addPublicVariableEventHandler
 {
 	_obj = (_this select 1) select 0;
@@ -212,28 +195,110 @@ if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, 
 
 
 /* =============================================== */
-/* ================ PLAYER SCRIPTS =============== */
+/* ================ PLAYER SCRIPTS =============== 
 
-0 = [] execVM 'group_manager.sqf';
-_null = [] execVM "restrictions.sqf";
-if (PARAMS_ViewDistance == 1) then { _null = [] execVM "taw_vd\init.sqf"; };
-if (PARAMS_PilotsOnly == 1) then { _null = [] execVM "pilotCheck.sqf"; };
-if (PARAMS_SpawnProtection == 1) then { _null = [] execVM "grenadeStop.sqf"; };
+_null = [] execVM "settings\tankCheck.sqf";
+_null = [] execvm "VON_PLUS_GUI\init.sqf";
+execVM "Sidemissions\SMFinder.sqf";
+*/
+
+
+
+if !(player hasWeapon "ItemGPS") then {player addWeapon "ItemGPS";};
+
+execvm "settings\jump.sqf";
+
+execVM "settings\reveal.sqf";
+
+// Admin reserved slot
+// You can reserve admin slot	
+INS_REV_CFG_reserved_slot = true;
+INS_REV_CFG_reserved_slot_units = ["admin"];
+[] execVM "settings\reserved_slot\reserved_slot.sqf";
+	
+if (PARAMS_VehicleHud == 1) then { _null = [] execVM "scripts\vehicle\crew.sqf"; };	
+if (PARAMS_ViewDistance == 1) then { _null = [] execVM "settings\taw_vd\init.sqf"; };
+if (PARAMS_PilotsOnly == 1) then { 
+_null = [] execVM "settings\pilotCheck.sqf";
+_null = [] execVM "settings\mhqCheck.sqf";
+_null = [] execVM "settings\artyCheck.sqf";
+_null = [] execVM "settings\apcCheck.sqf";
+_null = [] execVM "settings\apcAACheck.sqf";
+};
+
+if (PARAMS_SpawnProtection == 1) then { _null = [] execVM "settings\grenadeStop.sqf"; };
+if (PARAMS_DynamicWeather == 1) then { [0, 0, 0, [-1, -1]] execVM "misc\DynamicWeatherEffects.sqf"; };
+
 if (PARAMS_ReviveEnabled == 1) then 
 {
 	call compile preprocessFile "=BTC=_revive\=BTC=_revive_init.sqf";
+	if (PARAMS_EngineerMarkers == 1) then { _null = [] execVM "misc\engineerMarkers.sqf"; };
 	if (PARAMS_MedicMarkers == 1) then { _null = [] execVM "misc\medicMarkers.sqf"; };
 };
+
 if (PARAMS_PlayerMarkers == 1) then { _null = [] execVM "misc\playerMarkers.sqf"; };
-/* 	Disabled while Alpha bug is present
-	_null = [] execVM "misc\radioChannels.sqf"; */
+
+if (PARAMS_ClassWeaponRestriction == 1) then { _null = [] execVM "settings\restrictions.sqf"; };
+
+if (PARAMS_tkPunishment == 1) then
+ { 
+	call compile preprocessFile "=BTC=_TK_punishment\=BTC=_tk_init.sqf"; 
+ };
+	
+if (PARAMS_HelmetCam == 1) then
+ { 
+	nul = ["mission"] execVM "hcam_init.sqf"; 
+ };
+	
+if (PARAMS_TransportLogistic == 1) then
+ { 
+	_logistic = execVM "=BTC=_Logistic\=BTC=_Logistic_Init.sqf"; 
+ };
+	
+	
+if (PARAMS_BulletWind == 1) then
+ { 
+	if (isServer) then {execVM "misc\bulletWindServer.sqf";};
+	execVM "misc\bulletWindClient.sqf";
+ };	
+	
+if (PARAMS_RadioChannels == 1) then
+ { 
+	_null = [] execVM "misc\radioChannels.sqf"; 
+ };
+	
+if (PARAMS_EnemySkills == 1) then
+ { 
+	[] execVM "settings\set_skills.sqf"; 
+ };	
+	
+if (PARAMS_GroupsMenu == 1) then
+ { 
+	[] execVM "DOM_squad\init.sqf";
+	0 = [] execVM 'DOM_squad\group_manager.sqf';
+ };
+ 
+if (PARAMS_EngineerMenu == 1) then
+ { 
+	[] execVM "DOM_repair\init.sqf";
+ };
+	
+if (PARAMS_MemberVehicles == 1) then 
+{ 
+	_null = [] execVM "members\communityList.sqf";
+	_null = [] execVM "members\VIPcommunityList.sqf";
+};	
 
 [] spawn {
 	scriptName "initMission.hpp: mission start";
-	["rsc\FinalComp.ogv", false] spawn BIS_fnc_titlecard;
+	// titleText [WELCOME_MESSAGE, "PLAIN", 3];
+	if (PARAMS_StartIntro == 1) then
+	{
+	["intro\gamerscentral.de.ogv", false] spawn BIS_fnc_titlecard;
 	waitUntil {sleep 0.5; !(isNil "BIS_fnc_titlecard_finished")};
-	[[14600.0,16801.0,100],"We've gotten a foot-hold on the island,|but we need to take the rest.||Listen to HQ and neutralise all enemies designated."] spawn BIS_fnc_establishingShot;
-	titleText [WELCOME_MESSAGE, "PLAIN", 3];
+	};
+	[player] call compile preprocessFileLineNumbers "adminActions\main.sqf";
+	execVM "joinInfo.sqf";
 };
 
 if (!isServer) then
@@ -262,23 +327,6 @@ if (!isServer) then
 		"sideCircle" setMarkerPosLocal [0,0,0];
 	};
 	
-	if (priorityTargetUp) then
-	{
-		_pos = [0,0,0];
-		if (alive priorityTarget1) then
-		{
-			_pos = getPos priorityTarget1;
-		} else {
-			_pos = getPos priorityTarget2;
-		};
-		"priorityMarker" setMarkerPosLocal _pos;
-		"priorityCircle" setMarkerPosLocal _pos;
-		"priorityMarker" setMarkerTextLocal format["Priority Target: %1",priorityTargetText];
-	} else {
-		"priorityMarker" setMarkerPosLocal [0,0,0];
-		"priorityCircle" setMarkerPosLocal [0,0,0];
-	};
-
 	if (currentAOUp) then
 	{
 		{
@@ -288,7 +336,7 @@ if (!isServer) then
 	} else {
 		{
 			_x setMarkerPosLocal [0,0,0];
-		} forEach ["aoCircle","aoMarker"];
+		} forEach ["aoCircle","aoMarker","aoMines"];
 	};
 	
 	_uavAction = player addAction 
@@ -306,7 +354,7 @@ if (!isServer) then
 
 if (!isServer) exitWith
 {
-	_spawnBuildings = nearestObjects [(getMarkerPos "respawn_west"), ["building"], 1000];
+	_spawnBuildings = nearestObjects [(getMarkerPos "respawn_west"), ["building"], 2000];
 
 	{
 		_x allowDamage false;
@@ -351,39 +399,60 @@ debugMode = true; publicVariable "debugMode";
 eastSide = createCenter EAST;
 radioTowerAlive = false;
 sideMissionUp = false;
-priorityTargetUp = false;
 currentAOUp = false;
 refreshMarkers = true;
 sideObj = objNull;
-priorityTargets = ["None"];
 smRewards = 
 [
-	["an AH-99 Blackfoot", "B_Heli_Attack_01_F"],
-	["a Hunter HMG", "B_MRAP_01_hmg_F"],
-	["an AMV-7 Marshall", "B_APC_Wheeled_01_cannon_F"],
-	["an A-143 Buzzard", "I_Plane_Fighter_03_CAS_F"],
-	["an M2A1 Slammer", "B_MBT_01_cannon_F"]
+	["an Mi-48 Kajman", "O_Heli_Attack_02_F"],
+	["a IFV-6c Panther", "B_APC_Tracked_01_rcws_F"],
+	["a AFV-4 Gorgon", "I_APC_Wheeled_03_cannon_F"],
+	["a T-100 Varsuk", "O_MBT_02_cannon_F"]
 ];
 smMarkerList = 
 ["smReward1","smReward2","smReward3","smReward4","smReward5","smReward6","smReward7","smReward8","smReward9","smReward10","smReward11","smReward12","smReward13","smReward14","smReward15","smReward16","smReward17","smReward18","smReward19","smReward20","smReward21","smReward22","smReward23","smReward24","smReward25","smReward26","smReward27"];
 
-/*---------------------------------------------------------------------------
-Disabled while Alpha bug is present
----------------------------------------------------------------------------*/
-/* radioChannels = []; publicVariable "radioChannels";
-_null = [] execVM "misc\radioChannels.sqf"; */
+if (PARAMS_SpawnProtection == 1) then
+{
+	//Create invisible spawn protection
+	_distance = 45;
+	_dir = 0;
+	_spawnPos = getMarkerPos "respawn_west";
 
+	_zone = "Lib_ProtectionZone_Invisible" createVehicle _spawnPos;
+
+	for "_x" from 0 to 7 do
+	{
+		_pos = [_spawnPos, _distance, _dir] call BIS_fnc_relPos;
+		_zone = "Lib_ProtectionZone_Invisible" createVehicle _pos;
+		_dir = _dir + 45;
+	};
+};
+	
 //Run a few miscellaneous server-side scripts
-_null = [] execVM "misc\clearBodies.sqf";
-_null = [] execVM "misc\clearItems.sqf";
+if (PARAMS_ClearBodys == 1) then { _null = [] execVM "misc\clearBodies.sqf"; };
+if (PARAMS_ClearItemsAndBodys == 1) then { 
+_null = [] execVM "misc\clear\clearItems1.sqf";
+_null = [] execVM "misc\clear\clearItems2.sqf";
+_null = [] execVM "misc\clear\clearItems3.sqf";
+};
 
-/*
-//Run mortar scripts
-_null = [] execVM "misc\mortar\spawnhq.sqf";
-_null = [] execVM "misc\mortar\mortarHEReload.sqf";
-_null = [] execVM "misc\mortar\mortarSupportReload.sqf";
-*/
+_null = [] execVM "spawnVehicles\spawnAmmoVehicle.sqf";
+_null = [] execVM "spawnVehicles\spawnAmmoVehicle2.sqf";
+_null = [] execVM "spawnVehicles\spawnArtyVehicle.sqf";
+_null = [] execVM "spawnVehicles\spawnArtyVehicleVIP.sqf";
+_null = [] execVM "spawnVehicles\spawnMedicVehicle.sqf";
 
+//Run Patrols
+if (PARAMS_AOReinforcementJet == 1) then { _null = [] execVM "defending\AO_JET_BUZZARD.sqf"; };
+if (PARAMS_AOReinforcement == 1) then { _null = [] execVM "defending\AO_HELO_ORCA.sqf"; };
+if (PARAMS_AOReinforcementHeavyHelo == 1) then { _null = [] execVM "defending\AO_HELO_MI48.sqf"; };
+
+if (PARAMS_SideMissionReinforcement == 1) then { 
+_null = [] execVM "defending\SM_HELO_ORCA.sqf";
+};
+
+if (PARAMS_FriendlyReinforcement == 1) then { _null = [] execVM "defending\FRIENDLY_HELO_Blackfoot.sqf"; };
 
 _isPerpetual = false;
 
@@ -411,10 +480,19 @@ _targetsLeft = count _targets;
 	((_this select 1) select 0) addScore ((_this select 1) select 1);
 };
 
+MAC_fnc_switchMove = {
+    private["_object","_anim"];
+    _object = _this select 0;
+    _anim = _this select 1;
+
+    _object switchMove _anim;
+    
+};
+
 AW_fnc_minefield = {
 	_centralPos = _this select 0;
 	_unitsArray = [];
-	for "_x" from 0 to 79 do 
+	for "_x" from 0 to 80 do 
 	{
 		_mine = createMine ["SLAMDirectionalMine", _centralPos, [], 50];
 		_unitsArray = _unitsArray + [_mine];
@@ -436,15 +514,91 @@ AW_fnc_minefield = {
 	_unitsArray
 };
 
+AW_fnc_minefieldAT = {
+	_unitsArray = [];
+	for "_x" from 0 to 88 do 
+	{
+		_mineAT = createMine ["ATMine", (getMarkerPos currentAO), [], 1000];
+		_unitsArray = _unitsArray + [_mineAT];
+	};
+
+	_unitsArray
+};
+
 AW_fnc_deleteOldAOUnits =
 {
 	private ["_unitsArray", "_obj", "_isGroup"];
-	sleep 600;
+	sleep 60;
 	_unitsArray = _this select 0;
 	for "_c" from 0 to (count _unitsArray) do
 	{
 		_obj = _unitsArray select _c;
 		_isGroup = false; if (_obj in allGroups) then { _isGroup = true; };
+		if (_isGroup) then
+		{
+			{
+				if (!isNull _x) then { deleteVehicle _x; };
+			} forEach (units _obj);
+		} else {
+			if (!isNull _obj) then { deleteVehicle _obj; };
+		};
+	};
+};
+
+GC_fnc_deleteOldUnitsAndVehicles = {
+    {
+        if (typeName _x == "GROUP") then {
+            {
+                if (vehicle _x != _x) then {
+                    deleteVehicle (vehicle _x);
+                };
+                deleteVehicle _x;
+            } forEach (units _x);
+        } else {
+            if (vehicle _x != _x) then {
+                deleteVehicle (vehicle _x);
+            };
+            if !(_x isKindOf "Man") then {
+                {
+                    deleteVehicle _x;
+                } forEach (crew _x)
+            };
+            deleteVehicle _x;
+        };
+    } forEach (_this select 0);
+};
+
+AW_fnc_deleteOldSMUnits =
+{
+	private ["_unitsArray", "_obj", "_isGroup"];
+	sleep 60;
+	_unitsArray = _this select 0;
+	for "_c" from 0 to (count _unitsArray) do
+	{
+		_obj = _unitsArray select _c;
+		_isGroup = false;
+		if (_obj in allGroups) then { _isGroup = true; };
+		if (_isGroup) then
+		{
+			{
+				if (!isNull _x) then { deleteVehicle _x; };
+			} forEach (units _obj);
+		} else {
+			if (!isNull _obj) then { deleteVehicle _obj; };
+		};
+	};
+};
+
+AW_fnc_deleteOldAOUnitsCivilians =
+{
+	private ["_unitsArray", "_obj", "_isGroup"];
+	sleep 180;
+	_unitsArray = _this select 0;
+	for "_c" from 0 to (count _unitsArray) do
+	{
+		_obj = _unitsArray select _c;
+		_isGroup = false;
+		if (_obj in allGroups) then { _isGroup = true; };
 		if (_isGroup) then
 		{
 			{
@@ -463,6 +617,22 @@ _obj = _this select 0;
 	_time = _this select 1;
 	sleep _time;
 	deleteVehicle _obj;
+};
+
+AW_fnc_rewardPlusHintSideMissionTwo = {	
+	
+private ["_veh","_vehName","_vehVarname","_reward"];
+_veh = smRewards call BIS_fnc_selectRandom;
+	_vehName = _veh select 0;
+	_vehVarname = _veh select 1;
+
+	_reward = createVehicle [_vehVarname, getMarkerPos "smReward1",smMarkerList,0,"NONE"];
+	if (_reward isKindOf "UAV") then {createVehicleCrew _reward;} else {sleep 1;};
+	waitUntil {!isNull _reward};
+	_reward setDir 284;
+	
+	[_reward] execVM "scripts\aw_unitSetup.sqf";
+	showNotification = ["Reward", format["Your team received %1!", _vehName]]; publicVariable "showNotification";
 };
 
 AW_fnc_rewardPlusHint = {	
@@ -485,6 +655,82 @@ _veh = smRewards call BIS_fnc_selectRandom;
 	GlobalHint = _completeText; publicVariable "GlobalHint"; hint parseText _completeText;
 	showNotification = ["CompletedSideMission", sideMarkerText]; publicVariable "showNotification";
 	showNotification = ["Reward", format["Your team received %1!", _vehName]]; publicVariable "showNotification";
+};
+
+AW_fnc_rewardPlusHintMI = {	
+	
+private ["_veh","_vehName","_vehVarname","_completeTextHelo","_reward"];
+_veh = smRewards call BIS_fnc_selectRandom;
+	_vehName = _veh select 0;
+	_vehVarname = _veh select 1;
+	
+	_completeTextHelo = format[
+	"<t align='center'><t size='2.2'>Priority Target (AO)</t><br/><t size='1.5' color='#00B2EE'>Enemy Mi-48 Kajman Neutralized</t><br/>____________________<br/>Fantastic job, lads! The OPFOR stationed on the island won't last long if you keep that up!<br/><br/>Focus on the main objective for now; we'll relay this success to the intel team and see if there's anything else you can do for us.</t>"];
+	
+	_reward = createVehicle [_vehVarname, getMarkerPos "smReward1",smMarkerList,0,"NONE"];
+	waitUntil {alive _reward};
+	_reward setDir 284;
+	
+	GlobalHint = _completeTextHelo; publicVariable "GlobalHint"; hint parseText _completeTextHelo;
+	showNotification = ["EnemyHeloDown", "Enemy Mi-48 Kajman is down. Well Done! (AO)"]; publicVariable "showNotification";
+	showNotification = ["Reward", format["Well Done! Your team received %1!", _vehName]]; publicVariable "showNotification";
+};
+
+AW_fnc_rewardPlusHintJet = {	
+	
+private ["_veh","_vehName","_vehVarname","_completeTextJet","_reward"];
+/*_veh = smRewards call BIS_fnc_selectRandom;
+	_vehName = _veh select 0;
+	_vehVarname = _veh select 1;*/
+	
+	_completeTextJet = format[
+	"<t align='center'><t size='2.2'>Priority Target (AO)</t><br/><t size='1.5' color='#00B2EE'>Enemy Buzzard Neutralized</t><br/>____________________<br/>Fantastic job, lads! The OPFOR stationed on the island won't last long if you keep that up!<br/><br/>Focus on the main objective for now; we'll relay this success to the intel team and see if there's anything else you can do for us.</t>"];
+	
+	/*_reward = createVehicle [_vehVarname, getMarkerPos "smReward1",smMarkerList,0,"NONE"];
+	waitUntil {alive _reward};
+	_reward setDir 284;*/
+	
+	GlobalHint = _completeTextJet; publicVariable "GlobalHint"; hint parseText _completeTextJet;
+	showNotification = ["EnemyJetDown", "Enemy Buzzard is down. Well Done! (AO)"]; publicVariable "showNotification";
+	/*showNotification = ["Reward", format["Well Done! Your team received %1!", _vehName]]; publicVariable "showNotification";*/
+};
+
+AW_fnc_rewardPlusHintOrca = {	
+	
+private ["_veh","_vehName","_vehVarname","_completeTextHelo","_reward"];
+_veh = smRewards call BIS_fnc_selectRandom;
+	_vehName = _veh select 0;
+	_vehVarname = _veh select 1;
+	
+	_completeTextHelo = format[
+	"<t align='center'><t size='2.2'>Priority Target (Island)</t><br/><t size='1.5' color='#00B2EE'>Enemy Orca Neutralized</t><br/>____________________<br/>Fantastic job, lads! The OPFOR stationed on the island won't last long if you keep that up!<br/><br/>We've given you %1 to help with the fight. You'll find it at base.<br/><br/>Focus on the main objective for now; we'll relay this success to the intel team and see if there's anything else you can do for us.</t>"];
+	
+	_reward = createVehicle [_vehVarname, getMarkerPos "smReward1",smMarkerList,0,"NONE"];
+	waitUntil {alive _reward};
+	_reward setDir 284;
+	
+	GlobalHint = _completeTextHelo; publicVariable "GlobalHint"; hint parseText _completeTextHelo;
+	showNotification = ["EnemyHeloDown", "Enemy Orca is down. Well Done! (Island)"]; publicVariable "showNotification";
+	showNotification = ["Reward", format["Well Done! Your team received %1!", _vehName]]; publicVariable "showNotification";
+};
+
+AW_fnc_rewardPlusHintFriendlyDown = {	
+	
+private ["_veh","_vehName","_vehVarname","_priorityFriendlyHelooDown","_reward"];
+_veh = smRewards call BIS_fnc_selectRandom;
+	_vehName = _veh select 0;
+	_vehVarname = _veh select 1;
+	
+	_priorityFriendlyHelooDown = 
+		"<t align='center' size='2.2'>(HQ) Air Corps</t><br/><t size='1.5' color='#E08300'>Friendly Blackfoot Down</t>.<br/>____________________<br/><br/><br/>We lose our Air Corps. We've given you %1 to help with the fight. You'll find it at base.";
+			
+	_reward = createVehicle [_vehVarname, getMarkerPos "smReward1",smMarkerList,0,"NONE"];
+	waitUntil {alive _reward};
+	_reward setDir 284;
+	
+	GlobalHint = _priorityFriendlyHelooDown; publicVariable "GlobalHint"; hint parseText _priorityFriendlyHelooDown;
+	showNotification = ["FriendlyHeavyHeloDown", "Friendly Blackfoot Down."]; publicVariable "showNotification";
+	showNotification = ["Reward", format["HQ put up %1!", _vehName]]; publicVariable "showNotification";
 };
 
 _unitSpawnPlus = PARAMS_AOSize;
@@ -581,9 +827,10 @@ AW_fnc_garrisonBuildings =
 		BIS_currentDude doWatch ([BIS_currentDude, 1000, direction _building + (_x select 3)] call BIS_fnc_relPos);
 		BIS_currentDude setDir direction _building + (_x select 3);
 	} forEach _paramsArray;
-	[(units _newGrp)] call aw_setGroupSkill;
+
 	_newGrp
 };
+		
 
 AW_fnc_spawnUnits = {
 	
@@ -594,7 +841,7 @@ _pos = getMarkerPos (_this select 0);
 	_x = 0;
 	for "_x" from 1 to PARAMS_SquadsPatrol do {
 		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
-		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup;
+		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Support" >> "OI_support_CLS")] call BIS_fnc_spawnGroup;
 		"O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
 		[_spawnGroup, getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_spawn2_randomPatrol;
 		[(units _spawnGroup)] call aw_setGroupSkill;
@@ -625,9 +872,9 @@ _pos = getMarkerPos (_this select 0);
 	}; 
 	
 	_x = 0;
-	for "_x" from 1 to PARAMS_SquadsDefend do {
+	for "_x" from 1 to PARAMS_ReconSquadsPatrol do {
 		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
-		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup;
+		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OI_reconPatrol")] call BIS_fnc_spawnGroup;
 		"O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
 		[_spawnGroup, getMarkerPos currentAO,50] call aw_fnc_spawn2_perimeterPatrol;
 		[(units _spawnGroup)] call aw_setGroupSkill;
@@ -637,7 +884,7 @@ _pos = getMarkerPos (_this select 0);
 			_name = format ["%1%2",name (leader _spawnGroup),_x];
 			createMarker [_name,getPos (leader _spawnGroup)];
 			_name setMarkerType "o_unknown";
-			_name setMarkerText format ["Squad Defend %1",_x];;
+			_name setMarkerText format ["Recon Patrol/Defend %1",_x];;
 			_name setMarkerColor "ColorRed";
 			[_spawnGroup,_name] spawn 
 			{
@@ -660,7 +907,7 @@ _pos = getMarkerPos (_this select 0);
 	_x = 0;
 	for "_x" from 1 to PARAMS_TeamsPatrol do {
 		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
-		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
+		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSentry")] call BIS_fnc_spawnGroup;
 		/* "O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
 		[_spawnGroup, getMarkerPos currentAO, (PARAMS_AOSize / 2)] call aw_fnc_spawn2_randomPatrol; */
 		[(units _spawnGroup)] call aw_setGroupSkill;
@@ -670,7 +917,71 @@ _pos = getMarkerPos (_this select 0);
 			_name = format ["%1%2",name (leader _spawnGroup),_x];
 			createMarker [_name,getPos (leader _spawnGroup)];
 			_name setMarkerType "o_unknown";
-			_name setMarkerText format ["Team Patrol %1",_x];;
+			_name setMarkerText format ["Sentry Patrol %1",_x];;
+			_name setMarkerColor "ColorRed";
+			[_spawnGroup,_name] spawn 
+			{
+				private["_group","_marker"];
+				_group = _this select 0;
+				_marker = _this select 1;
+				
+				while{count (units _group) > 0} do
+				{
+					_marker setMarkerPos (getPos (leader _group));
+					sleep 0.1;
+				};
+				deleteMarker _marker;
+			};
+		};
+		
+		_enemiesArray = _enemiesArray + [_spawnGroup];
+	};
+	_x = 0;
+	for "_x" from 1 to PARAMS_SniperPatrol do {
+		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
+		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSentry")] call BIS_fnc_spawnGroup;
+		/* "O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
+		[_spawnGroup, getMarkerPos currentAO, (PARAMS_AOSize / 2)] call aw_fnc_spawn2_randomPatrol; */
+		[(units _spawnGroup)] call aw_setGroupSkill;
+		
+		if(DEBUG) then
+		{
+			_name = format ["%1%2",name (leader _spawnGroup),_x];
+			createMarker [_name,getPos (leader _spawnGroup)];
+			_name setMarkerType "o_unknown";
+			_name setMarkerText format ["Sentry Patrol %1",_x];;
+			_name setMarkerColor "ColorRed";
+			[_spawnGroup,_name] spawn 
+			{
+				private["_group","_marker"];
+				_group = _this select 0;
+				_marker = _this select 1;
+				
+				while{count (units _group) > 0} do
+				{
+					_marker setMarkerPos (getPos (leader _group));
+					sleep 0.1;
+				};
+				deleteMarker _marker;
+			};
+		};
+		
+		_enemiesArray = _enemiesArray + [_spawnGroup];
+	};
+	_x = 0;
+	for "_x" from 1 to PARAMS_TeamsMiniDronePatrol do {
+		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
+		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "SpecOps" >> "OI_SmallTeam_UAV")] call BIS_fnc_spawnGroup;
+		/* "O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
+		[_spawnGroup, getMarkerPos currentAO, (PARAMS_AOSize / 2)] call aw_fnc_spawn2_randomPatrol; */
+		[(units _spawnGroup)] call aw_setGroupSkill;
+		
+		if(DEBUG) then
+		{
+			_name = format ["%1%2",name (leader _spawnGroup),_x];
+			createMarker [_name,getPos (leader _spawnGroup)];
+			_name setMarkerType "o_unknown";
+			_name setMarkerText format ["Mini Drone Patrol %1",_x];;
 			_name setMarkerColor "ColorRed";
 			[_spawnGroup,_name] spawn 
 			{
@@ -831,6 +1142,83 @@ _pos = getMarkerPos (_this select 0);
 	_enemiesArray
 };
 
+
+/*
+AW_fnc_spawnUnitsCivilian = {
+	
+private ["_randomPos","_groupCivi","_pos","_x"];
+	_enemiesArrayCivilian = [grpNull];
+	
+	_x = 0;
+	for "_x" from 0 to PARAMS_Civilians do {
+	createCenter civilian;
+	_groupCivi = createGroup Civilian;
+	_groupCivi createUnit ["C_man_1", (getMarkerPos currentAO), [], 5, "NONE"];
+		[(units _groupCivi)] call aw_setGroupSkill;
+		
+		if(DEBUG) then
+		{
+			_name = format ["%1%2",name (leader _groupCivi),_x];
+			createMarker [_name,getPos (leader _groupCivi)];
+			_name setMarkerType "o_unknown";
+			_name setMarkerText format ["(CIVILIAN) %1",_x];;
+			_name setMarkerColor "ColorBlue";
+			[_groupCivi,_name] spawn 
+			{
+				private["_group","_marker"];
+				_group = _this select 0;
+				_marker = _this select 1;
+				
+				while{count (units _group) > 0} do
+				{
+					_marker setMarkerPos (getPos (leader _group));
+					sleep 0.1;
+				};
+				deleteMarker _marker;
+			};
+		};
+	
+	_enemiesArrayCivilian = _enemiesArrayCivilian + [_groupCivi];
+	}; 
+	
+	_x = 0;
+	for "_x" from 0 to PARAMS_Civilians do {
+	createCenter civilian;
+	_groupCivi = createGroup Civilian;
+	_groupCivi createUnit ["C_man_4", (getMarkerPos currentAO), [], 5, "NONE"];
+		[(units _groupCivi)] call aw_setGroupSkill;
+		
+		if(DEBUG) then
+		{
+			_name = format ["%1%2",name (leader _groupCivi),_x];
+			createMarker [_name,getPos (leader _groupCivi)];
+			_name setMarkerType "o_unknown";
+			_name setMarkerText format ["(CIVILIAN) %1",_x];;
+			_name setMarkerColor "ColorBlue";
+			[_groupCivi,_name] spawn 
+			{
+				private["_group","_marker"];
+				_group = _this select 0;
+				_marker = _this select 1;
+				
+				while{count (units _group) > 0} do
+				{
+					_marker setMarkerPos (getPos (leader _group));
+					sleep 0.1;
+				};
+				deleteMarker _marker;
+			};
+		};
+	
+	_enemiesArrayCivilian = _enemiesArrayCivilian + [_groupCivi];
+	}; 
+	
+};
+
+
+This is a Copy from the Original GamersCentral.de COOP Dedicated Server.
+*/
+
 //Set time of day
 skipTime PARAMS_TimeOfDay;
 
@@ -854,16 +1242,16 @@ switch (PARAMS_Weather) do
 		0 setGusts 1;
 		0 setLightnings 1;
 		0 setWaves 1;
-		0 setWindForce 0.5;
+		0 setWindForce 1;
 	};
 	
 	case 3: {
 		0 setOvercast 0.7;
 		0 setRain 0;
 		0 setFog 0;
-		0 setGusts 0.5;
+		0 setGusts 0.7;
 		0 setWaves 0.7;
-		0 setWindForce 0.3;
+		0 setWindForce 0.7;
 	};
 	
 	case 4: {
@@ -873,33 +1261,10 @@ switch (PARAMS_Weather) do
 	};
 };
 
-//Spawn random wrecks
-if (PARAMS_PriorityTargets == 1) then
-{
-	{
-		_accepted = false;
-		_position = [0,0,0];
-		while {!_accepted} do
-		{
-			_position = [] call BIS_fnc_randomPos;
-			if (_position distance (getMarkerPos "respawn_west") > 800) then
-			{
-				_accepted = true;
-			};
-		};
-		_randomWreck = _x createVehicle _position;
-		_randomWreck setDir (random 360);
-	} forEach ["Land_Wreck_Commanche_F","Land_UWreck_Mv22_F","Land_UWreck_Mv22_F","Land_Wreck_Offroad_F","Land_Wreck_Offroad_F","Land_Wreck_Offroad_F","Land_Wreck_Offroad_F","Land_Wreck_Offroad_F","Land_Wreck_Truck_dropside_F","Land_Wreck_Truck_F","Land_Wreck_Car_F","Land_Wreck_Car2_F","Land_Wreck_Car3_F"];
-};
-
 //Begin generating side missions
-if (PARAMS_SideMissions == 1) then { _null = [] execVM "sm\sideMissions.sqf"; };
-
-//Begin generating priority targets
-if (PARAMS_PriorityTargets == 1) then { _null = [] execVM "sm\priorityTargets.sqf"; };
-
-//Begin creating random patrols
-// _null = [] execVM "randomPatrols.sqf";
+if (PARAMS_SideMissions == 1) then { 
+_null = [] execVM "sm\sideMissions.sqf";
+};
 
 _firstTarget = true;
 _lastTarget = "Nothing";
@@ -945,9 +1310,15 @@ while {count _targets > 0} do
 	_dt setTriggerActivation ["EAST", "PRESENT", false];
 	_dt setTriggerStatements ["this","",""];
 	
-	//Spawn enemies
+	//Spawn enemies - 
 	_enemiesArray = [currentAO] call AW_fnc_spawnUnits;
-
+	
+	/*
+	_enemiesArray = [currentAO] call AW_fnc_minefieldAT;
+	_enemiesArrayCivilian = [currentAO] call AW_fnc_spawnUnitsCivilian;
+	*/
+	
+	
 	//Spawn radiotower
 	_position = [[[getMarkerPos currentAO, PARAMS_AOSize],_dt],["water","out"]] call BIS_fnc_randomPos;
 	_flatPos = _position isFlatEmpty[3, 1, 0.7, 20, 0, false];
@@ -975,6 +1346,11 @@ while {count _targets > 0} do
 		"radioMarker" setMarkerText "Radiotower (Minefield)";
 	} else {
 		"radioMarker" setMarkerText "Radiotower";
+		_minesAT = [_flatPos] call AW_fnc_minefieldAT;
+		_enemiesArray = _enemiesArray + _minesAT;
+		
+		"aoMines" setMarkerPos (getMarkerPos currentAO);
+		"aoMarker" setMarkerText format["Take %1 (AT Mines)",currentAO];
 	};
 
 	publicVariable "radioTower";
@@ -982,7 +1358,7 @@ while {count _targets > 0} do
 	//Set target start text
 	_targetStartText = format
 	[
-		"<t align='center' size='2.2'>New Target</t><br/><t size='1.5' align='center' color='#FFCF11'>%1</t><br/>____________________<br/>We did a good job with the last target, lads. I want to see the same again. Get yourselves over to %1 and take 'em all down!<br/><br/>Remember to take down that radio tower so you can use your Personal UAVs, too.",
+		"<t align='center' size='2.2'>New Target</t><br/><t size='1.5' align='center' color='#FFCF11'>%1</t><br/>____________________<br/>We did a good job with the last target, lads. I want to see the same again. Get yourselves over to %1 and take 'em all down!<br/><br/>Remember to take down that radio tower so you can use your Personal UAVs, too.<br/><br/>We've information about Anti-Air and Anti-Armor defence, Instructionto to our Attack Helicopter, fly higher than 1200m, Transport Helicopter fly low, safe and keep your eyes open. Good Luck!",
 		currentAO
 	];
 	
@@ -999,7 +1375,7 @@ while {count _targets > 0} do
 	//Show global target start hint
 	GlobalHint = _targetStartText; publicVariable "GlobalHint"; hint parseText GlobalHint;
 	showNotification = ["NewMain", currentAO]; publicVariable "showNotification";
-	showNotification = ["NewSub", "Destroy the enemy radio tower."]; publicVariable "showNotification";
+	showNotification = ["NewSubRadio", "Destroy the enemy Radio Tower."]; publicVariable "showNotification";
 
 	
 	/* =============================================== */
@@ -1018,7 +1394,9 @@ while {count _targets > 0} do
 	waitUntil {sleep 5; count list _dt < PARAMS_EnemyLeftThreshhold};
 	
 	//Set enemy kill timer
+	[_enemiesArray] spawn GC_fnc_deleteOldUnitsAndVehicles;
 	[_enemiesArray] spawn AW_fnc_deleteOldAOUnits;
+	/*[_enemiesArrayCivilian] spawn AW_fnc_deleteOldAOUnitsCivilians;*/
 
 	//Delete markers and trigger
 	/* if (_isPerpetual) then 
@@ -1036,7 +1414,7 @@ while {count _targets > 0} do
 		_targets = _targets - [currentAO];
 		//deleteMarker currentAO;
 	}; */
-
+	
 	if (_isPerpetual) then
 	{
 		_lastTarget = currentAO;
@@ -1056,6 +1434,8 @@ while {count _targets > 0} do
 	
 	//Delete detection trigger and markers
 	deleteVehicle _dt;
+	deleteVehicle _mines;
+	deleteVehicle _minesAT;
 	radioTowerAlive = true;
 	publicVariable "radioTowerAlive";
 	
@@ -1069,12 +1449,11 @@ while {count _targets > 0} do
 		currentAO
 	];
 
-	{_x setMarkerPos [0,0,0];} forEach ["aoCircle","aoMarker","radioMineCircle"];
+	{_x setMarkerPos [0,0,0];} forEach ["aoCircle","aoMarker","radioMineCircle","aoMines"];
 	
 	//Show global target completion hint
 	GlobalHint = _targetCompleteText; publicVariable "GlobalHint"; hint parseText GlobalHint;
 	showNotification = ["CompletedMain", currentAO]; publicVariable "showNotification";
-	[] spawn aw_cleanGroups;
 };
 
 //Set completion text
