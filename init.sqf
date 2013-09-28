@@ -584,8 +584,8 @@ AW_fnc_garrisonBuildings =
 
 AW_fnc_spawnUnits = {
 	
-private ["_randomPos","_spawnGroup","_pos","_x","_armourGroup","_armour","_airGroup","_air","_airType"];
-_pos = getMarkerPos (_this select 0);
+	private ["_randomPos","_spawnGroup","_pos","_x","_armourGroup","_armour","_airGroup","_air","_airType"];
+	_pos = getMarkerPos (_this select 0);
 	_enemiesArray = [grpNull];
 	
 	_x = 0;
@@ -768,7 +768,7 @@ _pos = getMarkerPos (_this select 0);
 		_air = _airType createVehicle [_randomPos select 0,_randomPos select 1,1000];
 		waitUntil{!isNull _air};
 		_air engineOn true;
-		_air lock 3;
+		_air lock 2;
 		_air setPos [_randomPos select 0,_randomPos select 1,300];
 		
 		_air spawn 
