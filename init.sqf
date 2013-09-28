@@ -97,6 +97,7 @@ if(isMultiplayer) then
 
 enableSentences false;
 if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, _name] execVM ""ac\init.sqf"";"; };
+[] spawn { [] execVM "scripts\a3rc_RadioCheck.sqf"; };
 
 "GlobalHint" addPublicVariableEventHandler
 {
