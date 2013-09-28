@@ -1,12 +1,20 @@
 if ( isServer ) exitWith{};
-waitUntil {!isNull player};
 [] spawn {
+	waitUntil { sleep 1; alive player };
 
-	if !( player canAdd "tf_rt1523g" ) then {
-		player globalChat "You can play 15 minutes without Task Force Radio plugin. Visit A3RC.COM for instructions!";
-		sleep 600;
-		player globalChat "5 minutes remains without Task Force Radio plugin. Visit A3RC.COM for instructions!!!";
-		sleep 300;
-		"end1" call BIS_fnc_endMission;
+	if ( isClass(configFile >> "CfgPatches" >> "task_force_radio") ) then {
+		systemChat "Common SW: 123.0, LW: 50.0";
+		//hint "Common SW: 123.0, LW: 50.0";
+	} else {
+		if ( isMultiplayer ) then {
+			systemChat "You can play 15 minutes without Task Force Radio plugin. Visit A3RC.COM for instructions!";
+			sleep 600;
+			systemChat "5 minutes remains without Task Force Radio plugin. Visit A3RC.COM for instructions!!!";
+			sleep 300;
+			"end1" call BIS_fnc_endMission;
+		} else {
+		 	hint "no radio";
+		 	//"end1" call BIS_fnc_endMission;
+		};
 	};
 };

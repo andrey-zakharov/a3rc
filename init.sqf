@@ -97,7 +97,6 @@ if(isMultiplayer) then
 
 enableSentences false;
 if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, _name] execVM ""ac\init.sqf"";"; };
-_handle = [] execVM "scripts\a3rc_RadioCheck.sqf";
 
 "GlobalHint" addPublicVariableEventHandler
 {
@@ -213,6 +212,7 @@ _handle = [] execVM "scripts\a3rc_RadioCheck.sqf";
 /* ================ PLAYER SCRIPTS =============== */
 
 0 = [] execVM 'group_manager.sqf';
+0 = [] execVM 'scripts\a3rc_RadioCheck.sqf';
 _null = [] execVM "restrictions.sqf";
 if (PARAMS_ViewDistance == 1) then { _null = [] execVM "taw_vd\init.sqf"; };
 //if (PARAMS_PilotsOnly == 1) then { _null = [] execVM "pilotCheck.sqf"; };
@@ -301,7 +301,7 @@ if (!isServer) then
 		true
 	];
 };
-
+	
 if (!isServer) exitWith
 {
 	_spawnBuildings = nearestObjects [(getMarkerPos "respawn_west"), ["building"], 1000];
