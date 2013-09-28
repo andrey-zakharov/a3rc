@@ -3286,6 +3286,7 @@ class Mission
 			side="EMPTY";
 			vehicle="I_Heli_Transport_02_F";
 			leader=1;
+			lock="UNLOCKED";
 			skill=0.60000002;
 			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
@@ -3321,6 +3322,7 @@ class Mission
 			id=281;
 			side="EMPTY";
 			vehicle="B_Heli_Light_01_armed_F";
+			lock="UNLOCKED";
 			skill=0.60000002;
 			init="_m = [this,900,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
@@ -4256,7 +4258,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=66;
+		items=75;
 		class Item0
 		{
 			position[]={-1391.4594,-0.01276912,580.14929};
@@ -4747,6 +4749,60 @@ class Mission
 			text="Teamspeak: a3rc.com";
 			type="hd_flag";
 			colorName="ColorBlue";
+		};
+		class Item66
+		{
+			position[]={27134.734,20.842175,21447.895};
+			name="Solar Plant";
+			type="Empty";
+		};
+		class Item67
+		{
+			position[]={12524.764,13.611778,14369.721};
+			name="Neochori";
+			type="Empty";
+		};
+		class Item68
+		{
+			position[]={14167.329,30.682741,18931.922};
+			name="Athira";
+			type="Empty";
+		};
+		class Item69
+		{
+			position[]={12333.306,24.072649,15681.743};
+			name="Lakka";
+			type="Empty";
+		};
+		class Item70
+		{
+			position[]={5073.6318,52.000256,11278.526};
+			name="Panochori";
+			type="Empty";
+		};
+		class Item71
+		{
+			position[]={7108.6621,111.66259,16437.016};
+			name="Kore";
+			type="Empty";
+		};
+		class Item72
+		{
+			position[]={10328.843,127.04337,19067.041};
+			name="Galati";
+			type="Empty";
+		};
+		class Item73
+		{
+			position[]={23207.328,13.939013,19961.721};
+			name="Ioannina";
+			type="Empty";
+		};
+		class Item74
+		{
+			position[]={4872.1123,347.2225,21934.943};
+			name="Thronos";
+			type="Empty";
 		};
 	};
 	class Sensors

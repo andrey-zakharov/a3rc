@@ -53,8 +53,17 @@ private ["_pos","_uavAction","_isAdmin","_i","_isPerpetual","_accepted","_positi
 
 _handle = execVM "aw_functions.sqf";
 waitUntil{scriptDone _handle};
-execVM "changeLog.sqf";
+//execVM "changeLog.sqf";
 _initialTargets = [
+	"Solar Plant",
+	"Neochori",
+	"Athira",
+	"Lakka",
+	"Panochori",
+	"Kore",
+	"Galati",
+	"Ioannina",
+	"Thronos",
 	"Kalochori",
 	"Sofia",
 	"Dome",
@@ -68,19 +77,7 @@ _initialTargets = [
 	"Frini"
 ];
 
-_targets = [
-	"Kalochori",
-	"Sofia",
-	"Dome",
-	"Feres",
-	"Pyrgos",
-	"Skopos",
-	"Neri",
-	"Factory",
-	"Syrta",
-	"Zaros",
-	"Frini"
-];
+_targets = + _initialTargets;
 
 //Grab parameters and put them into readable variables
 for [ {_i = 0}, {_i < count(paramsArray)}, {_i = _i + 1} ] do
@@ -217,7 +214,7 @@ if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, 
 0 = [] execVM 'group_manager.sqf';
 _null = [] execVM "restrictions.sqf";
 if (PARAMS_ViewDistance == 1) then { _null = [] execVM "taw_vd\init.sqf"; };
-if (PARAMS_PilotsOnly == 1) then { _null = [] execVM "pilotCheck.sqf"; };
+//if (PARAMS_PilotsOnly == 1) then { _null = [] execVM "pilotCheck.sqf"; };
 if (PARAMS_SpawnProtection == 1) then { _null = [] execVM "grenadeStop.sqf"; };
 if (PARAMS_ReviveEnabled == 1) then 
 {
@@ -826,7 +823,7 @@ _pos = getMarkerPos (_this select 0);
 	{
 		_newGrp = [_x] call AW_fnc_garrisonBuildings;
 		if (!isNull _newGrp) then { _enemiesArray = _enemiesArray + [_newGrp]; };
-	} forEach (getMarkerPos currentAO nearObjects ["House", 600]);
+	} forEach (getMarkerPos currentAO nearEntities ["House", 600]);
 	
 	_enemiesArray
 };
