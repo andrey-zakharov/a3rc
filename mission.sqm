@@ -724,7 +724,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=318;
+		items=319;
 		class Item0
 		{
 			position[]={15246.208,-0.0082027912,14204.392};
@@ -4254,6 +4254,17 @@ class Mission
 			skill=0.60000002;
 			text="rearm2_1_1_2";
 			init="this allowdamage false;";
+		};
+		class Item318
+		{
+			position[]={14820.006,17.91,16843.283};
+			azimut=220;
+			id=361;
+			side="EMPTY";
+			vehicle="B_supplyCrate_F";
+			skill=0.60000002;
+			text="ammo1_1";
+			init="this addAction[""<t color='#ff1111'>Virtual Ammobox</t>"", ""VAS\open.sqf""]; this allowDamage false";
 		};
 	};
 	class Markers
