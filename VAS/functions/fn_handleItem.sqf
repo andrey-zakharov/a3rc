@@ -1,8 +1,8 @@
 /*
-	@version: 1.7
+	@version: 2.0
 	@file_name: fn_handleItem.sqf
 	@file_author: TAW_Tonic
-	@file_edit: 8/2/2013
+	@file_edit: 8/27/2013
 	@file_description: Handles the incoming requests and adds or removes it, returns true if operation done sucessfully or false for failing.
 */
 private["_item","_details","_bool","_ispack","_items","_isgun","_ongun","_override"];
@@ -19,10 +19,20 @@ _isgun = false;
 _details = [_item] call VAS_fnc_fetchCfgDetails;
 if(count _details == 0) exitWith {};
 
+//First check for restricted items
 if(
 (_item in VAS_r_weapons) OR (_item in VAS_r_backpacks) OR (_item in VAS_r_magazines) OR (_item in VAS_r_items) OR (_item in VAS_r_glasses) OR
 ((_details select 13) in VAS_r_weapons) OR ((_details select 13) in VAS_r_backpacks) OR ((_details select 13) in VAS_r_magazines) OR ((_details select 13) in VAS_r_items) OR ((_details select 13) in VAS_r_glasses)
-) exitWith {systemChat format["%1 is a restricted item and will be not added.",(_details select 1)];};
+) exitWith {systemChat format["%1 %2",_details select 1,localize "STR_VAS_Main_restricted"];};
+
+//Second check for restricted items
+if(
+(count VAS_weapons > 0 && !(_item in VAS_weapons)) &&
+(count VAS_items > 0 && !(_item in VAS_items)) &&
+(count VAS_backpacks > 0 && !(_item in VAS_backpacks)) &&
+(count VAS_magazines > 0 && !(_item in VAS_magazines)) &&
+(count VAS_glasses > 0 && !(_item in VAS_glasses))
+) exitWith {systemChat format["%1 %2",_details select 1,localize "STR_VAS_Main_restricted"]};
 
 if(_bool) then
 {
@@ -30,11 +40,25 @@ if(_bool) then
 	{
 		case "CfgGlasses":
 		{
-			if(goggles player != "") then
+			if(_ispack) then
 			{
-				removeGoggles player;
+				(unitBackpack player) addItemCargoGlobal [_item,1];
+			}
+				else
+			{
+				if(_override) then
+				{
+					player addItem _item;
+				}
+					else
+				{
+					if(goggles player != "") then
+					{
+						removeGoggles player;
+					};
+					player addGoggles _item;
+				};
 			};
-			player addGoggles _item;
 		};
 		
 		case "CfgVehicles":
@@ -45,6 +69,7 @@ if(_bool) then
 				removeBackpack player;
 			};
 			player addBackpack _item;
+			clearAllItemsFromBackpack player;
 			if(!isNil {_items}) then 
 			{ 
 				{[_x,true,true,false,true] spawn VAS_fnc_handleItem; } foreach _items;
@@ -259,7 +284,7 @@ if(_bool) then
 								}
 									else
 								{
-									createDialog "VAS_prompt";
+									[] call VAS_fnc_accPrompt;
 									waitUntil {!isNil {vas_prompt_choice}};
 									if(vas_prompt_choice) then
 									{
@@ -308,7 +333,7 @@ if(_bool) then
 								}
 									else
 								{
-									createDialog "VAS_prompt";
+									[] call VAS_fnc_accPrompt;
 									waitUntil {!isNil {vas_prompt_choice}};
 									if(vas_prompt_choice) then
 									{
@@ -357,7 +382,7 @@ if(_bool) then
 								}
 									else
 								{
-									createDialog "VAS_prompt";
+									[] call VAS_fnc_accPrompt;
 									waitUntil {!isNil {vas_prompt_choice}};
 									if(vas_prompt_choice) then
 									{
@@ -378,6 +403,46 @@ if(_bool) then
 						};
 					};
 					
+					case 621:
+					{
+						if(_ispack) then
+						{
+							(unitBackpack player) addItemCargoGlobal [_item,1];
+						}
+							else
+						{
+							if(_override) then
+							{
+								player addItem _item;
+							}
+								else
+							{
+								player addItem _item;
+								player assignItem _item;
+							};
+						};
+					};
+					
+					case 616:
+					{
+						if(_ispack) then
+						{
+							(unitBackpack player) addItemCargoGlobal [_item,1];
+						}
+							else
+						{
+							if(_override) then
+							{
+								player addItem _item;
+							}
+								else
+							{
+								player addItem _item;
+								player assignItem _item;
+							};
+						};
+					};
+					
 					default 
 					{ 
 						if(_ispack) then 
@@ -386,15 +451,7 @@ if(_bool) then
 						} 
 							else 
 						{
-							if(_item == "NVGoggles") then
-							{
-								player addItem _item;
-								player assignItem _item;
-							}
-								else
-							{
-								player addItem _item;
-							};
+							player addItem _item;
 						};
 					};
 				};
@@ -418,7 +475,14 @@ if(_bool) then
 		
 		case "CfgGlasses":
 		{
-			removeGoggles player;
+			if(_item == goggles player) then
+			{
+				removeGoggles player;
+			}
+				else
+			{
+				player removeItem _item;
+			};
 		};
 		
 		case "CfgWeapons":
@@ -484,13 +548,14 @@ if(_bool) then
 					case 605: {if(headGear player == _item) then {removeHeadgear player} else {player removeItem _item};};
 					case 801: {if(uniform player == _item) then {removeUniform player} else {player removeItem _item};};
 					case 701: {if(vest player == _item) then {removeVest player} else {player removeItem _item};};
+					case 621: {player unassignItem _item; player removeItem _item;};
+					case 616: {player unassignItem _item; player removeItem _item;};
 					default 
 					{
 						switch (true) do
 						{
 							case (_item in (primaryWeaponItems player)) : {player removePrimaryWeaponItem _item;};
 							case (_item in (handgunItems player)) : {player removeHandgunItem _item;};
-							case (_item == "NVGoggles") : {player unassignItem _item; player removeItem _item;};
 							default {player removeItem _item;};
 						};
 					};
