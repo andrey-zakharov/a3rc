@@ -96,7 +96,7 @@ while {_run} do
 		if ((getPosASL _unit distance _position > 10) and ({alive _x} count crew _unit == 0) and (getDammage _unit < 0.8) and !_nearPlayers) then 
 		{
 			_timeout = time + _deserted;
-			sleep 0.1;
+			sleep 0.5;
 		 	waitUntil {_timeout < time or !alive _unit or {alive _x} count crew _unit > 0};
 			if ({alive _x} count crew _unit > 0) then {_dead = false}; 
 			if ({alive _x} count crew _unit == 0) then {_dead = true; _nodelay =true}; 
