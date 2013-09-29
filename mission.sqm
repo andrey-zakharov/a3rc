@@ -499,7 +499,7 @@ class Mission
 				class Item5
 				{
 					position[]={14644.238,17.91,16785.703};
-					azimut=-263.94608;
+					azimut=-263.94601;
 					special="NONE";
 					id=29;
 					side="WEST";
@@ -623,7 +623,6 @@ class Mission
 					id=37;
 					side="WEST";
 					vehicle="B_Helipilot_F";
-					player="PLAYER COMMANDER";
 					rank="SERGEANT";
 					skill=0.60000002;
 					description="Vortex Pilot (TS3: a3rc.com)";
@@ -724,7 +723,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=319;
+		items=321;
 		class Item0
 		{
 			position[]={15246.208,-0.0082027912,14204.392};
@@ -2385,7 +2384,7 @@ class Mission
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo1";
-			init="this addAction[""<t color='#ff1111'>Virtual Ammobox</t>"", ""VAS\open.sqf""]; this allowDamage false";
+			init="this addAction[""<t color='#15CC00'>Взять Рацию КВ 148</t>"", ""addradio148.sqf""]; this addAction[""<t color='#15CC00'>Взять Рацию ДВ 119</t>"", ""addradio119.sqf""]; this addAction[""<t color='#ff1111'>Virtual Ammobox</t>"", ""VAS\open.sqf""]; this allowDamage false";
 		};
 		class Item152
 		{
@@ -2407,18 +2406,18 @@ class Mission
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo4";
-			init="this addAction[""<t color='#ff1111'>Virtual Ammobox</t>"", ""VAS\open.sqf""]; this allowDamage false";
+			init="this addAction[""<t color='#15CC00'>Взять Рацию КВ 148</t>"", ""addradio148.sqf""]; this addAction[""<t color='#15CC00'>Взять Рацию ДВ 119</t>"", ""addradio119.sqf""]; this addAction[""<t color='#ff1111'>Virtual Ammobox</t>"", ""VAS\open.sqf""]; this allowDamage false";
 		};
 		class Item154
 		{
 			position[]={14647.705,17.91,16797.311};
-			azimut=401.21671;
+			azimut=401.21701;
 			id=197;
 			side="EMPTY";
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo3";
-			init="this addAction[""<t color='#ff1111'>Virtual Ammobox</t>"", ""VAS\open.sqf""];";
+			init="this addAction[""<t color='#ff1111'>Virtual Ammobox</t>"", ""VAS\open.sqf""]; this addAction[""<t color='#15CC00'>Взять Рацию КВ 148</t>"", ""addradio148.sqf""]; this addAction[""<t color='#15CC00'>Взять Рацию ДВ 119</t>"", ""addradio119.sqf""];";
 		};
 		class Item155
 		{
@@ -2429,7 +2428,7 @@ class Mission
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo5";
-			init="this addAction[""<t color='#ff1111'>Virtual Ammobox</t>"", ""VAS\open.sqf""]; this allowDamage false";
+			init="this addAction[""<t color='#15CC00'>Взять Рацию КВ 148</t>"", ""addradio148.sqf""]; this addAction[""<t color='#15CC00'>Взять Рацию ДВ 119</t>"", ""addradio119.sqf""]; this addAction[""<t color='#ff1111'>Virtual Ammobox</t>"", ""VAS\open.sqf""]; this allowDamage false";
 		};
 		class Item156
 		{
@@ -4254,6 +4253,30 @@ class Mission
 			skill=0.60000002;
 			text="rearm2_1_1_2";
 			init="this allowdamage false;";
+		};
+		class Item319
+		{
+			position[]={14629.076,17.91,16783.221};
+			azimut=-46.676918;
+			offsetY=5;
+			special="NONE";
+			id=362;
+			side="EMPTY";
+			vehicle="UserTexture10m_F";
+			skill=0.60000002;
+			init="this setObjectTexture [0, ""1.jpg""]";
+		};
+		class Item320
+		{
+			position[]={14641.416,17.91,16795.559};
+			azimut=-46.676918;
+			offsetY=5;
+			special="NONE";
+			id=363;
+			side="EMPTY";
+			vehicle="UserTexture10m_F";
+			skill=0.60000002;
+			init="this setObjectTexture [0, ""2.jpg""]";
 		};
 		class Item318
 		{
