@@ -769,7 +769,7 @@ AW_fnc_spawnUnits = {
 		_air = _airType createVehicle [_randomPos select 0,_randomPos select 1,1000];
 		waitUntil{!isNull _air};
 		_air engineOn true;
-		_air lock 2;
+		_air lock 1;
 		_air setPos [_randomPos select 0,_randomPos select 1,300];
 		0 = [_air] execVM "scripts\a3rc_heliForPilots.sqf";
 		
