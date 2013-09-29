@@ -83,8 +83,8 @@ class Mission
 	randomSeed=12935265;
 	class Intel
 	{
-		briefingName="co40 AW Invade & Annex -ALTIS- 2.52 (a3rc edit v0.9)";
-		overviewText="co40 AW Invade & Annex -ALTIS- 2.52 (a3rc edit v0.9)";
+		briefingName="co40 AW Invade & Annex -ALTIS- 2.52 (a3rc edit v0.10)";
+		overviewText="co40 AW Invade & Annex -ALTIS- 2.52 (a3rc edit v0.10)";
 		timeOfChanges=28800;
 		startWeather=0.099999994;
 		startWind=0.07;
