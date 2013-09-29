@@ -2,8 +2,8 @@ if ( isServer ) exitWith{};
 [] spawn {
 	waitUntil { sleep 1; alive player };
 
-	if ( isClass(configFile >> "CfgPatches" >> "task_force_radio") ) then {
-		systemChat "Common SW: 123.0, LW: 50.0";
+	if ( isClass(configfile >> "CfgPatches" >> "acre_sys_radio") ) then {
+		//systemChat "Common SW: 123.0, LW: 50.0";
 		//hint "Common SW: 123.0, LW: 50.0";
 	} else {
 		if ( isMultiplayer ) then {

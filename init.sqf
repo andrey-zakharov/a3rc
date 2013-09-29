@@ -771,7 +771,7 @@ AW_fnc_spawnUnits = {
 		_air engineOn true;
 		_air lock 2;
 		_air setPos [_randomPos select 0,_randomPos select 1,300];
-		0 = [_air] execVM "scripts/a3rc_heliForPilots.sqf";
+		0 = [_air] execVM "scripts\a3rc_heliForPilots.sqf";
 		
 		_air spawn 
 		{
