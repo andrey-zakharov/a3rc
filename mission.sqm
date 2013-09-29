@@ -624,6 +624,7 @@ class Mission
 					id=37;
 					side="WEST";
 					vehicle="B_Helipilot_F";
+					player="PLAY CDG";
 					rank="SERGEANT";
 					skill=0.60000002;
 					description="Vortex Pilot (TS3: a3rc.com)";
