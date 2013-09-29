@@ -25,7 +25,7 @@ if (!isServer && isNull player) then {isJIP=true;} else {isJIP=false;};
 if (!isDedicated) then {waitUntil {!isNull player && isPlayer player};};
 
 #define WELCOME_MESSAGE	"Welcome to Ahoy World's Invade & Annex ~ALTIS~\n" +\
-						"by Rarek (Ahoy World) edit by iBolit (A3RC)\n\n" +\
+						"by Rarek (Ahoy World) edited by Arma3 Russian Community\n\n" +\
 						"www.a3rc.com\n\n" +\
 						"TeamSpeak:\n" +\
 						"a3rc.com"
