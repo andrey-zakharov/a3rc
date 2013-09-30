@@ -4276,7 +4276,7 @@ class Mission
 			side="EMPTY";
 			vehicle="UserTexture10m_F";
 			skill=0.60000002;
-			init="this setObjectTexture [0, ""1.jpg""]";
+			init="this setObjectTexture [0, ""signs\a3rc_1.paa""]";
 		};
 		class Item320
 		{
@@ -4288,7 +4288,7 @@ class Mission
 			side="EMPTY";
 			vehicle="UserTexture10m_F";
 			skill=0.60000002;
-			init="this setObjectTexture [0, ""2.jpg""]";
+			init="this setObjectTexture [0, ""signs\a3rc_2.paa""]";
 		};
 		class Item321
 		{
