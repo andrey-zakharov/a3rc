@@ -23,6 +23,25 @@ player createDiaryRecord ["changeLog", ["I & A Mission Change Log",
 <br />- [Added] Opfor now have AA vehicles and Tanks. (configurable in parameters)
 <br />- [Changed] Side mission rewards- Added Buzzard, Greyhawk, Slammer -
 <br />- [Removed] Uav terminals from VAS. Only Haymaker can control UAV's now.
-<br />- [Added] Artillery at "Trenchfoot"
+<br />- [Added] Artillery at ""Trenchfoot""
 <br />- Tweaked some behind the scenes coding
+"]];
+
+player createDiarySubject ["changeLog", "Change Log"];
+player createDiaryRecord ["changeLog", ["A3RC Change Log", 
+"
+<br /> V 0.11
+<br />- добавлены командиры к артиллерии - арта будет огрызаться турелями
+<br />- сайда ""поговорить с контактом""
+<br />- больше разных наград за вторичные миссии - Cheetah, Sandstorm, Gorgon, Strider GMG
+<br />- Вражеские вертушки разлочены
+<br />- поддержка раций ACRE
+<br />
+<br /> V 0.10
+<br />- Второй пилот не может сесть в AH-9 без первого.
+<br />- Изменен респ пилотов и добавлен ящик для них
+<br />- Больше локаций для главных миссий
+<br />- обновлен virtual ammo box
+<br />- настройки по умолчанию
+<br />- Ahoy World обновлен до 2.52
 "]];
