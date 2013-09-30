@@ -108,7 +108,9 @@ while {true} do
 	priorityVeh1 addEventHandler["GetIn",{if (isPlayer (gunner priorityVeh1)) then { priorityVeh1 setVehicleAmmo 0; };}];
 	priorityVeh2 addEventHandler["GetIn",{if (isPlayer (gunner priorityVeh2)) then { priorityVeh2 setVehicleAmmo 0; };}];	
 	"O_Soldier_F" createUnit [_flatPosAlt, _priorityGroup, "priorityTarget1 = this; this moveInGunner priorityVeh1;"];
+	"O_Soldier_SL_F" createUnit [_flatPosAlt, _priorityGroup, "this moveInCommander priorityVeh1;"];
 	"O_Soldier_F" createUnit [_flatPosClose, _priorityGroup, "priorityTarget2 = this; this moveInGunner priorityVeh2;"];
+	"O_Soldier_SL_F" createUnit [_flatPosClose, _priorityGroup, "this moveInCommander priorityVeh2;"];
 	waitUntil {alive priorityTarget1 && alive priorityTarget2};
 	priorityTargets = [priorityTarget1, priorityTarget2];
 	{ publicVariable _x; } forEach ["priorityTarget1", "priorityTarget2", "priorityTargets", "priorityVeh1", "priorityVeh2"];
