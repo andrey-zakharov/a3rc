@@ -53,7 +53,7 @@ private ["_pos","_uavAction","_isAdmin","_i","_isPerpetual","_accepted","_positi
 
 _handle = execVM "aw_functions.sqf";
 waitUntil{scriptDone _handle};
-//execVM "changeLog.sqf";
+execVM "changeLog.sqf";
 _initialTargets = [
 	"Solar Plant",
 	"Neochori",
