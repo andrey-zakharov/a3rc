@@ -23,6 +23,7 @@ private ["_firstRun","_mission","_isGroup","_obj","_skipTimer","_awayFromBase","
 _sideMissions = 
 
 [
+	"talkToContact",
 	"destroyChopper",
 	"destroySmallRadar",
 	"destroyExplosivesCoast"
