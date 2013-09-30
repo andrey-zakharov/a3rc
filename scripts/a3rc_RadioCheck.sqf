@@ -1,15 +1,15 @@
 if ( isServer ) exitWith{};
 [] spawn {
-	waitUntil { sleep 1; alive player };
+	waitUntil { sleep 15; alive player };
 
 	if ( isClass(configfile >> "CfgPatches" >> "acre_sys_radio") ) then {
 		//systemChat "Common SW: 123.0, LW: 50.0";
-		//hint "Common SW: 123.0, LW: 50.0";
+		hint parseText localize "STR_RADIO_HINT";
 	} else {
 		if ( isMultiplayer ) then {
-			systemChat "You can play 15 minutes without Task Force Radio plugin. Visit A3RC.COM for instructions!";
+			titleText [ localize "STR_NO_RADIO_15MINS", "PLAIN" ];
 			sleep 600;
-			systemChat "5 minutes remains without Task Force Radio plugin. Visit A3RC.COM for instructions!!!";
+			titleText [ localize "STR_NO_RADIO_5MINS", "PLAIN" ];
 			sleep 300;
 			"end1" call BIS_fnc_endMission;
 		} else {
