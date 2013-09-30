@@ -4615,7 +4615,7 @@ class Mission
 		{
 			position[]={15429.418,0.049360938,15780.208};
 			name="B2";
-			text="Assualt Boats";
+			text="Assault Boats";
 			type="c_ship";
 			colorName="ColorBLUFOR";
 			angle=-21.099985;
