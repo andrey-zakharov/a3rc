@@ -401,3 +401,20 @@
 		</Key>
 	</Package>
 </Project>
+
+<Project name="A3RC">
+	<Package name="Main">
+		<Key ID="STR_NO_RADIO_15MINS">
+			<Original>You can play 15 minutes without Task Force Radio plugin. Visit A3RC.COM for instructions!</Original>
+			<Russian>У вас нет радио плагина. Через 15 минут игры миссия закончится, чтобы у вас было время установить радио. Подробности на a3rc.com</Russian>
+		</Key>
+		<Key ID="STR_NO_RADIO_5MINS">
+			<Original>5 minutes remains without Task Force Radio plugin. Visit A3RC.COM for instructions!!!</Original>
+			<Russian>Осталось 5 минут игры без в молчании без радио плагина. Инструкции на a3rc.com!</Russian>
+		</Key>
+		<Key ID="STR_RADIO_HINT">
+			<Original>Don't forget to turn transmit power of your radio: alt+shift+1 (or 2), ctrl+shift+x, [mode], [mode], [up] until 5000, [OK], Esc.</Original>
+			<Russian>Не забудьте увеличить мощность дальнего радио: <t color='#ffff00'>alt+shift+1</t> (или 2), <t color='#ffff00'>ctrl+shift+x</t>, [mode], [mode], [up] до 5000, [OK], <t color='#ffff00'>Esc</t>.</Russian>
+
+	</Package>
+</Project>
