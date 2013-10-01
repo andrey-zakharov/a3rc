@@ -26,12 +26,12 @@ while {true} do {
 		if(side _x == playerSide) then {
 			if((crew vehicle _x) select 0 == _x) then {
 				_show = true;
-			};	    
+			};
 			if(!alive _x || damage _x > 0.9) then {
 				_injured = true;
 			};      
 			if(!isNil {_x getVariable "BTC_need_revive"}) then {
-				if(_x getVariable "BTC_need_revive" select 0 == 1) then {
+				if(_x getVariable "BTC_need_revive" == 1) then {
 					_show = false;
 				};    
 			};      
