@@ -1,6 +1,6 @@
 //if (PARAMS_PilotsOnly == 0 )  exitWith {};
 private ["_unit", "_v", "_pl"];
-_unit = _this select 0;
+_unit = _this;
 
 //_classes = [
 //	"B_Helipilot_F"
