@@ -409,12 +409,16 @@
 			<Russian>У вас нет радио плагина. Через 15 минут игры миссия закончится, чтобы у вас было время установить радио. Подробности на a3rc.com</Russian>
 		</Key>
 		<Key ID="STR_NO_RADIO_5MINS">
-			<Original>5 minutes remains without Task Force Radio plugin. Visit A3RC.COM for instructions!!!</Original>
-			<Russian>Осталось 5 минут игры без в молчании без радио плагина. Инструкции на a3rc.com!</Russian>
+			<Original>5 minutes remains without Task Force Radio plugin. Visit <t color='#20ff20'>A3RC.COM</t> for instructions!!!</Original>
+			<Russian>Осталось 5 минут игры без в молчании без радио плагина. Инструкции на <t color='#20ff20'>a3rc.com</t>!</Russian>
 		</Key>
 		<Key ID="STR_RADIO_HINT">
-			<Original>Don't forget to turn transmit power of your radio: alt+shift+1 (or 2), ctrl+shift+x, [mode], [mode], [up] until 5000, [OK], Esc.</Original>
-			<Russian>Не забудьте увеличить мощность дальнего радио: <t color='#ffff00'>alt+shift+1</t> (или 2), <t color='#ffff00'>ctrl+shift+x</t>, [mode], [mode], [up] до 5000, [OK], <t color='#ffff00'>Esc</t>.</Russian>
-
+			<Original>Don't forget to turn transmit power of your radio: <t color='#ffff00'>alt+shift+1</t> (or 2), <t color='#ffff00'>ctrl+shift+x</t>, [mode], [mode], [up] until 5000, [OK], <t color='#ffff00'>Esc</t>.</Original>
+			<Russian>Не забудьте увеличить мощность дальнего радио: <t color='#ffff00'>alt+shift+1</t> (или 2), <t color='#ffff00'>ctrl+shift+x</t>, [mode], [mode], [up] до 3000-5000, [OK], <t color='#ffff00'>Esc</t>.</Russian>
+		</Key>
+		<Key ID="STR_NO_RADIO_PILOT">
+			<Original>You cannot play for pilot without radio! Please, install radio plugin and come again. Mission will end at 10 seconds.</Original>
+			<Russian>Вы не можете играть пилотом без плагина рации. Пожалуйста, установите плагин рации и приходите к нам опять. Миссия закончится через 10 секунд.</Russian>
+		</Key>
 	</Package>
 </Project>
