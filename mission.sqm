@@ -83,8 +83,8 @@ class Mission
 	randomSeed=12935265;
 	class Intel
 	{
-		briefingName="co40 AW Invade & Annex -ALTIS- 2.52 (a3rc edit v0.10)";
-		overviewText="co40 AW Invade & Annex -ALTIS- 2.52 (a3rc edit v0.10)";
+		briefingName="co40 AW Invade & Annex -ALTIS- 2.52 (a3rc edit v0.11)";
+		overviewText="co40 AW Invade & Annex -ALTIS- 2.52 (a3rc edit v0.11)";
 		timeOfChanges=28800;
 		startWeather=0.099999994;
 		startWind=0.07;
@@ -4784,7 +4784,7 @@ class Mission
 		{
 			position[]={14857.276,0.055303276,24799.09};
 			name="RTS";
-			text="We use Task Force Radio plugin";
+			text="Мы играем с ACRE радио. Подробности a3rc.com/forum";
 			type="hd_flag";
 			colorName="ColorBlue";
 		};
