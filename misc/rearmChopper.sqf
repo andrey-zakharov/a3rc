@@ -24,7 +24,7 @@ _veh = _this select 0;
 _vehType = getText(configFile>>"CfgVehicles">>typeOf _veh>>"DisplayName");
 
 if (_veh isKindOf "ParachuteBase" || !alive _veh) exitWith {};
-if !((_veh isKindOf "Helicopter" ) or (_veh isKindOf "plane")) exitWith { _veh vehicleChat "This pad is for chopper repairs only, soldier!"; };
+if !(_veh isKindOf "Helicopter") exitWith { _veh vehicleChat "This pad is for chopper repairs only, soldier!"; };
 
 _fuelLevel = fuel _veh;
 _damage = getDammage _veh;
@@ -46,7 +46,7 @@ if (count _magazines > 0) then {
 	} forEach _magazines;
 	{
 		_veh vehicleChat format ["Reloading %1", _x];
-		sleep 0.05;
+		sleep 0.1;
 		_veh addMagazine _x;
 	} forEach _magazines;
 };
@@ -67,9 +67,9 @@ if (_count > 0) then {
 		} forEach _magazines;
 		{
 			_veh vehicleChat format ["Reloading %1", _x];
-			sleep 0.05;
+			sleep 0.1;
 			_veh addMagazine _x;
-			sleep 0.05;
+			sleep 0.1;
 		} forEach _magazines;
 		_count_other = count (_config >> "Turrets");
 		if (_count_other > 0) then {
@@ -85,9 +85,9 @@ if (_count > 0) then {
 				} forEach _magazines;
 				{
 					_veh vehicleChat format ["Reloading %1", _x]; 
-					sleep 0.05;
+					sleep 0.1;
 					_veh addMagazine _x;
-					sleep 0.05;
+					sleep 0.1;
 				} forEach _magazines;
 			};
 		};
@@ -96,11 +96,15 @@ if (_count > 0) then {
 _veh setVehicleAmmo 1;	// Reload turrets / drivers magazine
 
 
+
+
+
+
 _veh vehicleChat format ["Repairing and refuelling %1. Stand by...", _vehType];
 
 while {_damage > 0} do
 {
-	sleep 0.5;
+	sleep (1 + (random 6));
 	_percentage = 100 - (_damage * 100);
 	_veh vehicleChat format ["Repairing (%1%)...", floor _percentage];
 	if ((_damage - 0.01) <= 0) then
@@ -117,7 +121,7 @@ _veh vehicleChat "Repaired (100%).";
 
 while {_fuelLevel < 1} do
 {
-	sleep 0.5;
+	sleep (1 + (random 2));
 	_percentage = (_fuelLevel * 100);
 	_veh vehicleChat format["Refuelling (%1%)...", floor _percentage];
 	if ((_fuelLevel + 0.01) >= 1) then

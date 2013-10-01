@@ -111,25 +111,13 @@ while {_run} do
 		if (_dynamic) then {_position = getPosASL _unit; _dir = getDir _unit;};
 		if (_explode) then {_effect = "M_AT" createVehicle getPosASL _unit; _effect setPosASL getPosASL _unit;};
 		sleep 0.1;
-		
-
 
 		deleteVehicle _unit;
 		sleep 2;
 		_unit = _type createVehicle _position;
-		_unit setPosASL [_position select 0,_position select 1,(_position select 2) + 0.2];
+		_unit setPosASL _position;
 		_unit setDir _dir;
-		
-		if(_unitname != "") then 
-		{
-			_unit  setVehicleVarName (format ["%1",_unitname]);
-			PublicVariable (format ["%1",_unitname]);
-		};
-		processInitCommands;
-		
-		[[[_unit],"scripts\aw_unitSetup.sqf"],"BIS_fnc_execVM",nil,true] spawn BIS_fnc_MP;
-		//if(isServer) then {[_unit] execVM "scripts\aw_markerFollow.sqf"};
-		
+
 		_dead = false;
 
 		// Check respawn amount

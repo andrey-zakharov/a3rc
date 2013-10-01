@@ -52,7 +52,7 @@ class Params
 		title = "Time of Day";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
 		texts[] = {"00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"};
-		default = 8;
+		default = 14;
 	};
 	
 	class Weather
@@ -65,7 +65,7 @@ class Params
 	
 	class EnemyLeftThreshhold
 	{
-		title = "Enemy Left Threshold";
+		title = "Enemy Left Threshhold";
 		values[] = {1,2,3,4,5,6,7,8,9,10};
 		texts[] = {"1","2","3","4","5","6","7","8","9","10"};
 		default = 5;
@@ -76,7 +76,7 @@ class Params
 		title = "Chance for minefield to spawn around Radio Tower?";
 		values[] = {0,1,2,3,4,5,6,7,8,9,11};
 		texts[] = {"0%","10%","20%","30%","40%","50%","60%","70%","80%","90%","100%"};
-		default = 0;
+		default = 4;
 	};
 
 	class SideMissions
@@ -100,7 +100,7 @@ class Params
 		title = "MINIMUM Time between Priority Target actions";
 		values[] = {30,60,120,180,240,300,600,900};
 		texts[] = {"30 seconds","1 minute","2 minutes","3 minutes","4 minutes","5 minutes","10 minutes","15 minutes"};
-		default = 120;
+		default = 60;
 	};
 
 	class PriorityTargetTickTimeMax
@@ -108,7 +108,7 @@ class Params
 		title = "MAXIMUM Time between Priority Target actions";
 		values[] = {30,60,120,180,240,300,600,900};
 		texts[] = {"30 seconds","1 minute","2 minutes","3 minutes","4 minutes","5 minutes","10 minutes","15 minutes"};
-		default = 240;
+		default = 120;
 	};
 
 	class PriorityTargetTickWarning
@@ -188,7 +188,7 @@ class Params
 		title = "Spawn random wrecks across the island?";
 		values[] = {1,0};
 		texts[] = {"Yes","No"};
-		default = 0;
+		default = 1;
 	};
 	
 	class SquadsPatrol
@@ -196,7 +196,7 @@ class Params
 		title = "Squads Patrolling AO";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 		texts[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
-		default = 4;
+		default = 8;
 	};
 	
 	class SquadsDefend
@@ -212,7 +212,7 @@ class Params
 		title = "Teams Patrolling AO";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 		texts[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
-		default = 4;
+		default = 3;
 	};
 	
 	class CarsPatrol
@@ -220,36 +220,20 @@ class Params
 		title = "Motorised Infantry Patrolling AO";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 		texts[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
-		default = 1;
+		default = 3;
 	};
-	
+	/* //Commented out by noms, unfinished/not working
 	class ArmourPatrol
 	{
 		title = "Armoured Vehicles Patrolling AO";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 		texts[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
-		default = 4;
+		default = 2;
 	};
-			
-	class AirPatrol
-	{
-		title = "Air Vehicles Patrolling AO";
-		values[] = {0,1,2,3,4,5,6,7,8,9,10};
-		texts[] = {1,2,3,4,5,6,7,8,9,10};
-		default = 10;
-	};
-	
+	*/
 	class AhoyCoinIntegration
 	{
 		title = "Enable Ahoy Coin Integration? (Only enable if you are an official Ahoy World server)";
-		values[] = {1,0};
-		texts[] = {"Enable","Disable"};
-		default = 0;
-	};
-	
-	class DebugMode
-	{
-		title = "Enable Debug Mode";
 		values[] = {1,0};
 		texts[] = {"Enable","Disable"};
 		default = 0;
@@ -373,12 +357,9 @@ class CfgNotifications
 	};
 	
 	class contactDestroySmallRadar
-
 	{
 		name = "Contact: Destroy Small Radar";
 		sound[] = {"sm\contact_sounds\contactDestroySmallRadar.ogg", db+50, 1};
-
-
 		titles[] = {};
 	};
 }; */
@@ -388,7 +369,6 @@ author = Rarek [AW];
 onLoadName = "AW Invade & Annex";
 loadScreen = "awMissionLogo.jpg";
 OnLoadMission = "A custom-made domination-esque mission for ArmA 3, Ahoy World Invade &amp; Annex is lovingly crafted by Rarek. To follow / aid in the development of this mission, please sign up to www.AhoyWorld.co.uk and join us on TeamSpeak at ts.ahoyworld.co.uk:9987.";
-
 
 respawn = BASE;
 respawnDelay = 4;

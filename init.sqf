@@ -18,18 +18,12 @@ This version of Domination was lovingly crafted by
 Jack Williams (Rarek) for Ahoy World!
 */
 
-// JIP Check (This code should be placed first line of init.sqf file)
-if (!isServer && isNull player) then {isJIP=true;} else {isJIP=false;};
-
-// Wait until player is initialized
-if (!isDedicated) then {waitUntil {!isNull player && isPlayer player};};
-
-#define WELCOME_MESSAGE	"Welcome to Ahoy World's Invade & Annex ~ALTIS~\n" +\
+#define WELCOME_MESSAGE	"Welcome to Ahoy World's Invade & Annex\n" +\
 						"by Rarek (Ahoy World)\n\n" +\
 						"To follow / aid in the development of this map, please register at\n" +\
 						"www.AhoyWorld.co.uk\n\n" +\
 						"...and feel free to join us on TeamSpeak at\n" +\
-						"ts.ahoyworld.co.uk"
+						"ts.ahoyworld.co.uk:9987"
 					
 					
 /* =============================================== */
@@ -51,35 +45,24 @@ if (!isDedicated) then {waitUntil {!isNull player && isPlayer player};};
 
 private ["_pos","_uavAction","_isAdmin","_i","_isPerpetual","_accepted","_position","_randomWreck","_firstTarget","_validTarget","_targetsLeft","_flatPos","_targetStartText","_lastTarget","_targets","_dt","_enemiesArray","_radioTowerDownText","_targetCompleteText","_null","_unitSpawnPlus","_unitSpawnMinus","_missionCompleteText"];
 
-_handle = execVM "aw_functions.sqf";
-waitUntil{scriptDone _handle};
-execVM "changeLog.sqf";
 _initialTargets = [
-	"Kalochori",
-	"Sofia",
-	"Dome",
-	"Feres",
-	"Pyrgos",
-	"Skopos",
-	"Neri",
-	"Factory",
-	"Syrta",
-	"Zaros",
-	"Frini"
+	"Agia Marina and Firing Range",
+	"Camp Rogain",
+	"Kamino Firing Range",
+	"Air Station Mike 26",
+	"Camp Maxwell",
+	"Girna",
+	"Camp Tempest"
 ];
 
 _targets = [
-	"Kalochori",
-	"Sofia",
-	"Dome",
-	"Feres",
-	"Pyrgos",
-	"Skopos",
-	"Neri",
-	"Factory",
-	"Syrta",
-	"Zaros",
-	"Frini"
+	"Agia Marina and Firing Range",
+	"Camp Rogain",
+	"Kamino Firing Range",
+	"Air Station Mike 26",
+	"Camp Maxwell",
+	"Girna",
+	"Camp Tempest"
 ];
 
 //Grab parameters and put them into readable variables
@@ -93,12 +76,6 @@ for [ {_i = 0}, {_i < count(paramsArray)}, {_i = _i + 1} ] do
 	];
 };
 
-if(isMultiplayer) then 
-{
-	if(PARAMS_DebugMode == 1) then {DEBUG = true} else {DEBUG = false};
-} else {DEBUG = true};
-
-enableSentences false;
 if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, _name] execVM ""ac\init.sqf"";"; };
 
 "GlobalHint" addPublicVariableEventHandler
@@ -214,8 +191,6 @@ if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, 
 /* =============================================== */
 /* ================ PLAYER SCRIPTS =============== */
 
-0 = [] execVM 'group_manager.sqf';
-_null = [] execVM "restrictions.sqf";
 if (PARAMS_ViewDistance == 1) then { _null = [] execVM "taw_vd\init.sqf"; };
 if (PARAMS_PilotsOnly == 1) then { _null = [] execVM "pilotCheck.sqf"; };
 if (PARAMS_SpawnProtection == 1) then { _null = [] execVM "grenadeStop.sqf"; };
@@ -232,7 +207,7 @@ if (PARAMS_PlayerMarkers == 1) then { _null = [] execVM "misc\playerMarkers.sqf"
 	scriptName "initMission.hpp: mission start";
 	["rsc\FinalComp.ogv", false] spawn BIS_fnc_titlecard;
 	waitUntil {sleep 0.5; !(isNil "BIS_fnc_titlecard_finished")};
-	[[14600.0,16801.0,100],"We've gotten a foot-hold on the island,|but we need to take the rest.||Listen to HQ and neutralise all enemies designated."] spawn BIS_fnc_establishingShot;
+	[[1864.000,5565.000,0],"We've gotten a foot-hold on the island,|but we need to take the rest.||Listen to HQ and neutralise all enemies designated."] spawn BIS_fnc_establishingShot;
 	titleText [WELCOME_MESSAGE, "PLAIN", 3];
 };
 
@@ -359,10 +334,12 @@ priorityTargets = ["None"];
 smRewards = 
 [
 	["an AH-99 Blackfoot", "B_Heli_Attack_01_F"],
+	["a Hunter GMG", "B_MRAP_01_gmg_F"],
 	["a Hunter HMG", "B_MRAP_01_hmg_F"],
+	["an AH-9 Pawnee", "B_Heli_Light_01_armed_F"],
 	["an AMV-7 Marshall", "B_APC_Wheeled_01_cannon_F"],
-	["an A-143 Buzzard", "I_Plane_Fighter_03_CAS_F"],
-	["an M2A1 Slammer", "B_MBT_01_cannon_F"]
+	["a UH-80 Ghosthawk", "B_Heli_Transport_01_F"],
+	["a CH-49 Mohawk", "B_Heli_Transport_02_F"]
 ];
 smMarkerList = 
 ["smReward1","smReward2","smReward3","smReward4","smReward5","smReward6","smReward7","smReward8","smReward9","smReward10","smReward11","smReward12","smReward13","smReward14","smReward15","smReward16","smReward17","smReward18","smReward19","smReward20","smReward21","smReward22","smReward23","smReward24","smReward25","smReward26","smReward27"];
@@ -373,16 +350,31 @@ Disabled while Alpha bug is present
 /* radioChannels = []; publicVariable "radioChannels";
 _null = [] execVM "misc\radioChannels.sqf"; */
 
+if (PARAMS_SpawnProtection == 1) then
+{
+	//Create invisible spawn protection
+	_distance = 45;
+	_dir = 0;
+	_spawnPos = getMarkerPos "respawn_west";
+
+	_zone = "ProtectionZone_Invisible_F" createVehicle _spawnPos;
+
+	for "_x" from 0 to 7 do
+	{
+		_pos = [_spawnPos, _distance, _dir] call BIS_fnc_relPos;
+		_zone = "ProtectionZone_Invisible_F" createVehicle _pos;
+		_dir = _dir + 45;
+	};
+};
+
 //Run a few miscellaneous server-side scripts
 _null = [] execVM "misc\clearBodies.sqf";
 _null = [] execVM "misc\clearItems.sqf";
 
-/*
 //Run mortar scripts
 _null = [] execVM "misc\mortar\spawnhq.sqf";
 _null = [] execVM "misc\mortar\mortarHEReload.sqf";
 _null = [] execVM "misc\mortar\mortarSupportReload.sqf";
-*/
 
 
 _isPerpetual = false;
@@ -476,11 +468,8 @@ _veh = smRewards call BIS_fnc_selectRandom;
 	"<t align='center'><t size='2.2'>Side Mission</t><br/><t size='1.5' color='#00B2EE'>COMPLETE</t><br/>____________________<br/>Fantastic job, lads! The OPFOR stationed on the island won't last long if you keep that up!<br/><br/>We've given you %1 to help with the fight. You'll find it at base.<br/><br/>Focus on the main objective for now; we'll relay this success to the intel team and see if there's anything else you can do for us. We'll get back to you in 15 - 30 minutes.</t>",_vehName];
 	
 	_reward = createVehicle [_vehVarname, getMarkerPos "smReward1",smMarkerList,0,"NONE"];
-	if (_reward isKindOf "UAV") then {createVehicleCrew _reward;} else {sleep 1;};
-	waitUntil {!isNull _reward};
+	waitUntil {alive _reward};
 	_reward setDir 284;
-	
-	[_reward] execVM "scripts\aw_unitSetup.sqf";
 	
 	GlobalHint = _completeText; publicVariable "GlobalHint"; hint parseText _completeText;
 	showNotification = ["CompletedSideMission", sideMarkerText]; publicVariable "showNotification";
@@ -581,248 +570,62 @@ AW_fnc_garrisonBuildings =
 		BIS_currentDude doWatch ([BIS_currentDude, 1000, direction _building + (_x select 3)] call BIS_fnc_relPos);
 		BIS_currentDude setDir direction _building + (_x select 3);
 	} forEach _paramsArray;
-	[(units _newGrp)] call aw_setGroupSkill;
+
 	_newGrp
 };
 
 AW_fnc_spawnUnits = {
 	
-private ["_randomPos","_spawnGroup","_pos","_x","_armourGroup","_armour","_airGroup","_air","_airType"];
+private ["_randomPos","_spawnGroup","_pos","_x"];
 _pos = getMarkerPos (_this select 0);
 	_enemiesArray = [grpNull];
 	
 	_x = 0;
-	for "_x" from 1 to PARAMS_SquadsPatrol do {
-		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
+	for "_x" from 0 to PARAMS_SquadsPatrol do {
+		_randomPos = [[[getMarkerPos currentAO, PARAMS_AOSize],_dt],["water","out"]] call BIS_fnc_randomPos;
 		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup;
 		"O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
-		[_spawnGroup, getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_spawn2_randomPatrol;
-		[(units _spawnGroup)] call aw_setGroupSkill;
-		
-		if(DEBUG) then
-		{
-			_name = format ["%1%2",name (leader _spawnGroup),_x];
-			createMarker [_name,getPos (leader _spawnGroup)];
-			_name setMarkerType "o_unknown";
-			_name setMarkerText format ["Squad Patrol %1",_x];
-			_name setMarkerColor "ColorRed";
-			[_spawnGroup,_name] spawn 
-			{
-				private["_group","_marker"];
-				_group = _this select 0;
-				_marker = _this select 1;
-				
-				while{count (units _group) > 0} do
-				{
-					_marker setMarkerPos (getPos (leader _group));
-					sleep 0.1;
-				};
-				deleteMarker _marker;
-			};
-		};
+		[_spawnGroup, _pos, 400] call bis_fnc_taskPatrol;
 		
 		_enemiesArray = _enemiesArray + [_spawnGroup];
 	}; 
 	
 	_x = 0;
-	for "_x" from 1 to PARAMS_SquadsDefend do {
-		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
+	for "_x" from 0 to PARAMS_SquadsDefend do {
+		_randomPos = [[[getMarkerPos currentAO, PARAMS_AOSize],_dt],["water","out"]] call BIS_fnc_randomPos;
 		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup;
 		"O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
-		[_spawnGroup, getMarkerPos currentAO,50] call aw_fnc_spawn2_perimeterPatrol;
-		[(units _spawnGroup)] call aw_setGroupSkill;
-		
-		if(DEBUG) then
-		{
-			_name = format ["%1%2",name (leader _spawnGroup),_x];
-			createMarker [_name,getPos (leader _spawnGroup)];
-			_name setMarkerType "o_unknown";
-			_name setMarkerText format ["Squad Defend %1",_x];;
-			_name setMarkerColor "ColorRed";
-			[_spawnGroup,_name] spawn 
-			{
-				private["_group","_marker"];
-				_group = _this select 0;
-				_marker = _this select 1;
-				
-				while{count (units _group) > 0} do
-				{
-					_marker setMarkerPos (getPos (leader _group));
-					sleep 0.1;
-				};
-				deleteMarker _marker;
-			};
-		};
+		[_spawnGroup, _pos] call BIS_fnc_taskDefend;
 		
 		_enemiesArray = _enemiesArray + [_spawnGroup];
 	};
 	
 	_x = 0;
-	for "_x" from 1 to PARAMS_TeamsPatrol do {
-		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
+	for "_x" from 0 to PARAMS_TeamsPatrol do {
+		_randomPos = [[[getMarkerPos currentAO, 20],_dt],["water","out"]] call BIS_fnc_randomPos;
 		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
-		/* "O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
-		[_spawnGroup, getMarkerPos currentAO, (PARAMS_AOSize / 2)] call aw_fnc_spawn2_randomPatrol; */
-		[(units _spawnGroup)] call aw_setGroupSkill;
-		
-		if(DEBUG) then
-		{
-			_name = format ["%1%2",name (leader _spawnGroup),_x];
-			createMarker [_name,getPos (leader _spawnGroup)];
-			_name setMarkerType "o_unknown";
-			_name setMarkerText format ["Team Patrol %1",_x];;
-			_name setMarkerColor "ColorRed";
-			[_spawnGroup,_name] spawn 
-			{
-				private["_group","_marker"];
-				_group = _this select 0;
-				_marker = _this select 1;
-				
-				while{count (units _group) > 0} do
-				{
-					_marker setMarkerPos (getPos (leader _group));
-					sleep 0.1;
-				};
-				deleteMarker _marker;
-			};
-		};
+		"O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
+		[_spawnGroup, _pos, 400] call bis_fnc_taskPatrol;
 		
 		_enemiesArray = _enemiesArray + [_spawnGroup];
 	};
 	_x = 0;
-	for "_x" from 1 to PARAMS_CarsPatrol do {
-		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize,6] call aw_fnc_randomPos;
+	for "_x" from 0 to PARAMS_CarsPatrol do {
+		_randomPos = [[[getMarkerPos currentAO, PARAMS_AOSize],_dt],["water","out"]] call BIS_fnc_randomPos;
 		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Motorized_MTP" >> "OIA_MotInf_Team")] call BIS_fnc_spawnGroup;
-		[_spawnGroup, getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_spawn2_randomPatrol;
-		(vehicle (leader _spawnGroup)) spawn aw_fnc_fuelMonitor;
-		[(units _spawnGroup)] call aw_setGroupSkill;
-		
-		if(DEBUG) then
-		{
-			_name = format ["%1%2",name (leader _spawnGroup),_x];
-			createMarker [_name,getPos (leader _spawnGroup)];
-			_name setMarkerType "o_unknown";
-			_name setMarkerText format ["Car %1",_x];;
-			_name setMarkerColor "ColorRed";
-			[_spawnGroup,_name] spawn 
-			{
-				private["_group","_marker"];
-				_group = _this select 0;
-				_marker = _this select 1;
-				
-				while{count (units _group) > 0} do
-				{
-					_marker setMarkerPos (getPos (leader _group));
-					sleep 0.1;
-				};
-				deleteMarker _marker;
-			};
-		};
+		[_spawnGroup, _pos, 400] call bis_fnc_taskPatrol;
 		
 		_enemiesArray = _enemiesArray + [_spawnGroup];
 	};
-	
-	for "_x" from 1 to PARAMS_ArmourPatrol do {
+	/* //Commented out by noms (not working)
+	for "_x" from 0 to PARAMS_ArmourPatrol do {
 		_armourGroup = createGroup east;
-		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize,7] call aw_fnc_randomPos;
-		if(random 1 < 0.75) then {_armour = "O_MBT_02_cannon_F" createVehicle _randomPos} else {_armour = "O_APC_Tracked_02_AA_F" createVehicle _randomPos};
-		waitUntil{!isNull _armour};
-		
-		"O_crew_F" createUnit [_randomPos,_armourGroup];
-		"O_crew_F" createUnit [_randomPos,_armourGroup];
-		
-		((units _armourGroup) select 0) assignAsDriver _armour;
-		((units _armourGroup) select 1) assignAsGunner _armour;
-		((units _armourGroup) select 0) moveInDriver _armour;
-		((units _armourGroup) select 1) moveInGunner _armour;
-		[_armourGroup,getMarkerPos currentAO,(PARAMS_AOSize / 2)] call aw_fnc_spawn2_perimeterPatrol;
-		_armour spawn aw_fnc_fuelMonitor;
+		_randomPos = [[[getMarkerPos currentAO, PARAMS_AOSize],_dt],["water","out"]] call BIS_fnc_randomPos;
+		_armour = "O_APC_Wheeled_02_rcws_F" createUnit [_randomPos,_armourGroup];
+		[_armourGroup] call bis_fnc_taskPatrol;
 		_enemiesArray = _enemiesArray + [_armourGroup];
-		[(units _armourGroup)] call aw_setGroupSkill;
-		
-		if(DEBUG) then
-		{
-			_name = format ["%1%2",name (leader _armourGroup),_x];
-			createMarker [_name,getPos (leader _armourGroup)];
-			_name setMarkerType "o_unknown";
-			_name setMarkerText format ["APC %1",_x];;
-			_name setMarkerColor "ColorRed";
-			[_armourGroup,_name] spawn 
-			{
-				private["_group","_marker"];
-				_group = _this select 0;
-				_marker = _this select 1;
-				
-				while{count (units _group) > 0} do
-				{
-					_marker setMarkerPos (getPos (leader _group));
-					sleep 0.1;
-				};
-				deleteMarker _marker;
-			};
-		};
 	};
-	
-	if((random 10 <= PARAMS_AirPatrol)) 
-		then {
-		_airGroup = createGroup east;
-		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
-		_airType = if(random 1 <= 0.5) then {"O_Heli_Attack_02_F"} else {"O_Heli_Attack_02_F"};
-		_air = _airType createVehicle [_randomPos select 0,_randomPos select 1,1000];
-		waitUntil{!isNull _air};
-		_air engineOn true;
-		_air lock 3;
-		_air setPos [_randomPos select 0,_randomPos select 1,300];
-		
-		_air spawn 
-		{
-			private["_x"];
-			for [{_x=0},{_x<=200},{_x=_x+1}] do
-			{
-				_this setVelocity [0,0,0];
-				sleep 0.1;
-			};
-		};
-		
-		"O_crew_F" createUnit [_randomPos,_airGroup];
-		((units _airGroup) select 0) assignAsDriver _air;
-		((units _airGroup) select 0) moveInDriver _air;
-		
-		if(_airType == "O_Heli_Attack_02_F") then
-		{
-			"O_crew_F" createUnit [_randomPos,_airGroup];
-			((units _airGroup) select 1) assignAsGunner _air;
-			((units _airGroup) select 1) moveInGunner _air;
-		};
-		
-		[_airGroup,getMarkerPos currentAO,(2 * (PARAMS_AOSize / 3))] call aw_fnc_spawn2_perimeterPatrol;
-		_air spawn aw_fnc_fuelMonitor;
-		_enemiesArray = _enemiesArray + [_airGroup];
-		[(units _airGroup)] call aw_setGroupSkill;
-		
-		if(DEBUG) then
-		{
-			_name = format ["%1%2",name (leader _airGroup),_x];
-			createMarker [_name,getPos (leader _airGroup)];
-			_name setMarkerType "o_unknown";
-			_name setMarkerText format ["Air %1",_x];;
-			_name setMarkerColor "ColorRed";
-			[_airGroup,_name] spawn 
-			{
-				private["_group","_marker"];
-				_group = _this select 0;
-				_marker = _this select 1;
-				
-				while{count (units _group) > 0} do
-				{
-					_marker setMarkerPos (getPos (leader _group));
-					sleep 0.1;
-				};
-				deleteMarker _marker;
-			};
-		};
-	};
-	
+	*/
 	{
 		_newGrp = [_x] call AW_fnc_garrisonBuildings;
 		if (!isNull _newGrp) then { _enemiesArray = _enemiesArray + [_newGrp]; };
@@ -854,16 +657,16 @@ switch (PARAMS_Weather) do
 		0 setGusts 1;
 		0 setLightnings 1;
 		0 setWaves 1;
-		0 setWindForce 0.5;
+		0 setWindForce 1;
 	};
 	
 	case 3: {
 		0 setOvercast 0.7;
 		0 setRain 0;
 		0 setFog 0;
-		0 setGusts 0.5;
+		0 setGusts 0.7;
 		0 setWaves 0.7;
-		0 setWindForce 0.3;
+		0 setWindForce 0.7;
 	};
 	
 	case 4: {
@@ -1074,7 +877,6 @@ while {count _targets > 0} do
 	//Show global target completion hint
 	GlobalHint = _targetCompleteText; publicVariable "GlobalHint"; hint parseText GlobalHint;
 	showNotification = ["CompletedMain", currentAO]; publicVariable "showNotification";
-	[] spawn aw_cleanGroups;
 };
 
 //Set completion text

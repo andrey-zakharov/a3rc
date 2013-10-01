@@ -290,10 +290,8 @@ while {true} do
 			_hangar = "Land_TentHangar_V1_F" createVehicle _flatPos;
 			waitUntil {alive _hangar};
 			_hangar setPos [(getPos _hangar select 0), (getPos _hangar select 1), ((getPos _hangar select 2) - 1)];
-			sideObj = "O_Heli_Light_02_unarmed_F" createVehicle _flatPos;
-			waitUntil {!isNull sideObj};
-			
-			sideObj lock 3;
+			sideObj = "O_Ka60_F" createVehicle _flatPos;
+			waitUntil {alive sideObj};
 			{_x setDir _randomDir} forEach [sideObj,_hangar];
 			sideObj setVehicleLock "LOCKED";
 			_fuzzyPos = 
@@ -313,10 +311,9 @@ while {true} do
 			_x = 0;
 			for "_x" from 0 to 2 do
 			{
-				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_randomPos = [[[getPos sideObj, 50]],["water","out"]] call BIS_fnc_randomPos;
 				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
-				[_spawnGroup, _flatPos,50] call aw_fnc_spawn2_perimeterPatrol;
-				[(units _spawnGroup)] call aw_setGroupSkill;
+				[_spawnGroup, _flatPos] call BIS_fnc_taskDefend;
 				
 				_unitsArray = _unitsArray + [_spawnGroup];
 			};
@@ -324,18 +321,16 @@ while {true} do
 			_x = 0;
 			for "_x" from 0 to 2 do
 			{
-				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_randomPos = [[[getPos sideObj, 50]],["water","out"]] call BIS_fnc_randomPos;
 				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
-				[_spawnGroup, _flatPos, 100] call aw_fnc_spawn2_randomPatrol;
-				[(units _spawnGroup)] call aw_setGroupSkill;
+				[_spawnGroup, _flatPos, 100] call bis_fnc_taskPatrol;
 				
 				_unitsArray = _unitsArray + [_spawnGroup];
 			};
 			
-			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
-			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
-			[_spawnGroup, _flatPos, 100] call aw_fnc_spawn2_randomPatrol;
-			[(units _spawnGroup)] call aw_setGroupSkill;
+			_randomPos = [[[getPos sideObj, 50]],["water","out"]] call BIS_fnc_randomPos;
+			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Motorized_MTP" >> "OIA_MotInf_Team")] call BIS_fnc_spawnGroup;
+			[_spawnGroup, _flatPos, 100] call bis_fnc_taskPatrol;
 			
 			_unitsArray = _unitsArray + [_spawnGroup];
 
@@ -408,7 +403,7 @@ while {true} do
 			};
 			
 			//Spawn radar, set vector and add marker
-			sideObj = "Land_Radar_Small_F" createVehicle _flatPos;
+			sideObj = "Land_Radar_small_F" createVehicle _flatPos;
 			waitUntil {alive sideObj};
 			sideObj setPos [(getPos sideObj select 0), (getPos sideObj select 1), ((getPos sideObj select 2) - 2)];
 			sideObj setVectorUp [0,0,1];
@@ -429,10 +424,9 @@ while {true} do
 			_x = 0;
 			for "_x" from 0 to 2 do
 			{
-				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_randomPos = [[[getPos sideObj, 50]],["water","out"]] call BIS_fnc_randomPos;
 				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
-				[_spawnGroup, _flatPos,50] call aw_fnc_spawn2_perimeterPatrol;
-				[(units _spawnGroup)] call aw_setGroupSkill;
+				[_spawnGroup, _flatPos] call BIS_fnc_taskDefend;
 				
 				_unitsArray = _unitsArray + [_spawnGroup];
 			};
@@ -440,18 +434,16 @@ while {true} do
 			_x = 0;
 			for "_x" from 0 to 2 do
 			{
-				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_randomPos = [[[getPos sideObj, 50]],["water","out"]] call BIS_fnc_randomPos;
 				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
-				[_spawnGroup, _flatPos, 300] call aw_fnc_spawn2_randomPatrol;
-				[(units _spawnGroup)] call aw_setGroupSkill;
+				[_spawnGroup, _flatPos, 100] call bis_fnc_taskPatrol;
 				
 				_unitsArray = _unitsArray + [_spawnGroup];
 			};
 			
-			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
-			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
-			[_spawnGroup, _flatPos, 200] call aw_fnc_spawn2_randomPatrol;
-			[(units _spawnGroup)] call aw_setGroupSkill;
+			_randomPos = [[[getPos sideObj, 50]],["water","out"]] call BIS_fnc_randomPos;
+			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Motorized_MTP" >> "OIA_MotInf_Team")] call BIS_fnc_spawnGroup;
+			[_spawnGroup, _flatPos, 100] call bis_fnc_taskPatrol;
 			
 			_unitsArray = _unitsArray + [_spawnGroup];
 
@@ -516,7 +508,7 @@ while {true} do
 					];
 				};
 
-				if ((_flatPos distance (getMarkerPos "respawn_west")) > 1700 && (_flatPos distance (getMarkerPos currentAO)) > 500) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
+				if ((_flatPos distance (getMarkerPos "respawn_west")) > 1000 && (_flatPos distance (getMarkerPos currentAO)) > 500) then //DEBUG - set >500 from AO to (PARAMS_AOSize * 2)
 				{
 					_accepted = true;
 				};
@@ -535,10 +527,9 @@ while {true} do
 			_x = 0;
 			for "_x" from 0 to 2 do
 			{
-				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_randomPos = [[[getPos sideObj, 50]],["water","out"]] call BIS_fnc_randomPos;
 				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
-				[_spawnGroup, _flatPos,50] call aw_fnc_spawn2_perimeterPatrol;
-				[(units _spawnGroup)] call aw_setGroupSkill;
+				[_spawnGroup, _flatPos] call BIS_fnc_taskDefend;
 				
 				_unitsArray = _unitsArray + [_spawnGroup];
 			};
@@ -546,18 +537,16 @@ while {true} do
 			_x = 0;
 			for "_x" from 0 to 2 do
 			{
-				_randomPos = [_flatPos, 50] call aw_fnc_randomPos;
+				_randomPos = [[[getPos sideObj, 50]],["water","out"]] call BIS_fnc_randomPos;
 				_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
-				[_spawnGroup, _flatPos, 300] call aw_fnc_spawn2_randomPatrol;
-				[(units _spawnGroup)] call aw_setGroupSkill;
+				[_spawnGroup, _flatPos, 100] call bis_fnc_taskPatrol;
 				
 				_unitsArray = _unitsArray + [_spawnGroup];
 			};
 			
-			_randomPos = [_flatPos, 50,6] call aw_fnc_randomPos;
-			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Armored" >> "OIA_TankPlatoon_AA")] call BIS_fnc_spawnGroup;
-			[_spawnGroup, _flatPos, 100] call aw_fnc_spawn2_randomPatrol;
-			[(units _spawnGroup)] call aw_setGroupSkill;
+			_randomPos = [[[getPos sideObj, 50]],["water","out"]] call BIS_fnc_randomPos;
+			_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Motorized_MTP" >> "OIA_MotInf_Team")] call BIS_fnc_spawnGroup;
+			[_spawnGroup, _flatPos, 100] call bis_fnc_taskPatrol;
 			
 			_unitsArray = _unitsArray + [_spawnGroup];
 			
@@ -599,7 +588,6 @@ while {true} do
 			"sideCircle" setMarkerPos [0,0,0];
 			sleep 5;
 			publicVariable "sideMarker";
-			[] spawn aw_cleanGroups;
 		}; /* case "destroyExplosivesCoast": */
 	};
 };

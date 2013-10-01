@@ -1,4 +1,4 @@
-﻿class Button 
+class Button 
 {
 	idc = -1;
 	type = 16;

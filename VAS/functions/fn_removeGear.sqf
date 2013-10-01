@@ -1,9 +1,9 @@
 #include "macro.sqf"
 /*
-	@version: 1.7
+	@version: 1.2
 	@file_name: fn_removeGear.sqf
 	@file_author: TAW_Tonic
-	@file_edit: 8/2/2013
+	@file_edit: 5/31/2013
 	@file_description: Removes an item selected.
 */
 private["_data","_handle","_all","_fil"];
@@ -25,7 +25,7 @@ switch(_all) do
 	
 	case false:
 	{
-		[_data,false,false,false,false] call VAS_fnc_handleItem;
+		[_data,false,nil,nil,nil] call VAS_fnc_handleItem;
 		
 	};
 };

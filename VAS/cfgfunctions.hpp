@@ -24,13 +24,6 @@ class VAS
 		class mainDisplay {description = "Handles the main part of VAS's Display";};
 		class playerDisplay {description = "Used in refreshing the items a player has.";};
 		class accType {_description = "Checks what type of an attachment is passed and what it is compatible with.";};
-		class openDetails {};
-		class closeDetails {};
-		class quickMag {};
-		class quickItem {};
-		class qRemoveItem {};
-		class mainInit {description = "Main initilization of VAS, called on mission start."; preInit = 1;};
-		class KRON_StrLeft {};
-		class KRON_StrToArray {};
+		class mainInit {description = "Main initilization of VAS, called on mission start."; forced = 1;};
 	};
 };

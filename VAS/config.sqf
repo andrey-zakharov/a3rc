@@ -5,7 +5,7 @@ vas_preload = true;
 //If limiting weapons its probably best to set this to true so people aren't loading custom loadouts with restricted gear.
 vas_disableLoadSave = false;
 //Amount of save/load slots
-vas_customslots = 19; //9 is actually 10 slots, starts from 0 to whatever you set, so always remember when setting a number to minus by 1, i.e 12 will be 11.
+vas_customslots = 9; //9 is actually 10 slots, starts from 0 to whatever you set, so always remember when setting a number to minus by 1, i.e 12 will be 11.
 
 /*
 	NOTES ON EDITING!
@@ -47,14 +47,17 @@ vas_glasses = [];
 
 //Below are variables you can use to restrict certain items from being used.
 //Weapons to remove from VAS
-
 vas_r_weapons = [
-"B_UavTerminal",
-"I_UavTerminal",
-"O_UavTerminal"
+"srifle_GM6_F",
+"srifle_LRR_F",
+"srifle_GM6_SOS_F",
+"srifle_LRR_SOS_F"
 ];
 //Backpacks to remove from VAS
-vas_r_backpacks = [];
+vas_r_backpacks = [
+"B_Mk6Mortar_Support",
+"B_Mk6Mortar_Wpn"
+];
 //Magazines to remove from VAS
 vas_r_magazines = [];
 //Items to remove from VAS
@@ -64,9 +67,7 @@ vas_r_items = [
 "U_O_PilotCoveralls",
 "U_O_Wetsuit",
 "U_Rangemaster",
-"B_UavTerminal",
-"I_UavTerminal",
-"O_UavTerminal"
+"Rangefinder"
 ];
 //Goggles to remove from VAS
 vas_r_glasses = [];

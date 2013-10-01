@@ -54,7 +54,7 @@ while {true} do {
 
 			if(_injured) then {
 				_marker setMarkerColorLocal "ColorRed";
-				_marker setMarkerTypeLocal "mil_dot";
+				_marker setMarkerTypeLocal "dot";
 				_marker setMarkerSizeLocal [0.8,0.8];
 			} else {
 				_marker setMarkerColorLocal "ColorBlue";

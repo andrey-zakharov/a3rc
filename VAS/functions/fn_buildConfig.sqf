@@ -1,8 +1,8 @@
 /*
-	@version: 1.7
+	@version: 1.0
 	@file_name: build_config.sqf
 	@file_author: TAW_Tonic
-	@file_edit: 8/2/2013
+	@file_edit: 5/9/2013
 	@file_description: If preload is enabled, it will build our preloaded config, otherwise fetches everything from the config.
 */
 private["_cfg","_type","_temp","_ret","_master","_class","_details","_displayName","_scope","_type","_str","_itemInfo"];
@@ -38,8 +38,8 @@ switch(_cfg) do
 				//diag_log format["DEBUG - %1 :: %2",_class,_base];
 				if(_scope >= 2 && _type in [1,2,4,5,4096,131072] && _picture != "" && !(_displayName in _temp) && _displayName != "") then
 				{
-					_str = [_class,4] call VAS_fnc_KRON_StrLeft;
-					if(_type in [131072,4096] && (_details select 5) != -1) then
+					_str = [_class,4] call KRON_StrLeft;
+					if(_type in [131072,4096] && !isNil {(_details select 5)}) then
 					{
 						if(_str != "ACRE" && !(_class in VAS_r_items)) then
 						{
@@ -82,7 +82,7 @@ switch(_cfg) do
 				
 				if(_scope >= 1 && _picture != "" && !(_displayName in _temp)) then
 				{
-					_str = [_class,4] call VAS_fnc_KRON_StrLeft;
+					_str = [_class,4] call KRON_StrLeft;
 					if(_str != "ACRE" && !(_class in VAS_R_magazines)) then
 					{
 						_temp set[count _temp,_displayName];
@@ -114,7 +114,7 @@ switch(_cfg) do
 				_base = inheritsFrom (configFile >> _cfg >> _class);
 				if(_scope >= 2 && _type == "Backpacks" && _picture != "") then
 				{
-					_str = [_class,4] call VAS_fnc_KRON_StrLeft;
+					_str = [_class,4] call KRON_StrLeft;
 					if(_str != "ACRE" && !(_base in VAS_r_backpacks) && !(_class in VAS_r_backpacks)) then
 					{
 						_ret set[count _ret,_class];
@@ -143,7 +143,7 @@ switch(_cfg) do
 				
 				if(_picture != "" && _displayName != "None" && !(_displayName in _temp)) then
 				{
-					_str = [_class,4] call VAS_fnc_KRON_StrLeft;
+					_str = [_class,4] call KRON_StrLeft;
 					if(_str != "ACRE" && !(_class in VAS_r_glasses)) then
 					{
 						_temp set[count _temp,_displayName];

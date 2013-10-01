@@ -1,9 +1,9 @@
 #include "macro.sqf"
 /*
-	@version: 1.7
+	@version: 1.3
 	@file_name: fn_saveGear.sqf
 	@file_author: TAW_Tonic
-	@file_edit: 8/2/2013
+	@file_edit: 6/20/2013
 	@file_description: Save to profileNamespace in old VAS format
 */
 private["_title","_slot","_primary,_launcher","_handgun","_magazines","_uniform","_vest","_backpack","_items","_primitems","_secitems","_handgunitems","_uitems","_vitems","_bitems"];
