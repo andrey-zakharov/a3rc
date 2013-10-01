@@ -17,6 +17,7 @@ distibuting this mission when hosting!
 This version of Domination was lovingly crafted by
 Jack Williams (Rarek) for Ahoy World!
 */
+if (isDedicated) exitWith {};
 
 _temp = _this select 0;
 _label = _this select 1;
