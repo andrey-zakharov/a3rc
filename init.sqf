@@ -76,23 +76,11 @@ for [ {_i = 0}, {_i < count(paramsArray)}, {_i = _i + 1} ] do
 	];
 };
 
-if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, _name] execVM ""ac\init.sqf"";"; };
-
 "GlobalHint" addPublicVariableEventHandler
 {
 	private ["_GHint"];
 	_GHint = _this select 1;
 	hint parseText format["%1", _GHint];
-};
-
-"runOnServer" addPublicVariableEventHandler
-{
-	if (isServer) then
-	{
-		private ["_codeToRun"];
-		_codeToRun = _this select 1;
-		call _codeToRun;
-	};
 };
 
 "radioTower" addPublicVariableEventHandler
@@ -125,11 +113,6 @@ if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, 
 	_message = "";
 	if (count _array > 1) then { _message = _array select 1; };
 	[_type, [_message]] call bis_fnc_showNotification;
-};
-
-"showSingleNotification" addPublicVariableEventHandler
-{
-	/* Slam somethin' 'ere */
 };
 
 "sideMarker" addPublicVariableEventHandler
@@ -175,18 +158,71 @@ if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, 
 
 "debugMessage" addPublicVariableEventHandler
 {
-	private ["_isAdmin", "_message"];
 	_isAdmin = serverCommandAvailable "#kick";
 	if (_isAdmin) then
 	{
 		if (debugMode) then
 		{
 			_message = _this select 1;
-			[_message] call bis_fnc_error;
+			hint parseText format["<t size='2.2' align='center'>Debug Mode</t><br/>____________________<br/>%1",_message];
 		};
 	};
 };
 
+if (PARAMS_AhoyCoinIntegration == 1) then
+{
+	"SyncCoins" addPublicVariableEventHandler
+	{
+		private ["_playerToSync", "_query", "_tempString", "_tempArray", "_memberData", "_ahoycoins", "_currentScore"];
+
+		if (isServer) then
+		{
+			_playerToSync = _this select 1;
+
+			_query = format ["SELECT * FROM ipbpfields_content WHERE field_16 = '%1'", getPlayerUID _playerToSync];
+			_tempString = "Arma2Net.Unmanaged" callExtension format ["Arma2NETMySQLCommand ['mxegnxzt_ipb', '%1']", _query];
+			_tempArray = call compile _tempString;
+
+			if (count (_tempArray select 0) > 0 && ((_tempArray select 0) select 0) select 0 != "Error") then
+			{
+				_memberData = (_tempArray select 0) select 0;
+				_ahoycoins = parseNumber (_memberData select 6);
+				_currentScore = score _playerToSync;
+				GlobalHint = format["AW Member %1 has joined the server!", name _playerToSync]; publicVariable "GlobalHint";
+			    _playerToSync setVariable ["ahoycoins", _ahoycoins, true];
+			    _playerToSync setVariable ["score", _currentScore, true];
+			};
+		};
+	};
+
+	"UpdateCoins" addPublicVariableEventHandler
+	{
+		private ["_playerToUpdate", "_ahoycoins", "_currentScore", "_pastScore", "_coinsToAdd", "_newTotal", "_query", "_handle"];
+
+		if (isServer) then
+		{
+			_playerToUpdate = _this select 1;
+			_ahoycoins = _playerToUpdate getVariable ["ahoycoins", false];
+
+			if ((typeName _ahoycoins) == "SCALAR") then
+			{
+				_currentScore = score _playerToUpdate;
+				_pastScore = _playerToUpdate getVariable "score";
+				if (_currentScore > _pastScore) then
+				{
+					_coinsToAdd = _currentScore - _pastScore;
+					_newTotal = _ahoycoins + _coinsToAdd;
+
+					_query = format ["UPDATE ipbpfields_content SET eco_points=%1 WHERE field_16 = '%2'", _newTotal, getPlayerUID _playerToUpdate];
+					_handle = "Arma2Net.Unmanaged" callExtension format ["Arma2NETMySQLCommand ['mxegnxzt_ipb', '%1']", _query];
+					GlobalHint = format["AW Member %1 earned %2 more Ahoy Coin(s)!", name _playerToUpdate, _coinsToAdd]; publicVariable "GlobalHint";
+					_playerToUpdate setVariable ["score", score _playerToUpdate, true];
+					_playerToUpdate setVariable ["ahoycoins", _newTotal, true];
+				};
+			};
+		};
+	};
+};
 
 /* =============================================== */
 /* ================ PLAYER SCRIPTS =============== */
@@ -200,8 +236,6 @@ if (PARAMS_ReviveEnabled == 1) then
 	if (PARAMS_MedicMarkers == 1) then { _null = [] execVM "misc\medicMarkers.sqf"; };
 };
 if (PARAMS_PlayerMarkers == 1) then { _null = [] execVM "misc\playerMarkers.sqf"; };
-/* 	Disabled while Alpha bug is present
-	_null = [] execVM "misc\radioChannels.sqf"; */
 
 [] spawn {
 	scriptName "initMission.hpp: mission start";
@@ -213,7 +247,12 @@ if (PARAMS_PlayerMarkers == 1) then { _null = [] execVM "misc\playerMarkers.sqf"
 
 if (!isServer) then
 {	
-	sleep 20;
+	sleep 10;
+	if (PARAMS_AhoyCoinIntegration == 1) then
+	{
+		waitUntil {sleep 0.5; alive player};
+		SyncCoins = player; publicVariable "SyncCoins";
+	};
 
 	waitUntil {sleep 0.5; currentAO != "Nothing"};
 
@@ -322,7 +361,7 @@ if (!isServer) exitWith
 /* ============ SERVER INITIALISATION ============ */
 
 //Set a few blank variables for event handlers and solid vars for SM
-debugMode = true; publicVariable "debugMode";
+debugMode = false;
 eastSide = createCenter EAST;
 radioTowerAlive = false;
 sideMissionUp = false;
@@ -333,22 +372,14 @@ sideObj = objNull;
 priorityTargets = ["None"];
 smRewards = 
 [
-	["an AH-99 Blackfoot", "B_Heli_Attack_01_F"],
-	["a Hunter GMG", "B_MRAP_01_gmg_F"],
-	["a Hunter HMG", "B_MRAP_01_hmg_F"],
-	["an AH-9 Pawnee", "B_Heli_Light_01_armed_F"],
-	["an AMV-7 Marshall", "B_APC_Wheeled_01_cannon_F"],
-	["a UH-80 Ghosthawk", "B_Heli_Transport_01_F"],
-	["a CH-49 Mohawk", "B_Heli_Transport_02_F"]
+	["an AH-9", "B_AH9_F"],
+	["an MH-9", "B_MH9_F"],
+	["a Hunter GMG", "B_Hunter_RCWS_F"],
+	["a Hunter HMG", "B_Hunter_HMG_F"],
+	["an off-road jeep", "c_offroad"]
 ];
 smMarkerList = 
 ["smReward1","smReward2","smReward3","smReward4","smReward5","smReward6","smReward7","smReward8","smReward9","smReward10","smReward11","smReward12","smReward13","smReward14","smReward15","smReward16","smReward17","smReward18","smReward19","smReward20","smReward21","smReward22","smReward23","smReward24","smReward25","smReward26","smReward27"];
-
-/*---------------------------------------------------------------------------
-Disabled while Alpha bug is present
----------------------------------------------------------------------------*/
-/* radioChannels = []; publicVariable "radioChannels";
-_null = [] execVM "misc\radioChannels.sqf"; */
 
 if (PARAMS_SpawnProtection == 1) then
 {
@@ -370,12 +401,6 @@ if (PARAMS_SpawnProtection == 1) then
 //Run a few miscellaneous server-side scripts
 _null = [] execVM "misc\clearBodies.sqf";
 _null = [] execVM "misc\clearItems.sqf";
-
-//Run mortar scripts
-_null = [] execVM "misc\mortar\spawnhq.sqf";
-_null = [] execVM "misc\mortar\mortarHEReload.sqf";
-_null = [] execVM "misc\mortar\mortarSupportReload.sqf";
-
 
 _isPerpetual = false;
 
@@ -428,24 +453,29 @@ AW_fnc_minefield = {
 	_unitsArray
 };
 
-AW_fnc_deleteOldAOUnits =
-{
-	private ["_unitsArray", "_obj", "_isGroup"];
+AW_fnc_deleteOldAOUnits = {
+	
+private ["_group","_groupsToKill","_c"];
+_groupsToKill = _this select 0;
+	_c = 0;
+	
 	sleep 600;
-	_unitsArray = _this select 0;
-	for "_c" from 0 to (count _unitsArray) do
+	
+	debugMessage = "Deleting old AO units...";
+	publicVariable "debugMessage";
+	
+	for "_c" from 0 to (count _groupsToKill) do
 	{
-		_obj = _unitsArray select _c;
-		_isGroup = false; if (_obj in allGroups) then { _isGroup = true; };
-		if (_isGroup) then
+		_group = _groupsToKill select _c;
 		{
-			{
-				if (!isNull _x) then { deleteVehicle _x; };
-			} forEach (units _obj);
-		} else {
-			if (!isNull _obj) then { deleteVehicle _obj; };
-		};
+			deleteVehicle _x;
+		} forEach (units _group);
+		waitUntil {(count (units _group)) == 0};
+		deleteGroup _group;
 	};
+	
+	debugMessage = "Old AO units deleted.";
+	publicVariable "debugMessage";
 };
 
 AW_fnc_deleteSingleUnit = {
@@ -584,7 +614,6 @@ _pos = getMarkerPos (_this select 0);
 	for "_x" from 0 to PARAMS_SquadsPatrol do {
 		_randomPos = [[[getMarkerPos currentAO, PARAMS_AOSize],_dt],["water","out"]] call BIS_fnc_randomPos;
 		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup;
-		"O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
 		[_spawnGroup, _pos, 400] call bis_fnc_taskPatrol;
 		
 		_enemiesArray = _enemiesArray + [_spawnGroup];
@@ -594,38 +623,29 @@ _pos = getMarkerPos (_this select 0);
 	for "_x" from 0 to PARAMS_SquadsDefend do {
 		_randomPos = [[[getMarkerPos currentAO, PARAMS_AOSize],_dt],["water","out"]] call BIS_fnc_randomPos;
 		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfSquad")] call BIS_fnc_spawnGroup;
-		"O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
 		[_spawnGroup, _pos] call BIS_fnc_taskDefend;
 		
 		_enemiesArray = _enemiesArray + [_spawnGroup];
 	};
 	
-	_x = 0;
+	x = 0;
 	for "_x" from 0 to PARAMS_TeamsPatrol do {
 		_randomPos = [[[getMarkerPos currentAO, 20],_dt],["water","out"]] call BIS_fnc_randomPos;
 		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OIA_InfTeam")] call BIS_fnc_spawnGroup;
-		"O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
 		[_spawnGroup, _pos, 400] call bis_fnc_taskPatrol;
 		
 		_enemiesArray = _enemiesArray + [_spawnGroup];
 	};
+	
 	_x = 0;
 	for "_x" from 0 to PARAMS_CarsPatrol do {
 		_randomPos = [[[getMarkerPos currentAO, PARAMS_AOSize],_dt],["water","out"]] call BIS_fnc_randomPos;
-		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Motorized_MTP" >> "OIA_MotInf_Team")] call BIS_fnc_spawnGroup;
+		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Motorized_MTP" >> "OIA_MotInfTeam")] call BIS_fnc_spawnGroup;
 		[_spawnGroup, _pos, 400] call bis_fnc_taskPatrol;
 		
 		_enemiesArray = _enemiesArray + [_spawnGroup];
 	};
-	/* //Commented out by noms (not working)
-	for "_x" from 0 to PARAMS_ArmourPatrol do {
-		_armourGroup = createGroup east;
-		_randomPos = [[[getMarkerPos currentAO, PARAMS_AOSize],_dt],["water","out"]] call BIS_fnc_randomPos;
-		_armour = "O_APC_Wheeled_02_rcws_F" createUnit [_randomPos,_armourGroup];
-		[_armourGroup] call bis_fnc_taskPatrol;
-		_enemiesArray = _enemiesArray + [_armourGroup];
-	};
-	*/
+
 	{
 		_newGrp = [_x] call AW_fnc_garrisonBuildings;
 		if (!isNull _newGrp) then { _enemiesArray = _enemiesArray + [_newGrp]; };
@@ -705,7 +725,6 @@ if (PARAMS_PriorityTargets == 1) then { _null = [] execVM "sm\priorityTargets.sq
 // _null = [] execVM "randomPatrols.sqf";
 
 _firstTarget = true;
-_lastTarget = "Nothing";
 
 while {count _targets > 0} do
 {
@@ -736,7 +755,7 @@ while {count _targets > 0} do
 	publicVariable "currentAOUp";
 	
 	//Edit and place markers for new target
-	//_marker = [currentAO] call AW_fnc_markerActivate
+	//_marker = [currentAO] call AW_fnc_markerActivate;
 	{_x setMarkerPos (getMarkerPos currentAO);} forEach ["aoCircle","aoMarker"];
 	"aoMarker" setMarkerText format["Take %1",currentAO];
 	sleep 5;
@@ -769,11 +788,11 @@ while {count _targets > 0} do
 	"radioMarker" setMarkerPos (getPos radioTower);
 
 	//Spawn mines
-	_chance = random 10;
-	if (_chance < PARAMS_RadioTowerMineFieldChance) then
+	_chance = random 1;
+	if (_chance <= 0.4) then
 	{
 		_mines = [_flatPos] call AW_fnc_minefield;
-		_enemiesArray = _enemiesArray + _mines;
+		_enemiesArray = _enemiesArray + [_mines];
 		"radioMineCircle" setMarkerPos (getPos radioTower);
 		"radioMarker" setMarkerText "Radiotower (Minefield)";
 	} else {
@@ -840,18 +859,7 @@ while {count _targets > 0} do
 		//deleteMarker currentAO;
 	}; */
 
-	if (_isPerpetual) then
-	{
-		_lastTarget = currentAO;
-		if ((count (_targets)) == 1) then
-		{
-			_targets = _initialTargets;
-		} else {
-			_targets = _targets - [currentAO];
-		};
-	} else {
-		_targets = _targets - [currentAO];
-	};
+	if (_isPerpetual) then { _lastTarget = currentAO; } else { _targets = _targets - [currentAO]; };
 
 	publicVariable "refreshMarkers";
 	currentAOUp = false;
@@ -877,6 +885,11 @@ while {count _targets > 0} do
 	//Show global target completion hint
 	GlobalHint = _targetCompleteText; publicVariable "GlobalHint"; hint parseText GlobalHint;
 	showNotification = ["CompletedMain", currentAO]; publicVariable "showNotification";
+	if (PARAMS_AhoyCoinIntegration == 1) then
+	{
+		//Process Ahoy Coin additions
+		{ UpdateCoins = _x; publicVariable "UpdateCoins"; } forEach playableUnits;
+	};
 };
 
 //Set completion text

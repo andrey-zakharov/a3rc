@@ -1,6 +1,6 @@
 /*
 Created by =BTC= Giallustio
-version 0.91
+version 0.9
 Visit us at: 
 http://www.blacktemplars.altervista.org/
 06/03/2012
@@ -8,7 +8,7 @@ http://www.blacktemplars.altervista.org/
 
 ////////////////// EDITABLE \\\\\\\\\\\\\\\\\\\\\\\\\\
 BTC_revive_time_min = 5;
-BTC_revive_time_max = 600; publicVariable "BTC_revive_time_max";
+BTC_revive_time_max = 600;
 BTC_who_can_revive  = ["B_medic_F"];
 BTC_loop_check      = 0;
 BTC_disable_respawn = 0;

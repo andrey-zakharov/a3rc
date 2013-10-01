@@ -94,14 +94,15 @@ call compile preProcessFileLineNumbers format["objectives/side/missions/%1.sqf",
 } forEach [_title, _briefObj, _successMsg, _posType, _mustBeFlat, _SM_Create, _SM_Enemies, _SM_Success, _SM_Failure];
 
 /* Find our position */
-_sidePos = []; _isGoodPos = false;
+_sidePos = [];
+_isGoodPos = false;
 switch (_posType) do
 {
 	case "land":
 	{
 		while {!_isGoodPos} do
 		{
-			_isGoodPos = true; _sidePos = [];
+			_isGoodPos = true; _sidePos = []; _randomPos = [];
 			while {(count _sidePos) < 1} do
 			{
 				_randomPos = [] call BIS_fnc_randomPos;
@@ -130,16 +131,6 @@ switch (_posType) do
 	case "water":
 	{
 		/* Whitelist water / blacklist land etc */
-	};
-
-	case "urban":
-	{
-		/* Central positions of all urban areas e.g.cities, towns etc */
-	};
-
-	case "custom":
-	{
-		_sidePos = [] call _SM_Pos;
 	};
 };
 

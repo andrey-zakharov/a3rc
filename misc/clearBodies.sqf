@@ -1,4 +1,33 @@
-private ["_canDeleteGroup","_group","_groups","_units"];
+/* 
+	Test code:
+
+		_aliveMen = allUnits;
+
+		while {true} do
+		{
+			if (count _aliveMen != count allUnits) then
+			{
+				_deadMen = _aliveMen - allUnits;
+				{
+					hideBody _x;
+				} forEach _deadMen;
+			};
+
+			_aliveMen = allUnits;
+		};
+
+	With the code below, we could alternatively use
+
+		hideBody _x;
+
+	Not sure whether hideBody will actually clear the unit
+	completely or whether it just sinks it below the ground.
+	To be safe (and until someone complains) we'll use 
+	deleteVehicle.
+*/
+
+
+private ["_canDeleteGroup","_group"];
 while {true} do
 {
 	sleep 600;
@@ -11,20 +40,20 @@ while {true} do
 	debugMessage = "Dead bodies deleted.";
 	publicVariable "debugMessage";
 	
-	_groups = allGroups;
-
-	for "_c" from 0 to ((count _groups) - 1) do
+	for "_c" from 0 to ((count allGroups) - 1) do
 	{
 		_canDeleteGroup = true;
-		_group = (_groups select _c);
-		if (!isNull _group) then
+		_group = (allGroups select _c);
 		{
-			_units = (units _group);
+			if (alive _x) then
 			{
-				if (alive _x) then { _canDeleteGroup = false; };
-			} forEach _units;
+				_canDeleteGroup = false;
+			};
+		} forEach (units _group);
+		if (_canDeleteGroup) then
+		{
+			deleteGroup _group;
 		};
-		if (_canDeleteGroup && !isNull _group) then { deleteGroup _group; };
 	};
 	
 	debugMessage = "Empty groups deleted.";
