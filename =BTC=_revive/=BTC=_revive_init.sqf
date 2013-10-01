@@ -40,16 +40,16 @@ BTC_3d_distance    = 30;
 BTC_3d_icon_size   = 0.5;
 BTC_3d_icon_color  = [1,0,0,1];
 BTC_dlg_on_respawn = 1;//1 = Mobile only - 2 Leader group and mobile - 3 = Units group and mobile - 4 = All side units and mobile
-BTC_objects_actions_west = [BTC_base_flag_west];
-BTC_objects_actions_east = [BTC_base_flag_east];
+BTC_objects_actions_west = [];
+BTC_objects_actions_east = [];
 BTC_objects_actions_guer = [];
 BTC_objects_actions_civ  = [];
 if (isServer) then
 {
-	BTC_vehs_mobile_west = [mobile_west_0];//Editable - define mobile west
-	BTC_vehs_mobile_east = [mobile_east_0];//Editable - define mobile east
-	BTC_vehs_mobile_guer = [mobile_guer_0];//Editable - define mobile independent
-	BTC_vehs_mobile_civ  = [mobile_civ_0];//Editable - define mobile civilian
+	BTC_vehs_mobile_west = [];//Editable - define mobile west
+	BTC_vehs_mobile_east = [];//Editable - define mobile east
+	BTC_vehs_mobile_guer = [];//Editable - define mobile independent
+	BTC_vehs_mobile_civ  = [];//Editable - define mobile civilian
 };
 ////////////////// Don't edit below \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 if (!isDedicated) then {};

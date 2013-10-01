@@ -1044,7 +1044,7 @@ BTC_drag =
 		if (_key == 28) then {
 			_respawn = [] spawn BTC_player_respawn;
 	    };
-		_array = nearEntities [player, ["Air","LandVehicle"], 5];
+		_array = (position player) nearEntities [["Air","LandVehicle"], 5];
 		_array_veh = [];
 		{if (_x emptyPositions "cargo" != 0) then {_array_veh = _array_veh + [_x];};} foreach _array;
 		if (count _array_veh == 0) then {_veh_selected = objNull;};
@@ -1267,8 +1267,8 @@ BTC_check_healer =
 	_pos = getpos player;
 	_men = [];_veh = [];_dist = 501;_healer = objNull;_healers = [];
 	_msg = "No medics nearby.";
-	_men = nearEntities [_pos, BTC_who_can_revive, 500];
-	_veh = nearEntities [_pos, ["LandVehicle", "Air", "Ship"], 1000];
+	_men = _pos nearEntities [BTC_who_can_revive, 500];
+	_veh = _pos nearEntities [["LandVehicle", "Air", "Ship"], 1000];
 	{
 		{private ["_man"];_man = _x;if (isPlayer _man && ({_man isKindOf _x} count BTC_who_can_revive) > 0) then {_men = _men + [_man];};} foreach crew _x;
 	} foreach _veh;
