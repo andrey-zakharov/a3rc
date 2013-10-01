@@ -1,5 +1,5 @@
 //if (PARAMS_PilotsOnly == 0 )  exitWith {};
-private ["_unit", "_v", "_pl"];
+private ["_unit", "_v"];
 _unit = _this;
 
 //_classes = [
