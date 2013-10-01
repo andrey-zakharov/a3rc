@@ -12,7 +12,7 @@ if ( isServer ) exitWith{};
 				titleText [ localize "STR_NO_RADIO_PILOT", "BLACK FADED" ];
 				sleep 10;
 				forceEnd;
-			}
+			};
 
 			titleText [ localize "STR_NO_RADIO_15MINS", "PLAIN" ];
 			sleep 600;

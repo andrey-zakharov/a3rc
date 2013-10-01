@@ -18,7 +18,7 @@ This version of Domination was lovingly crafted by
 Jack Williams (Rarek) for Ahoy World!
 */
 if (isDedicated) exitWith {};
-
+private ["_unit", "_temp", "_label", "_size", "_varname"];
 _temp = _this select 0;
 _label = _this select 1;
 _size = _this select 2;
@@ -31,20 +31,26 @@ createMarkerLocal [_varname, [0,0]];
 _varname setMarkerShape "ICON";
 _varname setMarkerColor "ColorBlack";
 _varname setMarkerSize [ _size, _size ];
-if ( _unit iskindOf "Helicopter" ) then {
-	_varname setMarkerType "n_air";
-} elseif ( _unit isKindOf "UAV" ) then {
-	_varname setMarkerType "n_uav";
-} elseif ( _unit isKindOf "Plain" ) then {
-	_varname setMarkerType "n_plane";
-}
 
+systemChat format ["varname: %1, label: %2", _varname, _label];
 
 while {true} do {
     waitUntil {
         call compile format ["_unit = %1", _varname];
         alive _unit;
         sleep 0.2;
+    };
+
+    if ( _unit iskindOf "Helicopter" ) then {
+        _varname setMarkerType "n_air";
+    } else { 
+        if ( _unit isKindOf "UAV" ) then {
+           _varname setMarkerType "n_uav";
+        } else {
+            if ( _unit isKindOf "Plain" ) then {
+               _varname setMarkerType "n_plane";
+           };
+       };
     };
 
     while {alive _unit} do {
