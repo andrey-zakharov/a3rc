@@ -212,7 +212,7 @@ if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, 
 /* ================ PLAYER SCRIPTS =============== */
 
 0 = [] execVM 'group_manager.sqf';
-0 = [] execVM 'scripts\a3rc_RadioCheck.sqf';
+if (PARAMS_RadioCheck == 1) then { 0 = [] execVM 'scripts\a3rc_RadioCheck.sqf' };
 _null = [] execVM "restrictions.sqf";
 if (PARAMS_ViewDistance == 1) then { _null = [] execVM "taw_vd\init.sqf"; };
 //if (PARAMS_PilotsOnly == 1) then { _null = [] execVM "pilotCheck.sqf"; };
