@@ -230,7 +230,9 @@ if (PARAMS_PlayerMarkers == 1) then { _null = [] execVM "misc\playerMarkers.sqf"
 	scriptName "initMission.hpp: mission start";
 	["rsc\FinalComp.ogv", ""] spawn BIS_fnc_titlecard;
 	waitUntil {sleep 0.5; !(isNil "BIS_fnc_titlecard_finished")};
-	[[14600.0,16801.0,100],"We've gotten a foot-hold on the island,|but we need to take the rest.||Listen to HQ and neutralise all enemies designated."] spawn BIS_fnc_establishingShot;
+	_titlePos = [14600.0,16801.0,100];
+	if (priorityTargetUp) then { _titlePos = markerPos "priorityMarker"; }
+	[_titlePos,"We've gotten a foot-hold on the island,|but we need to take the rest.||Listen to HQ and neutralise all enemies designated."] spawn BIS_fnc_establishingShot;
 	titleText [WELCOME_MESSAGE, "PLAIN", 3];
 };
 
