@@ -239,6 +239,14 @@ class Params
 		default = 10;
 	};
 	
+	class RadioCheck
+	{
+		title = "Enable RadioCheck? (ACRE)";
+		values[] = {1,0};
+		texts[] = {"Enable","Disable"};
+		default = 1;
+	};
+
 	class AhoyCoinIntegration
 	{
 		title = "Enable Ahoy Coin Integration? (Only enable if you are an official Ahoy World server)";
