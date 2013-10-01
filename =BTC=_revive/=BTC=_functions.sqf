@@ -133,6 +133,7 @@ BTC_set_gear =
 	];*/
 	_unit = _this select 0;
 	_gear = _this select 1;
+	_back_pack_weap = _gear select 6;
 	removeAllweapons _unit;
 	removeuniform _unit;
 	removevest _unit;
@@ -153,11 +154,11 @@ BTC_set_gear =
 	{if !(isClass (configFile >> "cfgMagazines" >> _x)) then {_unit addItem _x;};sleep 0.1;} foreach (_gear select 5);
 	if ((_gear select 2) != "") then {_unit addGoggles (_gear select 2);};
 	if ((_gear select 3) != "") then {_unit addHeadgear (_gear select 3);};
-	if (count (BTC_back_pack_weap select 0) > 0) then 
+	if (count (_back_pack_weap select 0) > 0) then 
 	{
-		for "_i" from 0 to (count (BTC_back_pack_weap select 0) - 1) do
+		for "_i" from 0 to (count (_back_pack_weap select 0) - 1) do
 		{
-			(unitBackpack _unit) addweaponCargoGlobal [(BTC_back_pack_weap select 0) select _i,(BTC_back_pack_weap select 1) select _i];
+			(unitBackpack _unit) addweaponCargoGlobal [(_back_pack_weap select 0) select _i,(_back_pack_weap select 1) select _i];
 		};			
 	};
 	//MAGS
