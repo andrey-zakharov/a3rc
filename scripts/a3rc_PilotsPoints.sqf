@@ -62,6 +62,7 @@ _this spawn {
 				_passageer = _this select 2;
 				_isIn = { _x select 0 == _passageer } count PFP_getins;
 				if !(isIn) exitWith {};
+				_idx = 0;
 
 				{
 					if ( (PFP_getins select _i) select 0 == _passageer ) exitWith {
@@ -69,7 +70,7 @@ _this spawn {
 					};
 				} forEach PFP_getins;
 
-				_from = PFP_getins select _idx select 1;
+				_from = (PFP_getins select _idx) select 1;
 				if ( _from distance (position player) <= 100 ) exitWith {
 					PFP_getins set [_idx, objnull];
 				};
@@ -81,8 +82,10 @@ _this spawn {
 
 
 				/// 1 point for PFP_max_distance / 2.
-				_points = _srcObj distance _destObj / ( PFP_max_distance / 2 );
-				_points = _points * _penalty;
+				_points = (_srcObj distance _destObj) * _penalty * 2 / PFP_max_distance;
+
+				hint format["src->dst: %1, _penalty:%2, max: %3. points: %4", 
+					(_srcObj distance _destObj), _penalty, PFP_max_distance,  _points];
 				PFP_getins set[ _idx, [ _passageer, position _passageer, _points ] ];
 			};
 		};
@@ -107,7 +110,7 @@ _this spawn {
 		_to = _this select 2;
 		_dstObj = _this select 3;
 
-		_from distance _to  / _srcObj distance _dstObj
+		(_from distance _to) / (_srcObj distance _dstObj);
 	};
 	// argument - from 
 	_getClosestObjective = {
