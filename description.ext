@@ -446,8 +446,8 @@ class CfgNotifications
 	class EnemyHeloDown
 	{
 		title = "ENEMY HELICOPTER NEUTRALIZED";
-		iconPicture = "notificons\down.paa";-
-		description = "%1";-
+		iconPicture = "notificons\down.paa";
+		description = "%1";
 		color[] = {1, 0.81, 0.06, 1};
 		priority = 8;
 	};
