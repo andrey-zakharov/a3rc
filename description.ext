@@ -400,6 +400,97 @@ class CfgNotifications
 		color[] = {0.38, 0.81, 0.16, 1};
 		priority = 5;
 	};
+
+	
+	class EnemyHelo
+	{
+		title = "ENEMY HELICOPTER INBOUND";
+		iconPicture = "notificons\heloinbound.paa";
+		description = "%1";
+		color[] = {0.8, 0.13, 0.14, 1};
+		priority = 8;
+	};
+	
+	class EnemyHeloDown
+	{
+		title = "ENEMY HELICOPTER NEUTRALIZED";
+		iconPicture = "notificons\down.paa";-
+		description = "%1";-
+		color[] = {1, 0.81, 0.06, 1};
+		priority = 8;
+	};
+	
+	class EnemyJetDown
+	{
+		title = "ENEMY HELICOPTER NEUTRALIZED";
+		iconPicture = "notificons\down.paa";
+		description = "%1";
+		color[] = {1, 0.81, 0.06, 1};
+		priority = 8;
+	};
+	
+	class EnemyHeavyHelo
+	{
+		title = "ENEMY HELICOPTER INBOUND";
+		iconPicture = "notificons\heavyheliinbound.paa";
+		description = "%1";
+		color[] = {0.8, 0.13, 0.14, 1};
+		priority = 8;
+	};
+	
+	class EnemyJet
+	{
+		title = "ENEMY JET INBOUND";
+		iconPicture = "notificons\enemyJetinbound.paa";
+		description = "%1";
+		color[] = {0.8, 0.13, 0.14, 1};
+		priority = 8;
+	};
+	
+	class NewSideMissionJet
+	{
+		title = "NEW SIDE MISSION";
+		iconPicture = "notificons\enemyJetinbound.paa";
+		description = "%1";
+		color[] = {0.8, 0.13, 0.14, 1};
+		priority = 8;
+	};
+	
+	class EnemyHeavyHeloDown
+	{
+		title = "ENEMY HELICOPTER NEUTRALIZED";
+		iconPicture = "notificons\down.paa";
+		description = "%1";
+		color[] = {1, 0.81, 0.06, 1};
+		priority = 8;
+	};
+	
+	class FriendlyHeavyHeloDown
+	{
+		title = "FRIENDLY HELO GOT NEUTRALIZED";
+		iconPicture = "notificons\down.paa";
+		description = "%1";
+		color[] = {1, 0.81, 0.06, 1};
+		priority = 8;
+	};
+	
+	class SideMissionEnemys
+	{
+		title = "ENEMY REINFORCEMENT";
+		iconPicture = "notificons\enemysidemission.paa";
+		description = "%1";
+		color[] = {0.8, 0.13, 0.14, 1};
+		priority = 8;
+	};
+	
+	class SideMissionEnemysDown
+	{
+		title = "REINFORCEMENT NEUTRALIZED";
+		iconPicture = "notificons\down.paa";
+		description = "%1";
+		color[] = {1, 0.81, 0.06, 1};
+		priority = 8;
+	};
 };
 
 /* class CfgSounds
