@@ -62,7 +62,15 @@ class Params
 		texts[] = {"Clear","Stormy","Cloudy","Foggy"};
 		default = 1;
 	};
-	
+
+	class BulletWind
+	{
+		title = "Enable Bullet Wind?";
+		values[] = {1,0};
+		texts[] = {"Enabled","Disabled"};
+		default = 1;
+	};	
+
 	class EnemyLeftThreshhold
 	{
 		title = "Enemy Left Threshold";
@@ -294,6 +302,14 @@ class Params
 		texts[] = {"Enabled","Disabled"};
 		default = 1;
 	};
+/*
+	class Civilians
+ 	{
+		title = "Civilians on AO";
+		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+		texts[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+		default = 2;
+	};
 
 	class AhoyCoinIntegration
 	{
@@ -302,7 +318,7 @@ class Params
 		texts[] = {"Enable","Disable"};
 		default = 0;
 	};
-	
+*/	
 	class DebugMode
 	{
 		title = "Enable Debug Mode";

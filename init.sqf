@@ -96,7 +96,7 @@ if(isMultiplayer) then
 } else {DEBUG = true};
 
 enableSentences false;
-if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, _name] execVM ""ac\init.sqf"";"; };
+//if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, _name] execVM ""ac\init.sqf"";"; };
 
 "GlobalHint" addPublicVariableEventHandler
 {
@@ -225,6 +225,11 @@ if (PARAMS_ReviveEnabled == 1) then
 if (PARAMS_PlayerMarkers == 1) then { _null = [] execVM "misc\playerMarkers.sqf"; };
 /* 	Disabled while Alpha bug is present
 	_null = [] execVM "misc\radioChannels.sqf"; */
+
+if (PARAMS_BulletWind == 1) then { 
+	if (isServer) then {execVM "misc\bulletWindServer.sqf";};
+	execVM "misc\bulletWindClient.sqf";
+};
 
 [] spawn {
 	scriptName "initMission.hpp: mission start";
