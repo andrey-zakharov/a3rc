@@ -3171,12 +3171,13 @@ class Mission
 		{
 			position[]={14543.833,17.804211,16852.99};
 			azimut=-855.914;
+			text="Ambulance";
 			id=268;
 			side="EMPTY";
 			vehicle="B_Truck_01_medical_F";
 			leader=1;
 			skill=0.60000002;
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
+			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""Med"",0.5] execVM ""mark_unit.sqf"";";
 		};
 		class Item226
 		{
@@ -3187,7 +3188,7 @@ class Mission
 			vehicle="B_Truck_01_Repair_F";
 			leader=1;
 			skill=0.60000002;
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
+			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""Rep"",0.5] execVM ""mark_unit.sqf"";";
 		};
 		class Item227
 		{
@@ -3347,7 +3348,7 @@ class Mission
 			vehicle="B_Truck_01_fuel_F";
 			leader=1;
 			skill=0.60000002;
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
+			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";0 = [this,""Fuel"",0.5] execVM ""mark_unit.sqf"";";
 		};
 		class Item241
 		{
@@ -3358,7 +3359,7 @@ class Mission
 			vehicle="B_Truck_01_ammo_F";
 			leader=1;
 			skill=0.60000002;
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
+			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""Ammo"",0.5] execVM ""mark_unit.sqf"";";
 		};
 		class Item242
 		{
@@ -3600,7 +3601,7 @@ class Mission
 			vehicle="B_Truck_01_ammo_F";
 			skill=0.60000002;
 			text="rearm2_1_1";
-			init="this allowdamage false;";
+			init="this allowdamage false;  0 = [this,""Ammo"",0.5] execVM ""mark_unit.sqf"";";
 		};
 		class Item266
 		{
@@ -4242,7 +4243,7 @@ class Mission
 			vehicle="B_Truck_01_Repair_F";
 			skill=0.60000002;
 			text="rearm2_1_1_1";
-			init="this allowdamage false;";
+			init="this allowdamage false; 0 = [this,""Rep"",0.5] execVM ""mark_unit.sqf"";";
 		};
 		class Item317
 		{
@@ -4253,7 +4254,7 @@ class Mission
 			vehicle="B_Truck_01_fuel_F";
 			skill=0.60000002;
 			text="rearm2_1_1_2";
-			init="this allowdamage false;";
+			init="this allowdamage false;  0 = [this,""Fuel"",0.5] execVM ""mark_unit.sqf"";";
 		};
 		class Item318
 		{
