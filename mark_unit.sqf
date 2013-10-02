@@ -32,7 +32,7 @@ _this spawn {
     createMarkerLocal [_varname, [0,0]];
     _varname setMarkerShape "ICON";
     _varname setMarkerColor "ColorBlack";
-    _varname setMarkerSize [ 10 * _size, 10 * _size ];
+    _varname setMarkerSizeLocal [ _size, _size ];
 
     //hint format ["varname: %1, label: %2", _varname, _label];
 
