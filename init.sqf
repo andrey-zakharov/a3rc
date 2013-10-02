@@ -388,6 +388,11 @@ _null = [] execVM "misc\mortar\mortarHEReload.sqf";
 _null = [] execVM "misc\mortar\mortarSupportReload.sqf";
 */
 
+//Run Patrols
+if (PARAMS_AOReinforcementJet == 1) then { _null = [] execVM "reinforcements\AO_JET_BUZZARD.sqf"; };
+if (PARAMS_AOReinforcement == 1) then { _null = [] execVM "reinforcements\AO_HELO_ORCA.sqf"; };
+if (PARAMS_AOReinforcementHeavyHelo == 1) then { _null = [] execVM "reinforcements\AO_HELO_MI48.sqf"; };
+if (PARAMS_SideMissionReinforcement == 1) then { _null = [] execVM "reinforcements\SM_HELO_ORCA.sqf"; };
 
 _isPerpetual = false;
 
