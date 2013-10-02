@@ -3171,12 +3171,12 @@ class Mission
 		{
 			position[]={14543.833,17.804211,16852.99};
 			azimut=-855.914;
-			text="Ambulance";
 			id=268;
 			side="EMPTY";
 			vehicle="B_Truck_01_medical_F";
 			leader=1;
 			skill=0.60000002;
+			text="Ambulance";
 			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""Med"",0.5] execVM ""mark_unit.sqf"";";
 		};
 		class Item226
