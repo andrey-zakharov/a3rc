@@ -832,7 +832,69 @@ AW_fnc_spawnUnits = {
 			};
 		};
 	};
-	
+
+	for "_x" from 1 to PARAMS_SniperPatrol do {
+		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
+		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "Infantry" >> "OI_SniperTeam")] call BIS_fnc_spawnGroup;
+		/* "O_Soldier_AA_F" createUnit [_randomPos, _spawnGroup];
+		[_spawnGroup, getMarkerPos currentAO, (PARAMS_AOSize / 2)] call aw_fnc_spawn2_randomPatrol; */
+		[(units _spawnGroup)] call aw_setGroupSkill;
+		
+		if(DEBUG) then
+		{
+			_name = format ["%1%2",name (leader _spawnGroup),_x];
+			createMarker [_name,getPos (leader _spawnGroup)];
+			_name setMarkerType "o_unknown";
+			_name setMarkerText format ["Sentry Patrol %1",_x];;
+			_name setMarkerColor "ColorRed";
+			[_spawnGroup,_name] spawn 
+			{
+				private["_group","_marker"];
+				_group = _this select 0;
+				_marker = _this select 1;
+				
+				while{count (units _group) > 0} do
+				{
+					_marker setMarkerPos (getPos (leader _group));
+					sleep 0.1;
+				};
+				deleteMarker _marker;
+			};
+		};
+		
+		_enemiesArray = _enemiesArray + [_spawnGroup];
+	};
+
+	for "_x" from 1 to PARAMS_TeamsMiniDronePatrol do {
+		_randomPos = [getMarkerPos currentAO, PARAMS_AOSize] call aw_fnc_randomPos;
+		_spawnGroup = [_randomPos, EAST, (configfile >> "CfgGroups" >> "East" >> "OPF_F" >> "SpecOps" >> "OI_SmallTeam_UAV")] call BIS_fnc_spawnGroup;
+		[(units _spawnGroup)] call aw_setGroupSkill;
+		
+		if(DEBUG) then
+		{
+			_name = format ["%1%2",name (leader _spawnGroup),_x];
+			createMarker [_name,getPos (leader _spawnGroup)];
+			_name setMarkerType "o_unknown";
+			_name setMarkerText format ["Mini Drone Patrol %1",_x];;
+			_name setMarkerColor "ColorRed";
+			[_spawnGroup,_name] spawn 
+			{
+				private["_group","_marker"];
+				_group = _this select 0;
+				_marker = _this select 1;
+				
+				while{count (units _group) > 0} do
+				{
+					_marker setMarkerPos (getPos (leader _group));
+					sleep 0.1;
+				};
+				deleteMarker _marker;
+			};
+		};
+		
+		_enemiesArray = _enemiesArray + [_spawnGroup];
+	};
+
 	{
 		_newGrp = [_x] call AW_fnc_garrisonBuildings;
 		if (!isNull _newGrp) then { _enemiesArray = _enemiesArray + [_newGrp]; };
