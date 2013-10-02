@@ -28,9 +28,9 @@ PFP_getClosestObjective = {
 	_min_dist = PFP_max_distance;
 	_objs = [ markerPos "respawn_west" ];
 	// AHOY
-	if (currentAOUp) then { _objs set[ count _objs, getMarkerPos currentAO ]; };
-	if (priorityTargetUp) then { _objs set[ count _objs, markerPos "priorityMarker" ]; };
-	if (sideMissionUp) then { _objs set[ count _objs, getPos sideObj ]; };
+	if (!isNil("currentAOUp") && currentAOUp) then { _objs set[ count _objs, getMarkerPos currentAO ]; };
+	if (!isNil("priorityTargetUp") && priorityTargetUp) then { _objs set[ count _objs, markerPos "priorityMarker" ]; };
+	if (!isNil("sideMissionUp") && sideMissionUp) then { _objs set[ count _objs, getPos sideObj ]; };
 	
 	{ 
 		_d = _this distance _x;
