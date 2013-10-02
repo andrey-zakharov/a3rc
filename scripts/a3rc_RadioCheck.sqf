@@ -11,6 +11,7 @@ if ( isServer ) exitWith{};
 			if ( typeOf player == "B_Helipilot_F" ) exitWith {
 				titleText [ localize "STR_NO_RADIO_PILOT", "BLACK FADED" ];
 				sleep 10;
+				"end1" call BIS_fnc_endMission;
 				forceEnd;
 			};
 
