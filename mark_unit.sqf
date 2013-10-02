@@ -43,17 +43,17 @@ _this spawn {
             sleep 0.2;
         };
 
-        if ( _unit iskindOf "Helicopter" ) then {
-            _varname setMarkerType "n_air";
-        } else { 
-            if ( _unit isKindOf "UAV" ) then {
-               _varname setMarkerType "n_uav";
-            } else {
-                if ( _unit isKindOf "Plain" ) then {
-                   _varname setMarkerType "n_plane";
-               };
-           };
-        };
+        switch(true) do {
+        	case (_unit iskindOf "Helicopter"): { _varname setMarkerType "n_air"; };
+        	case (_unit iskindOf "UAV"): { _varname setMarkerType "n_uav"; };
+        	case (_unit iskindOf "Plain"): { _varname setMarkerType "n_plane"; };
+        	case (typeOf _unit in ["B_Truck_01_fuel_F", "B_Truck_01_ammo_F", "B_G_Van_01_fuel_F" ]): { _varname setMarkerType "n_support"; };
+        	case (_unit iskindOf "B_Truck_01_Repair_F"): { _varname setMarkerType "n_maint"; };
+        	case (_unit iskindOf "B_Truck_01_medical_F"): { _varname setMarkerType "n_med"; };
+        	default { _varname setMarkerType "n_unknown"; };
+    	};
+
+
 
         hint format["%1", _unit];
 
