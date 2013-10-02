@@ -31,6 +31,7 @@ player createDiarySubject ["changeLog", "Change Log"];
 player createDiaryRecord ["changeLog", ["A3RC Change Log", 
 "
 <br /> V 0.12
+<br />- Очки пилотам за успешную перевозку
 <br />- Добавлена случайная баллистика пули (ветер)
 <br />- Добавлены снайпер группы и UAV группы у противника на миссии
 <br />- Добавлены подкрепления для основной и вторичной миссий
