@@ -1,4 +1,4 @@
-
+/*
 player createDiarySubject ["changeLog","Change Log"];
 player createDiaryRecord ["changeLog", ["I & A Mission Change Log", 
 "
@@ -26,10 +26,15 @@ player createDiaryRecord ["changeLog", ["I & A Mission Change Log",
 <br />- [Added] Artillery at ""Trenchfoot""
 <br />- Tweaked some behind the scenes coding
 "]];
-
+*/
 player createDiarySubject ["changeLog", "Change Log"];
 player createDiaryRecord ["changeLog", ["A3RC Change Log", 
 "
+<br /> V 0.12
+<br />- Добавлена случайная баллистика пули (ветер)
+<br />- Добавлены снайпер группы и UAV группы у противника на миссии
+<br />- Добавлены подкрепления для основной и вторичной миссий
+<br />
 <br /> V 0.11
 <br />- добавлены командиры к артиллерии - арта будет огрызаться турелями
 <br />- сайда ""поговорить с контактом""
