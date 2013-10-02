@@ -29,8 +29,8 @@ BTC_action_respawn  = 0;//if black screen is set to 0 you can choose if you want
 BTC_camera_unc      = 1;
 BTC_camera_unc_type = ["Behind the back","High","Free"];
 BTC_respawn_time    = 0;
-BTC_active_mobile   = 0;//Active mobile respawn (You have to put in map the vehicle and give it a name. Then you have to add one object per side to move to the mobile (BTC_base_flag_west,BTC_base_flag_east) - (1 = yes, 0 = no))
-BTC_mobile_respawn  = 0;//Active the mobile respawn fnc (1 = yes, 0 = no)
+BTC_active_mobile   = 1;//Active mobile respawn (You have to put in map the vehicle and give it a name. Then you have to add one object per side to move to the mobile (BTC_base_flag_west,BTC_base_flag_east) - (1 = yes, 0 = no))
+BTC_mobile_respawn  = 1;//Active the mobile respawn fnc (1 = yes, 0 = no)
 BTC_mobile_respawn_time = 30;//Secs delay for mobile vehicle to respawn
 BTC_need_first_aid = 1;//You need a first aid kit to revive (1 = yes, 0 = no)
 BTC_pvp = 0; //(disable the revive option for the enemy)
@@ -46,7 +46,7 @@ BTC_objects_actions_guer = [];
 BTC_objects_actions_civ  = [];
 if (isServer) then
 {
-	BTC_vehs_mobile_west = [];//Editable - define mobile west
+	BTC_vehs_mobile_west = [Ambulance];//Editable - define mobile west
 	BTC_vehs_mobile_east = [];//Editable - define mobile east
 	BTC_vehs_mobile_guer = [];//Editable - define mobile independent
 	BTC_vehs_mobile_civ  = [];//Editable - define mobile civilian
