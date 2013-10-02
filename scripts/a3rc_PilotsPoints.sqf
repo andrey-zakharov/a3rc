@@ -62,13 +62,15 @@ _this spawn {
 				_passageer = _this select 2;
 				_isIn = { _x select 0 == _passageer } count PFP_getins;
 				if !(isIn) exitWith {};
-				_idx = 0;
+				_idx = nil;
 
 				{
 					if ( (PFP_getins select _i) select 0 == _passageer ) exitWith {
 						_idx = _i;
 					};
 				} forEach PFP_getins;
+
+				if ( isNil( _idx ) ) exitWith {};
 
 				_from = (PFP_getins select _idx) select 1;
 				if ( _from distance (position player) <= 100 ) exitWith {

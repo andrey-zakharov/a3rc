@@ -231,7 +231,7 @@ if (PARAMS_PlayerMarkers == 1) then { _null = [] execVM "misc\playerMarkers.sqf"
 	["rsc\FinalComp.ogv", ""] spawn BIS_fnc_titlecard;
 	waitUntil {sleep 0.5; !(isNil "BIS_fnc_titlecard_finished")};
 	_titlePos = [14600.0,16801.0,100];
-	if (currentAOUp) then { _titlePos = getMarkerPos currentAO; };
+	//if (currentAOUp) then { _titlePos = getMarkerPos currentAO; };
 	[_titlePos,"We've gotten a foot-hold on the island,|but we need to take the rest.||Listen to HQ and neutralise all enemies designated."] spawn BIS_fnc_establishingShot;
 	titleText [WELCOME_MESSAGE, "PLAIN", 3];
 };
