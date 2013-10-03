@@ -214,6 +214,7 @@ enableSentences false;
 0 = [] execVM 'group_manager.sqf';
 if (PARAMS_RadioCheck == 1) then { 0 = [] execVM 'scripts\a3rc_RadioCheck.sqf' };
 _null = [] execVM "restrictions.sqf";
+
 if (PARAMS_ViewDistance == 1) then { _null = [] execVM "taw_vd\init.sqf"; };
 //if (PARAMS_PilotsOnly == 1) then { _null = [] execVM "pilotCheck.sqf"; };
 if (PARAMS_SpawnProtection == 1) then { _null = [] execVM "grenadeStop.sqf"; };
@@ -230,6 +231,10 @@ if (PARAMS_BulletWind == 1) then {
 	if (isServer) then {execVM "misc\bulletWindServer.sqf";};
 	execVM "misc\bulletWindClient.sqf";
 };
+
+_script = execVM "EtV.sqf";
+waitUntil {scriptDone _Handle};
+player call EtV_Actions;
 
 [] spawn {
 	scriptName "initMission.hpp: mission start";
