@@ -46,7 +46,7 @@ while {true} do {
 			_unitNumber = _unitNumber + 1;
 			_marker = format["um%1",_unitNumber];    
 			if(getMarkerType _marker == "") then {
-				createMarkerLocal [_marker, getPos vehicle _x];
+				_markerObj = createMarkerLocal [_marker, getPos vehicle _x];
 			} else {
 				_marker setMarkerPosLocal getPosATL vehicle _x;
 			};      
