@@ -16,7 +16,8 @@ PFP_getPenalty = {
 	_srcObj = _this select 2;
 	_dstObj = _this select 3;
 
-	//format ["PFP_getPenalty: dist1 %1, dist %2, penalty: %3", (_from distance _to), (_srcObj distance _dstObj), (_from distance _to) / (_srcObj distance _dstObj) ] call BIS_fnc_log;
+	//format ["PFP_getPenalty: dist1 %1, dist %2, penalty: %3", (_from distance _to), 
+	// (_srcObj distance _dstObj), (_from distance _to) / (_srcObj distance _dstObj) ] call BIS_fnc_log;
 
 	(_from distance _to) / (_srcObj distance _dstObj)
 };
