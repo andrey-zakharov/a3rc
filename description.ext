@@ -32,7 +32,7 @@ class Header
 {
   gameType = COOP;
   minPlayers = 1;
-  maxPlayers = 64;
+  maxPlayers = 40;
 };
 
 enableSaving = [false, false];
@@ -437,7 +437,7 @@ class CfgNotifications
 	class EnemyHelo
 	{
 		title = "ENEMY HELICOPTER INBOUND";
-		iconPicture = "notificons\heloinbound.paa";
+		iconPicture = "notificons\main_objective.paa";
 		description = "%1";
 		color[] = {0.8, 0.13, 0.14, 1};
 		priority = 8;
@@ -446,7 +446,7 @@ class CfgNotifications
 	class EnemyHeloDown
 	{
 		title = "ENEMY HELICOPTER NEUTRALIZED";
-		iconPicture = "notificons\down.paa";
+		iconPicture = "notificons\reward.paa";
 		description = "%1";
 		color[] = {1, 0.81, 0.06, 1};
 		priority = 8;
@@ -455,7 +455,7 @@ class CfgNotifications
 	class EnemyJetDown
 	{
 		title = "ENEMY HELICOPTER NEUTRALIZED";
-		iconPicture = "notificons\down.paa";
+		iconPicture = "notificons\reward.paa";
 		description = "%1";
 		color[] = {1, 0.81, 0.06, 1};
 		priority = 8;
@@ -464,7 +464,7 @@ class CfgNotifications
 	class EnemyHeavyHelo
 	{
 		title = "ENEMY HELICOPTER INBOUND";
-		iconPicture = "notificons\heavyheliinbound.paa";
+		iconPicture = "notificons\main_objective.paa";
 		description = "%1";
 		color[] = {0.8, 0.13, 0.14, 1};
 		priority = 8;
@@ -473,7 +473,7 @@ class CfgNotifications
 	class EnemyJet
 	{
 		title = "ENEMY JET INBOUND";
-		iconPicture = "notificons\enemyJetinbound.paa";
+		iconPicture = "notificons\main_objective.paa";
 		description = "%1";
 		color[] = {0.8, 0.13, 0.14, 1};
 		priority = 8;
@@ -482,7 +482,7 @@ class CfgNotifications
 	class NewSideMissionJet
 	{
 		title = "NEW SIDE MISSION";
-		iconPicture = "notificons\enemyJetinbound.paa";
+		iconPicture = "notificons\side_mission.paa";
 		description = "%1";
 		color[] = {0.8, 0.13, 0.14, 1};
 		priority = 8;
@@ -491,7 +491,7 @@ class CfgNotifications
 	class EnemyHeavyHeloDown
 	{
 		title = "ENEMY HELICOPTER NEUTRALIZED";
-		iconPicture = "notificons\down.paa";
+		iconPicture = "notificons\reward.paa";
 		description = "%1";
 		color[] = {1, 0.81, 0.06, 1};
 		priority = 8;
@@ -500,7 +500,7 @@ class CfgNotifications
 	class FriendlyHeavyHeloDown
 	{
 		title = "FRIENDLY HELO GOT NEUTRALIZED";
-		iconPicture = "notificons\down.paa";
+		iconPicture = "notificons\reward.paa";
 		description = "%1";
 		color[] = {1, 0.81, 0.06, 1};
 		priority = 8;
@@ -509,7 +509,7 @@ class CfgNotifications
 	class SideMissionEnemys
 	{
 		title = "ENEMY REINFORCEMENT";
-		iconPicture = "notificons\enemysidemission.paa";
+		iconPicture = "notificons\side_mission.paa";
 		description = "%1";
 		color[] = {0.8, 0.13, 0.14, 1};
 		priority = 8;
@@ -518,7 +518,7 @@ class CfgNotifications
 	class SideMissionEnemysDown
 	{
 		title = "REINFORCEMENT NEUTRALIZED";
-		iconPicture = "notificons\down.paa";
+		iconPicture = "notificons\reward.paa";
 		description = "%1";
 		color[] = {1, 0.81, 0.06, 1};
 		priority = 8;

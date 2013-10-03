@@ -17,7 +17,8 @@ distibuting this mission when hosting!
 This version of Domination was lovingly crafted by
 Jack Williams (Rarek) for Ahoy World!
 */
-
+//format ["isDedicated=%1, isServer=%2, isMultiplayer=%3, isPlayer=%4",
+//	 isDedicated, isServer, isMultiplayer, isPlayer player] call BIS_fnc_log;
 // JIP Check (This code should be placed first line of init.sqf file)
 if (!isServer && isNull player) then {isJIP=true;} else {isJIP=false;};
 
@@ -237,8 +238,11 @@ if (PARAMS_BulletWind == 1) then {
 	scriptName "initMission.hpp: mission start";
 	["rsc\FinalComp.ogv", ""] spawn BIS_fnc_titlecard;
 	waitUntil {sleep 0.5; !(isNil "BIS_fnc_titlecard_finished")};
+
+	_timeout = time + 1; //wait 2 seconds for currentAO
 	_titlePos = [14600.0,16801.0,100];
-	//if (currentAOUp) then { _titlePos = getMarkerPos currentAO; };
+	waitUntil { (!isNil"currentAO" && currentAO != "Nothing") || time > _timeout };
+	if (!isNil"currentAO" && currentAO != "Nothing" ) then { _titlePos = getMarkerPos currentAO; };
 	[_titlePos,"We've gotten a foot-hold on the island,|but we need to take the rest.||Listen to HQ and neutralise all enemies designated."] spawn BIS_fnc_establishingShot;
 	titleText [WELCOME_MESSAGE, "PLAIN", 3];
 
