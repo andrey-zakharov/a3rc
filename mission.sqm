@@ -83,8 +83,8 @@ class Mission
 	randomSeed=12935265;
 	class Intel
 	{
-		briefingName="co40 AW Invade & Annex (a3rc v0.12)";
-		overviewText="co40 AW Invade & Annex (a3rc v0.12)";
+		briefingName="co40 AW Invade & Annex (a3rc v0.13)";
+		overviewText="co40 AW Invade & Annex (a3rc v0.13)";
 		timeOfChanges=28800;
 		startWeather=0.099999994;
 		startWind=0.07;
@@ -725,7 +725,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=322;
+		items=323;
 		class Item0
 		{
 			position[]={15246.208,-0.0082027912,14204.392};
@@ -4301,6 +4301,20 @@ class Mission
 			skill=0.60000002;
 			fuel=0.31193987;
 			init="this removeMagazineTurret [""6Rnd_155mm_Mo_smoke"",[0]]; this removeMagazineTurret [""6Rnd_155mm_Mo_mine"",[0]]; this removeMagazineTurret [""6Rnd_155mm_Mo_AT_mine"",[0]]; this allowdamage false;";
+		};
+		class Item322
+		{
+			position[]={15123.202,17.874252,17284.299};
+			azimut=135;
+			id=365;
+			side="EMPTY";
+			vehicle="B_Heli_Light_01_F";
+			lock="UNLOCKED";
+			skill=0.60000002;
+			health=0.7850247;
+			fuel=0.7850247;
+			text="mh9doors";
+			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = this execVM ""misc\addDoorOpenClose.sqf"";";
 		};
 	};
 	class Markers

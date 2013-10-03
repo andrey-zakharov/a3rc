@@ -21,13 +21,13 @@ if (isNil{_targetChoppa getVariable "openCloseScriptRunning"}) then
                   {
                            // OPEN THE DOOR
                            _targetChoppa animate ['DoorL_Front_Open', 1];
-                           _targetChoppa say3D ["HintsOpen",1];
+                           _targetChoppa say3D ["HintExpand",1];
                            waitUntil {(_targetChoppa animationPhase "DoorL_Front_Open") == 1};
                   } else
                   {
                            // CLOSE THE DOOR
                            _targetChoppa animate ['DoorL_Front_Open', 0];
-                           _targetChoppa say3D ["HintsClose",1];
+                           _targetChoppa say3D ["HintCollapse",1];
                            waitUntil {(_targetChoppa animationPhase "DoorL_Front_Open") == 0};
                            _targetChoppa say3D ["ClickSoft",1];
                   };
@@ -43,13 +43,13 @@ if (isNil{_targetChoppa getVariable "openCloseScriptRunning"}) then
                   {
                            // OPEN THE DOOR
                            _targetChoppa animate ['DoorL_Back_Open', 1];
-                           _targetChoppa say3D ["HintsOpen",1];
+                           _targetChoppa say3D ["HintExpand",1];
                            waitUntil {(_targetChoppa animationPhase "DoorL_Back_Open") == 1};
                   } else
                   {
                            // CLOSE THE DOOR
                            _targetChoppa animate ['DoorL_Back_Open', 0];
-                           _targetChoppa say3D ["HintsClose",1];
+                           _targetChoppa say3D ["HintCollapse",1];
                            waitUntil {(_targetChoppa animationPhase "DoorL_Back_Open") == 0};
                            _targetChoppa say3D ["ClickSoft",1];
                   };
@@ -65,13 +65,13 @@ if (isNil{_targetChoppa getVariable "openCloseScriptRunning"}) then
                   {
                            // OPEN THE DOOR
                            _targetChoppa animate ['DoorR_Front_Open', 1];
-                           _targetChoppa say3D ["HintsOpen",1];
+                           _targetChoppa say3D ["HintExpand",1];
                            waitUntil {(_targetChoppa animationPhase "DoorR_Front_Open") == 1};
                   } else
                   {
                            // CLOSE THE DOOR
                            _targetChoppa animate ['DoorR_Front_Open', 0];
-                           _targetChoppa say3D ["HintsClose",1];
+                           _targetChoppa say3D ["HintCollapse",1];
                            waitUntil {(_targetChoppa animationPhase "DoorR_Front_Open") == 0};
                            _targetChoppa say3D ["ClickSoft",1];
                   };
@@ -87,13 +87,13 @@ if (isNil{_targetChoppa getVariable "openCloseScriptRunning"}) then
                   {
                            // OPEN THE DOOR
                            _targetChoppa animate ['DoorR_Back_Open', 1];
-                           _targetChoppa say3D ["HintsOpen",1];
+                           _targetChoppa say3D ["HintExpand",1];
                            waitUntil {(_targetChoppa animationPhase "DoorR_Back_Open") == 1};
                   } else
                   {
                            // CLOSE THE DOOR
                            _targetChoppa animate ['DoorR_Back_Open', 0];
-                           _targetChoppa say3D ["HintsClose",1];
+                           _targetChoppa say3D ["HintCollapse",1];
                            waitUntil {(_targetChoppa animationPhase "DoorR_Back_Open") == 0};
                            _targetChoppa say3D ["ClickSoft",1];
                   };
