@@ -30,6 +30,10 @@ player createDiaryRecord ["changeLog", ["I & A Mission Change Log",
 player createDiarySubject ["changeLog", "Change Log"];
 player createDiaryRecord ["changeLog", ["A3RC Change Log", 
 "
+<br /> V 0.13
+<br />- Добавлена возможность установки взрывчатки на танки
+<br />- Гражданский MH-9 с дверьми
+<br />
 <br /> V 0.12
 <br />- Очки пилотам за успешную перевозку
 <br />- Добавлена случайная баллистика пули (ветер)
