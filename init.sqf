@@ -244,6 +244,10 @@ player call EtV_Actions;
 	//if (currentAOUp) then { _titlePos = getMarkerPos currentAO; };
 	[_titlePos,"We've gotten a foot-hold on the island,|but we need to take the rest.||Listen to HQ and neutralise all enemies designated."] spawn BIS_fnc_establishingShot;
 	titleText [WELCOME_MESSAGE, "PLAIN", 3];
+
+	_script = execVM "EtV.sqf";
+	waitUntil {scriptDone _script && !isNil "EtVInitialized" && !isNil "EtV_Actions"};
+	player call EtV_Actions;
 };
 
 if (!isServer) then
