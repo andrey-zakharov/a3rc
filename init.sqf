@@ -232,9 +232,6 @@ if (PARAMS_BulletWind == 1) then {
 	execVM "misc\bulletWindClient.sqf";
 };
 
-_script = execVM "EtV.sqf";
-waitUntil {scriptDone _Handle};
-player call EtV_Actions;
 
 [] spawn {
 	scriptName "initMission.hpp: mission start";
