@@ -125,7 +125,7 @@ while {_run} do
 			_unit  setVehicleVarName (format ["%1",_unitname]);
 			PublicVariable (format ["%1",_unitname]);
 		};
-		processInitCommands;
+		//processInitCommands;
 		
 		[[[_unit],"scripts\aw_unitSetup.sqf"],"BIS_fnc_execVM",nil,true] spawn BIS_fnc_MP;
 		//if(isServer) then {[_unit] execVM "scripts\aw_markerFollow.sqf"};
