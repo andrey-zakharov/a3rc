@@ -403,6 +403,60 @@
 </Project>
 
 <Project name="A3RC">
+	<Package name="Actions">
+		<Key ID="STR_ACTION_DISTANCE_SETTINGS">
+			<Original>View Distance Settings</Original>
+			<Russian>Настройки дальности отображения</Russian>
+		</Key>
+		<Key ID="STR_ACTION_CHECK_WIND">
+			<Original>Check wind direction</Original>
+			<Russian>Послюнявить палец</Russian>
+		</Key>
+		<Key ID="STR_WIND_INFO">
+			<Original>Wind: %1, %2 m/sec</Original>
+			<Russian>Ветер: %1, %2 м/c</Russian>
+		</Key>
+
+		<Key ID="STR_WIND_INFO_NO">
+			<Original>Wind: calm</Original>
+			<Russian>Ветра нет</Russian>
+		</Key>
+
+		<Key ID="STR_WIND_INFO_NORTH">
+			<Original>↓ north</Original>
+			<Russian>↓ северный</Russian>
+		</Key>
+		<Key ID="STR_WIND_INFO_NORTH_EAST">
+			<Original>↙ north-east</Original>
+			<Russian>↙ северо-восточный</Russian>
+		</Key>		
+		<Key ID="STR_WIND_INFO_EAST">
+			<Original>← east</Original>
+			<Russian>← восточный</Russian>
+		</Key>
+		<Key ID="STR_WIND_INFO_SOUTH_EAST">
+			<Original>↖ south east</Original>
+			<Russian>↖ южно-восточный</Russian>
+		</Key>
+
+		<Key ID="STR_WIND_INFO_SOUTH">
+			<Original>↑ south</Original>
+			<Russian>↑ южный</Russian>
+		</Key>
+		<Key ID="STR_WIND_INFO_SOUTH_WEST">
+			<Original>↗ south west</Original>
+			<Russian>↗ южно-западный</Russian>
+		</Key>
+		<Key ID="STR_WIND_INFO_WEST">
+			<Original>→ west</Original>
+			<Russian>→ западный</Russian>
+		</Key>
+		<Key ID="STR_WIND_INFO_NORTH_WEST">
+			<Original>↘ north west</Original>
+			<Russian>↘ северо-западный</Russian>
+		</Key>
+	</Package>
+
 	<Package name="Main">
 		<Key ID="STR_NO_RADIO_15MINS">
 			<Original>You can play 15 minutes without Task Force Radio plugin. Visit A3RC.COM for instructions!</Original>
