@@ -1,7 +1,10 @@
 if(isDedicated) exitWith {};
 waitUntil {!isNull player && player == player};
 [] execVM "taw_vd\functions.sqf";
-tawvd_action = player addAction["<t color='#FFFFFF'>View Distance Settings</t>","taw_vd\open.sqf",[],-99,false,false,"",''];
+tawvd_action = player addAction[ 
+	format[ "<t color='#3030FF'>%1</t>", localize "STR_ACTION_DISTANCE_SETTINGS" ],
+	"taw_vd\open.sqf", [], -99, false, false, "", ''
+];
 
 if(isNil {tawvd_foot}) then 
 {

@@ -231,6 +231,11 @@ if (PARAMS_PlayerMarkers == 1) then { _null = [] execVM "misc\playerMarkers.sqf"
 if (PARAMS_BulletWind == 1) then { 
 	if (isServer) then {execVM "misc\bulletWindServer.sqf";};
 	execVM "misc\bulletWindClient.sqf";
+	player addAction [ 
+		format[ "<t color='#3030FF'>%1</t>", localize "STR_ACTION_CHECK_WIND"],
+		"misc\action_checkWind.sqf", 
+		nil, -10, false, false
+	];
 };
 
 
