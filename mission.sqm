@@ -40,7 +40,8 @@ class Mission
 		"A3_Structures_F_Mil_BagFence",
 		"A3_Air_F_Beta_Heli_Transport_01",
 		"A3_Structures_F_Mil_Shelters",
-		"A3_Soft_F_Car"
+		"A3_Soft_F_Car",
+		"A3_Soft_F_MRAP_03"
 	};
 	addOnsAuto[]=
 	{
@@ -78,6 +79,7 @@ class Mission
 		"A3_Structures_F_Mil_Shelters",
 		"A3_Soft_F_Car",
 		"A3_Armor_F_Slammer",
+		"A3_Soft_F_MRAP_03",
 		"a3_map_altis"
 	};
 	randomSeed=12935265;
@@ -725,7 +727,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=323;
+		items=325;
 		class Item0
 		{
 			position[]={15246.208,-0.0082027912,14204.392};
@@ -3169,7 +3171,7 @@ class Mission
 		};
 		class Item225
 		{
-			position[]={14543.833,17.804211,16852.99};
+			position[]={14545.11,17.807617,16852.99};
 			azimut=-855.914;
 			id=268;
 			side="EMPTY";
@@ -3181,7 +3183,7 @@ class Mission
 		};
 		class Item226
 		{
-			position[]={14549.559,17.818825,16847.334};
+			position[]={14564.132,17.853939,16862.68};
 			azimut=-855.914;
 			id=269;
 			side="EMPTY";
@@ -3341,7 +3343,7 @@ class Mission
 		};
 		class Item240
 		{
-			position[]={14539.557,17.747995,16857.633};
+			position[]={14556.799,17.815868,16870.34};
 			azimut=-855.914;
 			id=283;
 			side="EMPTY";
@@ -3352,7 +3354,7 @@ class Mission
 		};
 		class Item241
 		{
-			position[]={14534.705,17.652327,16861.994};
+			position[]={14537.3,17.704002,16860.754};
 			azimut=-855.914;
 			id=284;
 			side="EMPTY";
@@ -4315,6 +4317,37 @@ class Mission
 			fuel=0.7850247;
 			text="mh9doors";
 			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = this execVM ""misc\addDoorOpenClose.sqf"";";
+		};
+		class Item323
+		{
+			position[]={14574.324,17.774866,16883.188};
+			azimut=220;
+			special="NONE";
+			id=366;
+			side="EMPTY";
+			vehicle="C_Hatchback_01_sport_F";
+			leader=1;
+			lock="UNLOCKED";
+			skill=0.60000002;
+			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; ";
+			description="Gunner - HayMaker";
+		};
+		class Item324
+		{
+			position[]={14536.758,17.91,16735.555};
+			azimut=50;
+			special="NONE";
+			id=367;
+			side="EMPTY";
+			vehicle="I_MRAP_03_gmg_F";
+			leader=1;
+			lock="UNLOCKED";
+			skill=0.60000002;
+			health=0.88922518;
+			fuel=0.55229795;
+			ammo=0.72544122;
+			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; ";
+			description="strider";
 		};
 	};
 	class Markers
