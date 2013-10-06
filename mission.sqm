@@ -4906,7 +4906,6 @@ class Mission
 			name="Kavala & Aggelochori";
 			type="Empty";
 		};
-
 		class Item76
 		{
 			position[]={20252.268,51.6786,11691.288};
