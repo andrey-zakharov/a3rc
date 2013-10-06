@@ -56,6 +56,7 @@ _handle = execVM "aw_functions.sqf";
 waitUntil{scriptDone _handle};
 execVM "changeLog.sqf";
 _initialTargets = [
+	"Kavala & Aggelochori",
 	"Solar Plant",
 	"Neochori",
 	"Athira",
