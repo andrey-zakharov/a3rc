@@ -85,8 +85,8 @@ class Mission
 	randomSeed=12935265;
 	class Intel
 	{
-		briefingName="co40 AW Invade & Annex (a3rc v0.13)";
-		overviewText="co40 AW Invade & Annex (a3rc v0.13)";
+		briefingName="co40 AW Invade & Annex (a3rc v0.14)";
+		overviewText="co40 AW Invade & Annex (a3rc v0.14)";
 		timeOfChanges=28800;
 		startWeather=0.099999994;
 		startWind=0.07;
@@ -2388,7 +2388,7 @@ class Mission
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo1";
-			init="0 = this execVM ""a3rc_vasActions.sqf""";
+			init="_m = this execVM ""a3rc_vasActions.sqf""";
 		};
 		class Item152
 		{
@@ -2399,7 +2399,7 @@ class Mission
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo2";
-			init="0 = this execVM ""a3rc_vasActions.sqf""";
+			init="_m = this execVM ""a3rc_vasActions.sqf""";
 		};
 		class Item153
 		{
@@ -2410,7 +2410,7 @@ class Mission
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo4";
-			init="0 = this execVM ""a3rc_vasActions.sqf""";
+			init="_m = this execVM ""a3rc_vasActions.sqf""";
 		};
 		class Item154
 		{
@@ -2421,7 +2421,7 @@ class Mission
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo3";
-			init="0 = this execVM ""a3rc_vasActions.sqf""";
+			init="_m = this execVM ""a3rc_vasActions.sqf""";
 		};
 		class Item155
 		{
@@ -3179,7 +3179,7 @@ class Mission
 			leader=1;
 			skill=0.60000002;
 			text="Ambulance";
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""Med"",0.5] execVM ""mark_unit.sqf"";";
+			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
 		class Item226
 		{
@@ -3190,7 +3190,7 @@ class Mission
 			vehicle="B_Truck_01_Repair_F";
 			leader=1;
 			skill=0.60000002;
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""Rep"",0.5] execVM ""mark_unit.sqf"";";
+			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
 		class Item227
 		{
@@ -3291,7 +3291,7 @@ class Mission
 			leader=1;
 			lock="UNLOCKED";
 			skill=0.60000002;
-			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""H1"",0.5] execVM ""mark_unit.sqf"";";
+			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
 		class Item236
 		{
@@ -3303,7 +3303,7 @@ class Mission
 			leader=1;
 			lock="UNLOCKED";
 			skill=0.60000002;
-			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""H2"",0.5] execVM ""mark_unit.sqf"";";
+			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
 		class Item237
 		{
@@ -3316,7 +3316,7 @@ class Mission
 			skill=0.60000002;
 			health=0.7850247;
 			fuel=0.7850247;
-			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""H3"",0.5] execVM ""mark_unit.sqf"";";
+			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
 		class Item238
 		{
@@ -3327,7 +3327,7 @@ class Mission
 			vehicle="B_Heli_Light_01_armed_F";
 			lock="UNLOCKED";
 			skill=0.60000002;
-			init="_m = [this,900,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""H5"",0.25] execVM ""mark_unit.sqf"";";
+			init="_m = [this,900,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
 		class Item239
 		{
@@ -3339,7 +3339,7 @@ class Mission
 			leader=1;
 			lock="UNLOCKED";
 			skill=0.60000002;
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""H4"",0.4] execVM ""mark_unit.sqf"";";
+			init="_m = [this, 60, 300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
 		class Item240
 		{
@@ -3350,7 +3350,7 @@ class Mission
 			vehicle="B_Truck_01_fuel_F";
 			leader=1;
 			skill=0.60000002;
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";0 = [this,""Fuel"",0.5] execVM ""mark_unit.sqf"";";
+			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 		};
 		class Item241
 		{
@@ -3361,7 +3361,8 @@ class Mission
 			vehicle="B_Truck_01_ammo_F";
 			leader=1;
 			skill=0.60000002;
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = [this,""Ammo"",0.5] execVM ""mark_unit.sqf"";";
+			text="A4";
+			init="_m = [this, 60, 300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; ";
 		};
 		class Item242
 		{
@@ -3372,7 +3373,7 @@ class Mission
 			vehicle="B_G_Van_01_fuel_F";
 			leader=1;
 			skill=0.60000002;
-			init="veh = [this, 60, 180, 0, FALSE] execVM ""vehicle.sqf""; ";
+			init="veh = [this, 60, 180] execVM ""vehicle.sqf""; ";
 		};
 		class Item243
 		{
@@ -3592,7 +3593,7 @@ class Mission
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo6_1";
-			init="0 = this execVM ""a3rc_vasActions.sqf""";
+			init="_m = this execVM ""a3rc_vasActions.sqf""";
 		};
 		class Item265
 		{
@@ -3603,7 +3604,7 @@ class Mission
 			vehicle="B_Truck_01_ammo_F";
 			skill=0.60000002;
 			text="rearm2_1_1";
-			init="this allowdamage false;  0 = [this,""Ammo"",0.5] execVM ""mark_unit.sqf"";";
+			init="this allowdamage false;";
 		};
 		class Item266
 		{
@@ -4222,7 +4223,7 @@ class Mission
 			vehicle="B_MRAP_01_F";
 			leader=1;
 			skill=0.60000002;
-			init="veh = [this, 60, 300, 0, FALSE, FALSE, ""nul = [this,""""C9"""",0.5] execVM """"mark_unit.sqf"""";""] execVM ""vehicle.sqf"";";
+			init="veh = [this, 60, 300] execVM ""vehicle.sqf"";";
 		};
 		class Item315
 		{
@@ -4234,7 +4235,7 @@ class Mission
 			leader=1;
 			lock="UNLOCKED";
 			skill=0.60000002;
-			init="veh = [this, 60, 1800, 0, FALSE, FALSE, ""nul = [this,""""C10"""",0.5] execVM """"mark_unit.sqf"""";""] execVM ""vehicle.sqf"";";
+			init="veh = [this, 60, 1800] execVM ""vehicle.sqf"";";
 		};
 		class Item316
 		{
@@ -4245,7 +4246,7 @@ class Mission
 			vehicle="B_Truck_01_Repair_F";
 			skill=0.60000002;
 			text="rearm2_1_1_1";
-			init="this allowdamage false; 0 = [this,""Rep"",0.5] execVM ""mark_unit.sqf"";";
+			init="this allowdamage false;";
 		};
 		class Item317
 		{
@@ -4256,7 +4257,7 @@ class Mission
 			vehicle="B_Truck_01_fuel_F";
 			skill=0.60000002;
 			text="rearm2_1_1_2";
-			init="this allowdamage false;  0 = [this,""Fuel"",0.5] execVM ""mark_unit.sqf"";";
+			init="this allowdamage false;";
 		};
 		class Item318
 		{
@@ -4267,7 +4268,7 @@ class Mission
 			vehicle="B_supplyCrate_F";
 			skill=0.60000002;
 			text="ammo1_1";
-			init="0 = this execVM ""a3rc_vasActions.sqf""";
+			init="_m = this execVM ""a3rc_vasActions.sqf""";
 		};
 		class Item319
 		{
@@ -4316,7 +4317,8 @@ class Mission
 			health=0.7850247;
 			fuel=0.7850247;
 			text="mh9doors";
-			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; 0 = this execVM ""misc\addDoorOpenClose.sqf"";";
+			init="_m = [this,45,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf""; _m = this execVM ""misc\addDoorOpenClose.sqf"";";
+			description="H6";
 		};
 		class Item323
 		{
