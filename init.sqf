@@ -65,6 +65,11 @@ _initialTargets = [
 	"Factory",
 	"Syrta",
 	"Zaros",
+	"Chalkeia",
+	"Aristi",
+	"Dump",
+	"Agia Stemma",
+	"Outpost",
 	"Frini"
 ];
 
@@ -79,6 +84,11 @@ _targets = [
 	"Factory",
 	"Syrta",
 	"Zaros",
+	"Chalkeia",
+	"Aristi",
+	"Dump",
+	"Agia Stemma",
+	"Outpost",
 	"Frini"
 ];
 
@@ -213,7 +223,8 @@ if (PARAMS_AhoyCoinIntegration == 1) then { OnPlayerConnected "_handle = [_uid, 
 
 /* =============================================== */
 /* ================ PLAYER SCRIPTS =============== */
-
+// vehicle crew display 
+[player] execVM "scripts\crew\crew.sqf";
 0 = [] execVM 'group_manager.sqf';
 _null = [] execVM "restrictions.sqf";
 if (PARAMS_ViewDistance == 1) then { _null = [] execVM "taw_vd\init.sqf"; };
@@ -740,6 +751,7 @@ _pos = getMarkerPos (_this select 0);
 		_enemiesArray = _enemiesArray + [_armourGroup];
 		[(units _armourGroup)] call aw_setGroupSkill;
 		
+		_armour lock true;
 		if(DEBUG) then
 		{
 			_name = format ["%1%2",name (leader _armourGroup),_x];

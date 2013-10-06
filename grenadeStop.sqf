@@ -13,7 +13,7 @@
 	Edit the #defines below.
 */
 
-#define SAFETY_ZONES	[["respawn_west", 150]] // Syntax: [["marker1", radius1], ["marker2", radius2], ...]
+#define SAFETY_ZONES	[["respawn_west", 85]] // Syntax: [["marker1", radius1], ["marker2", radius2], ...]
 #define MESSAGE "Placing / throwing items and firing at base is STRICTLY PROHIBITED!"
 #define MORTAR_MESSAGE	"No point you putting that up, soldier; we're fresh out of ammo for those things."
 #define AA_MESSAGE	"Sorry, solider! All AA missiles are disabled!"

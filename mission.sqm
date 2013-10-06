@@ -82,13 +82,13 @@ class Mission
 	randomSeed=12935265;
 	class Intel
 	{
-		briefingName="co40 AW Invade & Annex -ALTIS- 2.52";
+		briefingName="co40 AW Invade & Annex -ALTIS- 2.56";
 		timeOfChanges=28800;
-		startWeather=0.099999994;
+		startWeather=0.37;
 		startWind=0.07;
 		startWindDir=40;
 		startGust=0.13;
-		forecastWeather=0.099999994;
+		forecastWeather=0.50999999;
 		forecastWind=0.079999998;
 		forecastWaves=0;
 		forecastGust=0.12;
@@ -672,7 +672,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={15084.81,17.91,17233.25};
+					position[]={15106.758,17.91,17213.334};
 					azimut=-225.13699;
 					id=40;
 					side="WEST";
@@ -691,7 +691,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={15103.581,17.91,17253.639};
+					position[]={15125.529,17.91,17233.723};
 					azimut=-225.13699;
 					id=41;
 					side="WEST";
@@ -4215,7 +4215,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=64;
+		items=69;
 		class Item0
 		{
 			position[]={-1391.4594,-0.01276912,580.14929};
@@ -4597,7 +4597,7 @@ class Mission
 		};
 		class Item51
 		{
-			position[]={9239.3008,15.197206,11967.56};
+			position[]={9135.4238,18.307383,11949.248};
 			name="Zaros";
 			type="Empty";
 		};
@@ -4690,6 +4690,36 @@ class Mission
 			b=6;
 			angle=176.68582;
 			drawBorder=1;
+		};
+		class Item64
+		{
+			position[]={20252.268,51.6786,11691.288};
+			name="Chalkeia";
+			type="Empty";
+		};
+		class Item65
+		{
+			position[]={8533.7188,68.045868,20880.195};
+			name="Aristi";
+			type="Empty";
+		};
+		class Item66
+		{
+			position[]={5915.5371,222.23691,20194.033};
+			name="Dump";
+			type="Empty";
+		};
+		class Item67
+		{
+			position[]={7894.6631,277.20117,14613.232};
+			name="Agia Stemma";
+			type="Empty";
+		};
+		class Item68
+		{
+			position[]={11551.105,122.85887,20750.238};
+			name="Outpost";
+			type="Empty";
 		};
 	};
 	class Sensors
