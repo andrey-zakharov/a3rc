@@ -79,7 +79,33 @@ _type = typeOf _unit;
 _dead = false;
 _nodelay = false;
 
-
+/////////////////////////////////////
+// Added by naong
+if (isNil "FNC_setVehicleInit") then {
+    FNC_setVehicleInit = {
+        private ["_netID","_unit","_unitinit"];
+        
+        _netID = _this select 0;
+        _unit = objectFromNetID _netID;
+        _unitinit = _this select 1;
+        
+        _unit call compile format ["%1",_unitinit];
+    };
+};
+if (isNil "FNC_setVehicleVarName") then {
+    FNC_setVehicleVarName = {
+        private ["_netID","_unit","_unitname"];
+        
+        _netID = _this select 0;
+        _unit = objectFromNetID _netID;
+        _unitname = _this select 1;
+        
+        _unit setVehicleVarName _unitname;
+        _unit call compile format ["%1=_This; PublicVariable ""%1""",_unitname];
+    };
+};
+/////////////////////////////////////
+// End of Kronzky's code
 // Start monitoring the vehicle
 while {_run} do 
 {	
@@ -119,17 +145,24 @@ while {_run} do
 		_unit = _type createVehicle _position;
 		_unit setPosASL [_position select 0,_position select 1,(_position select 2) + 0.2];
 		_unit setDir _dir;
-		
+		         
+		// Modified by naong
+        if (_haveinit) then {
+            //_unit setVehicleInit format ["%1;", _unitinit];
+            //processInitCommands;
+            
+            [[netID _unit, _unitinit], "FNC_setVehicleInit", true, true] spawn BIS_fnc_MP;
+        };
+
 		if(_unitname != "") then 
 		{
 			_unit  setVehicleVarName (format ["%1",_unitname]);
 			PublicVariable (format ["%1",_unitname]);
 		};
-		//processInitCommands;
 		
-		[[[_unit],"scripts\aw_unitSetup.sqf"],"BIS_fnc_execVM",nil,true] spawn BIS_fnc_MP;
+		[[[_unit],"scripts\aw_unitSetup.sqf"], "BIS_fnc_execVM", nil, true] spawn BIS_fnc_MP;
 		//if(isServer) then {[_unit] execVM "scripts\aw_markerFollow.sqf"};
-		
+
 		_dead = false;
 
 		// Check respawn amount
