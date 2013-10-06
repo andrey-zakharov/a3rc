@@ -4354,7 +4354,7 @@ class Mission
 	};
 	class Markers
 	{
-		items=76;
+		items=81;
 		class Item0
 		{
 			position[]={-1391.4594,-0.01276912,580.14929};
@@ -4904,6 +4904,37 @@ class Mission
 		{
 			position[]={3693.5178,10.895274,13321.837};
 			name="Kavala & Aggelochori";
+			type="Empty";
+		};
+
+		class Item76
+		{
+			position[]={20252.268,51.6786,11691.288};
+			name="Chalkeia";
+			type="Empty";
+		};
+		class Item77
+		{
+			position[]={8533.7188,68.045868,20880.195};
+			name="Aristi";
+			type="Empty";
+		};
+		class Item78
+		{
+			position[]={5915.5371,222.23691,20194.033};
+			name="Dump";
+			type="Empty";
+		};
+		class Item79
+		{
+			position[]={7894.6631,277.20117,14613.232};
+			name="Agia Stemma";
+			type="Empty";
+		};
+		class Item80
+		{
+			position[]={11551.105,122.85887,20750.238};
+			name="Outpost";
 			type="Empty";
 		};
 	};
