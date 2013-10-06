@@ -76,6 +76,11 @@ _initialTargets = [
 	"Factory",
 	"Syrta",
 	"Zaros",
+	"Chalkeia",
+	"Aristi",
+	"Dump",
+	"Agia Stemma",
+	"Outpost",
 	"Frini"
 ];
 
@@ -212,7 +217,8 @@ enableSentences false;
 
 /* =============================================== */
 /* ================ PLAYER SCRIPTS =============== */
-
+// vehicle crew display 
+[player] execVM "scripts\crew\crew.sqf";
 0 = [] execVM 'group_manager.sqf';
 if (PARAMS_RadioCheck == 1) then { 0 = [] execVM 'scripts\a3rc_RadioCheck.sqf' };
 _null = [] execVM "restrictions.sqf";
@@ -770,6 +776,7 @@ AW_fnc_spawnUnits = {
 		_enemiesArray = _enemiesArray + [_armourGroup];
 		[(units _armourGroup)] call aw_setGroupSkill;
 		
+		//_armour lock true;
 		if(DEBUG) then
 		{
 			_name = format ["%1%2",name (leader _armourGroup),_x];
@@ -801,7 +808,7 @@ AW_fnc_spawnUnits = {
 		_air = _airType createVehicle [_randomPos select 0,_randomPos select 1,1000];
 		waitUntil{!isNull _air};
 		_air engineOn true;
-		_air lock 0;
+		//_air lock 0;
 		_air setPos [_randomPos select 0,_randomPos select 1,300];
 		_air execVM "scripts\a3rc_heliForPilots.sqf";
 		

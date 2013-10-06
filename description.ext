@@ -318,7 +318,7 @@ class Params
 		title = "Enable Ahoy Coin Integration? (Only enable if you are an official Ahoy World server)";
 		values[] = {1,0};
 		texts[] = {"Enable","Disable"};
-		default = 0;
+		default = 1;
 	};
 */	
 	class DebugMode
@@ -525,6 +525,12 @@ class CfgNotifications
 		color[] = {1, 0.81, 0.06, 1};
 		priority = 8;
 	};
+};
+
+class RscTitles
+{
+	//// crewlist ////
+	#include "scripts\crew\namesleft.hpp"
 };
 
 /* class CfgSounds
