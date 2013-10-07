@@ -54,7 +54,11 @@ while {true} do {
 
 			if(_injured) then {
 				_marker setMarkerColorLocal "ColorRed";
-				_marker setMarkerTypeLocal "mil_dot";
+				if ( alive _x ) then {
+					_marker setMarkerTypeLocal "mil_dot";
+				} else {
+					_marker setMarkerTypeLocal "DestroyedVehicle";
+				};
 				_marker setMarkerSizeLocal [0.8,0.8];
 			} else {
 				_marker setMarkerColorLocal "ColorBlue";
