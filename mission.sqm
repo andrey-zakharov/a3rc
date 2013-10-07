@@ -3181,7 +3181,7 @@ class Mission
 			leader=1;
 			skill=0.60000002;
 			text="Ambulance";
-			init="_m = [this,60,300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
+			init="";
 		};
 		class Item226
 		{
