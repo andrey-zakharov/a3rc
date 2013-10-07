@@ -232,6 +232,7 @@ if (PARAMS_ReviveEnabled == 1) then
 	if (PARAMS_MedicMarkers == 1) then { _null = [] execVM "misc\medicMarkers.sqf"; };
 };
 if (PARAMS_PlayerMarkers == 1) then { _null = [] execVM "misc\playerMarkers.sqf"; };
+if (PARAMS_DynamicWeather == 1) then { [] execVM "misc\DynamicWeatherEffects.sqf"; };
 /* 	Disabled while Alpha bug is present
 	_null = [] execVM "misc\radioChannels.sqf"; */
 

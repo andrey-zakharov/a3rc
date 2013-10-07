@@ -78,7 +78,15 @@ class Params
 		values[] = {1,0};
 		texts[] = {"Enabled","Disabled"};
 		default = 1;
-	};	
+	};
+
+	class DynamicWeather
+	{
+		title = "Enable Dynamic Weather?";
+		values[] = {1,0};
+		texts[] = {"Enabled","Disabled"};
+		default = 1;
+	};
 
 	class EnemyLeftThreshhold
 	{
