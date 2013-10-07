@@ -61,6 +61,9 @@ _dynamic = if (count _this > 5) then {_this select 5} else {false};
 _unitinit = if (count _this > 6) then {_this select 6} else {};
 _haveinit = if (count _this > 6) then {true} else {false};
 
+_hasgroup = false;
+If (str(group _unit) == "<NULL-group>") then {_hasgroup = false;} else {_hasgroup = true;};
+
 _hasname = false;
 _unitname = vehicleVarName _unit;
 if (isNil _unitname) then {_hasname = false;} else {_hasname = true;};
@@ -145,7 +148,7 @@ while {_run} do
 		_unit = _type createVehicle _position;
 		_unit setPosASL [_position select 0,_position select 1,(_position select 2) + 0.2];
 		_unit setDir _dir;
-		         
+    if (_hasgroup) then {createVehicleCrew _unit};
 		// Modified by naong
         if (_haveinit) then {
             //_unit setVehicleInit format ["%1;", _unitinit];
