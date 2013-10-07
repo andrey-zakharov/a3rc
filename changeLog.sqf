@@ -32,7 +32,7 @@ player createDiaryRecord ["changeLog", ["A3RC Change Log",
 "
 <br /> V 0.14
 <br />- Сводка ветра
-<br />- Kavala & Aggelochori локация
+<br />- Kavala &amp; Aggelochori локация
 <br />
 <br /> V 0.13
 <br />- Добавлена возможность установки взрывчатки на танки
