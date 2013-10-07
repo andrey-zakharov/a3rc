@@ -670,20 +670,19 @@ class Mission
 		};
 		class Item7
 		{
-			side="WEST";
+			side="LOGIC";
 			class Vehicles
 			{
 				items=1;
 				class Item0
 				{
-					position[]={15084.81,17.91,17233.25};
-					azimut=-225.13699;
+					position[]={14766.3,-0.022443339,15405.381};
 					id=40;
-					side="WEST";
-					vehicle="B_UAV_02_F";
-					isUAV=1;
+					side="LOGIC";
+					vehicle="Logic";
 					leader=1;
 					skill=0.60000002;
+					text="BTC_logic";
 				};
 			};
 		};
@@ -703,24 +702,27 @@ class Mission
 					isUAV=1;
 					leader=1;
 					skill=0.60000002;
+					init="_m = [this, 600, 300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 				};
 			};
 		};
 		class Item9
 		{
-			side="LOGIC";
+			side="WEST";
 			class Vehicles
 			{
 				items=1;
 				class Item0
 				{
-					position[]={14766.3,-0.022443339,15405.381};
+					position[]={15084.81,17.91,17233.25};
+					azimut=-225.13699;
 					id=42;
-					side="LOGIC";
-					vehicle="Logic";
+					side="WEST";
+					vehicle="B_UAV_02_F";
+					isUAV=1;
 					leader=1;
 					skill=0.60000002;
-					text="BTC_logic";
+					init="_m = [this, 900, 300] execVM ""vehicle.sqf""; _m = [this] execVM ""scripts\aw_unitSetup.sqf"";";
 				};
 			};
 		};
@@ -3171,7 +3173,7 @@ class Mission
 		};
 		class Item225
 		{
-			position[]={14545.11,17.807617,16852.99};
+			position[]={14547.085,17.812229,16850.258};
 			azimut=-855.914;
 			id=268;
 			side="EMPTY";
@@ -3183,7 +3185,7 @@ class Mission
 		};
 		class Item226
 		{
-			position[]={14564.132,17.853939,16862.68};
+			position[]={14561.603,17.847321,16864.813};
 			azimut=-855.914;
 			id=269;
 			side="EMPTY";
@@ -3343,7 +3345,7 @@ class Mission
 		};
 		class Item240
 		{
-			position[]={14556.799,17.815868,16870.34};
+			position[]={14551.404,17.780676,16875.195};
 			azimut=-855.914;
 			id=283;
 			side="EMPTY";
@@ -3354,8 +3356,8 @@ class Mission
 		};
 		class Item241
 		{
-			position[]={14537.3,17.704002,16860.754};
-			azimut=-855.914;
+			position[]={14535.791,17.678389,16857.855};
+			azimut=-943.591;
 			id=284;
 			side="EMPTY";
 			vehicle="B_Truck_01_ammo_F";
