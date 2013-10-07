@@ -30,6 +30,10 @@ player createDiaryRecord ["changeLog", ["I & A Mission Change Log",
 player createDiarySubject ["changeLog", "Change Log"];
 player createDiaryRecord ["changeLog", ["A3RC Change Log", 
 "
+<br /> V 0.15
+<br />- смена погоды
+<br />- настроены ограничения по весу для лифта вертолетов
+<br />
 <br /> V 0.14
 <br />- Сводка ветра
 <br />- Kavala &amp; Aggelochori локация
