@@ -35,7 +35,7 @@ BTC_mobile_respawn_time = 30;//Secs delay for mobile vehicle to respawn
 BTC_need_first_aid = 1;//You need a first aid kit to revive (1 = yes, 0 = no)
 BTC_pvp = 0; //(disable the revive option for the enemy)
 BTC_injured_marker = 1;
-BTC_3d_can_see     = ["Man"];
+BTC_3d_can_see     = ["B_medic_F"];
 BTC_3d_distance    = 30;
 BTC_3d_icon_size   = 0.5;
 BTC_3d_icon_color  = [1,0,0,1];
