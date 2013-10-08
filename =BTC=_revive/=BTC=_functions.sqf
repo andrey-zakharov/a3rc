@@ -1504,22 +1504,7 @@ BTC_mobile_check =
 };
 BTC_vehicle_mobile_respawn =
 {
-	_veh  = _this select 0;
-	_var  = _this select 1;
-	_set  = _this select 2;
-	_type = typeOf _veh;
-	_pos  = getPos _veh;
-	_dir  = getDir _veh;
-	waitUntil {sleep 1; !Alive _veh};
-	_veh setVariable [_set,0,true];
-	sleep BTC_mobile_respawn_time;
-	deleteVehicle _veh;
-	_veh = createVehicle [_type, (_pos findEmptyPosition [2,200,_type]),[],0,"NONE"];
-	_veh setDir _dir;
-	_veh setVelocity [0, 0, -1];
-	_veh setVariable [_set,_var,true];
-	_resp = [_veh,_var,_set] spawn BTC_vehicle_mobile_respawn;
-	_veh setpos _pos;
+
 };
 BTC_out_of_lifes =
 {
