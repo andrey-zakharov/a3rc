@@ -111,3 +111,4 @@ publicVariable "sideMissionUp";
 "sideMarker" setMarkerPos [0,0,0];
 "sideCircle" setMarkerPos [0,0,0];
 publicVariable "sideMarker";
+true
