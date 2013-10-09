@@ -92,9 +92,10 @@ while {true} do
 	};
 	
 	//Grab the code for the selected mission
-	_ret = call compile loadfile format ["sm\%1.sqf", _mission ];
+	_ret = call compile preprocessFileLineNumbers format ["sm\%1.sqf", _mission ];
+	diag_log format["ret = %1", _ret];
 
-	if ( _mission == "talkToContact" && _ret == True ) then {
+	if ( _mission == "talkToContact" && _ret ) then {
 		while {_mission == "talkToContact"} do {
 			_mission = _sideMissions call BIS_fnc_selectRandom;
 		};

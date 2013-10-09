@@ -4905,7 +4905,7 @@ class Mission
 		class Item75
 		{
 			position[]={3693.5178,10.895274,13321.837};
-			name="Kavala & Aggelochori";
+			name="Kavala and Aggelochori";
 			type="Empty";
 		};
 		class Item76

@@ -56,7 +56,7 @@ _handle = execVM "aw_functions.sqf";
 waitUntil{scriptDone _handle};
 execVM "changeLog.sqf";
 _initialTargets = [
-	"Kavala & Aggelochori",
+	"Kavala and Aggelochori",
 	"Solar Plant",
 	"Neochori",
 	"Athira",
@@ -510,7 +510,12 @@ _veh = smRewards call BIS_fnc_selectRandom;
 	_vehVarname = _veh select 1;
 	
 	_completeText = format[
-	"<t align='center'><t size='2.2'>Side Mission</t><br/><t size='1.5' color='#00B2EE'>COMPLETE</t><br/>____________________<br/>Fantastic job, lads! The OPFOR stationed on the island won't last long if you keep that up!<br/><br/>We've given you %1 to help with the fight. You'll find it at base.<br/><br/>Focus on the main objective for now; we'll relay this success to the intel team and see if there's anything else you can do for us. We'll get back to you in 15 - 30 minutes.</t>",_vehName];
+	"<t align='center'><t size='2.2'>Side Mission</t><br/>
+	<t size='1.5' color='#00B2EE'>COMPLETE</t><br/>
+	____________________<br/>
+	Fantastic job, lads! The OPFOR stationed on the island won't last long if you keep that up!<br/>
+	<br/>We've given you <t color='#00B23E'>%1</t> to help with the fight. You'll find it at base.<br/>
+	<br/>Focus on the main objective for now; we'll relay this success to the intel team and see if there's anything else you can do for us. We'll get back to you in 15 - 30 minutes.</t>",_vehName];
 	
 	_reward = createVehicle [_vehVarname, getMarkerPos "smReward1",smMarkerList,0,"NONE"];
 	if (_reward isKindOf "UAV") then {createVehicleCrew _reward;} else {sleep 1;};

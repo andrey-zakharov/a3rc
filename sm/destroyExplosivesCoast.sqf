@@ -121,3 +121,4 @@ publicVariable "sideMissionUp";
 sleep 5;
 publicVariable "sideMarker";
 [] spawn aw_cleanGroups;
+true

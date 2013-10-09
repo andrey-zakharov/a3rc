@@ -117,3 +117,4 @@ _civ = sideObj;
 {
 	[_x,600] spawn AW_fnc_deleteSingleUnit; //DEBUG! This function needs urgently changing before being reintroduced so that it deletes the group these units created
 } forEach [_civ, _truck];
+_res
