@@ -1,10 +1,7 @@
 if(isDedicated) exitWith {};
 waitUntil {!isNull player && player == player};
 [] execVM "taw_vd\functions.sqf";
-tawvd_action = player addAction[ 
-	format[ "<t color='#3030FF'>%1</t>", localize "STR_ACTION_DISTANCE_SETTINGS" ],
-	"taw_vd\open.sqf", [], -99, false, false, "", ''
-];
+tawvd_action = player addAction[format[ "<t color='#FFFFFF'>%1</t>", localize "STR_ACTION_DISTANCE_SETTINGS" ],"taw_vd\open.sqf", [], -99, false, false, "", ''];
 
 if(isNil {tawvd_foot}) then 
 {
@@ -24,7 +21,8 @@ if(isNil {tawvd_foot}) then
 			_old = player;
 			_old removeAction tawvd_action;
 			waitUntil {alive player};
-			tawvd_action = player addAction["<t color='#FFFFFF'>View Distance Settings</t>","taw_vd\open.sqf",[],-99,false,false,"",''];
+			tawvd_action = player addAction[format[ "<t color='#FFFFFF'>%1</t>", localize "STR_ACTION_DISTANCE_SETTINGS" ],"taw_vd\open.sqf", [], -99, false, false, "", ''];
+			player addAction [format[ "<t color='#FFFFFF'>%1</t>", localize "STR_ACTION_CHECK_WIND"],"misc\action_checkWind.sqf", nil, -10, false, false];
 		};
 		
 		if((vehicle player) isKindOf "Man" && viewdistance != tawvd_foot) then

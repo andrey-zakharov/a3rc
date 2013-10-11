@@ -18,8 +18,8 @@ BTC_revive_time_max = 600; publicVariable "BTC_revive_time_max";
 BTC_who_can_revive  = ["B_medic_F"];
 BTC_loop_check      = 0;
 BTC_disable_respawn = 0;
-BTC_respawn_gear    = 1;
-BTC_active_lifes    = 1;
+BTC_respawn_gear    = 0;
+BTC_active_lifes    = 0;
 BTC_lifes           = 50;
 BTC_spectating      = 2;//0 = disable; 1 = units group; 2 = side units; 3 = all units
 BTC_spectating_view = [0,2];//To force a view set the first number of the array to 1. The second one is the view mode: 0 = first person; 1 = behind the back; 2 = High; 3 = free

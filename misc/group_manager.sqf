@@ -741,4 +741,4 @@ GVAR(keyUp) = {
 };
 
 
-"squad manager is active, hold T and use mousewheel to bring it up" call GVAR(msg);
+// "squad manager is active, hold T and use mousewheel to bring it up" call GVAR(msg);

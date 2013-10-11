@@ -219,13 +219,20 @@ enableSentences false;
 /* ================ PLAYER SCRIPTS =============== */
 // vehicle crew display 
 [player] execVM "scripts\crew\crew.sqf";
-0 = [] execVM 'group_manager.sqf';
+0 = [] execVM 'misc\group_manager.sqf';
 if (PARAMS_RadioCheck == 1) then { 0 = [] execVM 'scripts\a3rc_RadioCheck.sqf' };
 _null = [] execVM "restrictions.sqf";
 
+/* ================ RESTRICTED VEHICLE/GUNNER =============== */
+0 = ["I_Plane_Fighter_03_CAS_F","B_Pilot_F"] execVM "scripts\checkPilot.sqf"; /* Проверка пилота самолета */
+0 = ["Helicopter","B_Helipilot_F"] execVM "scripts\checkPilot.sqf"; /* Проверка пилота */
+0 =["Heli_Attack_01_base_F","B_Helipilot_F"] execVM "scripts\checkGunner.sqf";
+0 =["Heli_Attack_02_base_F","B_Helipilot_F"] execVM "scripts\checkGunner.sqf"; 
+0 =["B_MBT_01_arty_F","B_Crew_F"] execVM "scripts\checkGunner.sqf"; /* Проверка артеллириста */
+0 =["B_MBT_01_mlrs_F","B_Crew_F"] execVM "scripts\checkGunner.sqf"; /* Проверка артеллириста */
+
 if (PARAMS_ViewDistance == 1) then { _null = [] execVM "taw_vd\init.sqf"; };
-//if (PARAMS_PilotsOnly == 1) then { _null = [] execVM "pilotCheck.sqf"; };
-if (PARAMS_SpawnProtection == 1) then { _null = [] execVM "grenadeStop.sqf"; };
+if (PARAMS_SpawnProtection == 1) then { _null = [] execVM "scripts\grenadeStop.sqf"; };
 if (PARAMS_ReviveEnabled == 1) then 
 {
 	call compile preprocessFile "=BTC=_revive\=BTC=_revive_init.sqf";
@@ -239,11 +246,7 @@ if (PARAMS_DynamicWeather == 1) then { [] execVM "misc\DynamicWeatherEffects.sqf
 if (PARAMS_BulletWind == 1) then { 
 	if (isServer) then {execVM "misc\bulletWindServer.sqf";};
 	execVM "misc\bulletWindClient.sqf";
-	player addAction [ 
-		format[ "<t color='#3030FF'>%1</t>", localize "STR_ACTION_CHECK_WIND"],
-		"misc\action_checkWind.sqf", 
-		nil, -10, false, false
-	];
+	player addAction [format[ "<t color='#FFFFFF'>%1</t>", localize "STR_ACTION_CHECK_WIND"],"misc\action_checkWind.sqf", nil, -10, false, false];
 };
 
 
@@ -259,7 +262,7 @@ if (PARAMS_BulletWind == 1) then {
 	[_titlePos,"We've gotten a foot-hold on the island,|but we need to take the rest.||Listen to HQ and neutralise all enemies designated."] spawn BIS_fnc_establishingShot;
 	titleText [WELCOME_MESSAGE, "PLAIN", 3];
 
-	_script = execVM "EtV.sqf";
+	_script = execVM "scripts\EtV.sqf";
 	waitUntil {scriptDone _script && !isNil "EtVInitialized" && !isNil "EtV_Actions"};
 	player call EtV_Actions;
 };
@@ -811,7 +814,6 @@ AW_fnc_spawnUnits = {
 		_air engineOn true;
 		//_air lock 0;
 		_air setPos [_randomPos select 0,_randomPos select 1,300];
-		_air execVM "scripts\a3rc_heliForPilots.sqf";
 		
 		_air spawn 
 		{

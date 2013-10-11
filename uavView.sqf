@@ -492,7 +492,7 @@ AW_fnc_establishingShot = {
 
 	sleep 1;
 
-	enableSaving [true, true];
+	enableSaving [false, false];
 
 	BIS_fnc_establishingShot_fakeUAV cameraEffect ["TERMINATE", "BACK"];
 
