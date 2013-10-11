@@ -7,7 +7,7 @@
 */
 //Def
 BTC_tk_blackscreen_punishment = 2;
-BTC_tk_last_warning = 6;
+BTC_tk_last_warning = 3;
 
 BTC_fnc_tk_PVEH =
 {
