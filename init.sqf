@@ -498,8 +498,8 @@ AW_fnc_deleteOldAOUnits =
 
 AW_fnc_deleteSingleUnit = {
 	
-private ["_obj","_time"];
-_obj = _this select 0;
+	private ["_obj","_time"];
+	_obj = _this select 0;
 	_time = _this select 1;
 	sleep _time;
 	deleteVehicle _obj;
@@ -507,8 +507,8 @@ _obj = _this select 0;
 
 AW_fnc_rewardPlusHint = {	
 	
-private ["_veh","_vehName","_vehVarname","_completeText","_reward"];
-_veh = smRewards call BIS_fnc_selectRandom;
+	private ["_veh","_vehName","_vehVarname","_completeText","_reward"];
+	_veh = smRewards call BIS_fnc_selectRandom;
 	_vehName = _veh select 0;
 	_vehVarname = _veh select 1;
 	
